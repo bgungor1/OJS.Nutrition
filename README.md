@@ -1,6 +1,6 @@
 # 🥤 Nutrition Store - React + TypeScript Project
 
-Bu proje, supplement (besin takviyesi) odaklı bir e-ticaret sitesidir. Kullanıcılar ürünleri inceleyebilir, filtreleyebilir, yorum yapabilir, sepetlerine ekleyebilir ve hesap bilgilerini yönetebilir. Proje [supplementler.com](https://www.supplementler.com/) benzeri bir yapıya sahiptir.
+Bu proje, supplement (besin takviyesi) odaklı bir e-ticaret sitesidir. Kullanıcılar ürünleri inceleyebilir, filtreleyebilir, yorum yapabilir, sepetlerine ekleyebilir ve hesap bilgilerini yönetebilir. 
 
 ---
 
@@ -13,7 +13,7 @@ Bu proje, supplement (besin takviyesi) odaklı bir e-ticaret sitesidir. Kullanı
 | Form & Doğrulama              | **react-hook-form** + **zod**                 |
 | Global State (Sepet vs.)     | **Zustand**                                   |
 | API İstekleri                 | **Axios**                                     |
-| Auth                          | **JWT** + **Context API** (isteğe bağlı Clerk/Supabase) |
+| Auth                          | **JWT** + **Context API**  |
 | Animasyon                     | **Framer Motion**                             |
 | İkon                          | **Lucide Icons**, **Heroicons**               |
 
