@@ -49,12 +49,12 @@ export default function Navbar() {
       {/* Kategori Menüsü */}
       <nav className="bg-black text-white text-sm font-medium">
         <div className="flex justify-center gap-8 px-4 py-2">
-          <a href="#" className="hover:underline">PROTEİN</a>
-          <a href="#" className="hover:underline">SPOR GIDALARI</a>
-          <a href="#" className="hover:underline">SAĞLIK</a>
-          <a href="#" className="hover:underline">GIDA</a>
-          <a href="#" className="hover:underline">VİTAMİN</a>
-          <a href="#" className="hover:underline">TÜM ÜRÜNLER</a>
+          <a href="#" className="mx-10 hover:underline">PROTEİN</a>
+          <a href="#" className="mx-10 hover:underline">SPOR GIDALARI</a>
+          <a href="#" className="mx-10 hover:underline">SAĞLIK</a>
+          <a href="#" className="mx-10 hover:underline">GIDA</a>
+          <a href="#" className="mx-10 hover:underline">VİTAMİN</a>
+          <a href="#" className="mx-10 hover:underline">TÜM ÜRÜNLER</a>
         </div>
       </nav>
 

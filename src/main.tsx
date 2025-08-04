@@ -3,20 +3,21 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import './index.css'
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
+import Layout from './components/layout'
 import Home from './routes/home/home'
 
-const router = createBrowserRouter ([
+const router = createBrowserRouter([
   {
     path: "/",
-    element: <Home/>
-
+    element: <Layout />,
+    children: [
+      {
+        index: true,
+        element: <Home />
+      }
+    ]
   }
 ])
-
-
-
-
-
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
