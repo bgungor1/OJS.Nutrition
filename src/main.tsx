@@ -1,13 +1,25 @@
 import { StrictMode } from 'react'
+// import ReactDOM from "react-dom/client"
 import { createRoot } from 'react-dom/client'
 import './index.css'
-import Navbar from './components/navbar'
-import Footer from './components/footer'
+import { RouterProvider, createBrowserRouter } from 'react-router-dom'
+import Home from './routes/home/home'
+
+const router = createBrowserRouter ([
+  {
+    path: "/",
+    element: <Home/>
+
+  }
+])
+
+
+
+
 
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <Navbar />
-    <Footer />
+    <RouterProvider router={router} />
   </StrictMode>,
 )
