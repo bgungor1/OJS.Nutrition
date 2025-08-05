@@ -1,10 +1,11 @@
 import Banner from '@/components/banner'
-import React from 'react'
-
+import HomeProduct from '@/components/home-product'
 export default function Home() {
   return (
     <div>
       <Banner/>
+      <HomeProduct/>
+
     </div>
   )
 }
