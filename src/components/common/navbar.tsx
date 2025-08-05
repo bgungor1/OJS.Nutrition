@@ -3,11 +3,12 @@ import { Button } from "@/components/ui/button"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger, DropdownMenuItem } from "@/components/ui/dropdown-menu"
 import { ShoppingCart, User } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
+import { ModeToggle } from "@/components/mode-toggle"
 import logo from "@/assets/LOGO_Siyah.png"
 
 export default function Navbar() {
   return (
-    <header className="w-full border-b">
+    <header className="w-full border-b overflow-x-hidden">
       {/* Üst Menü */}
       <div className="flex justify-between items-center px-4 py-2 bg-white shadow-sm">
         {/* Logo */}
@@ -21,8 +22,11 @@ export default function Navbar() {
           <Button variant="secondary" className="rounded-none">ARA</Button>
         </div>
 
-        {/* Hesap ve Sepet */}
+        {/* Hesap, Sepet ve Tema Toggle */}
         <div className="flex items-center gap-4">
+          {/* Tema Toggle */}
+          <ModeToggle />
+          
           {/* Hesap */}
           <DropdownMenu>
             <DropdownMenuTrigger asChild>

@@ -12,16 +12,54 @@ import gVitamin from '@/assets/gunluk-vitamin-paketi.png'
 import preworkout from '@/assets/preworkout.png'
 import cream from '@/assets/rice-of-cream.png'
 import creatine from '@/assets/creatine.png'
+import ojsBanner from '@/assets/ojs-nutrition-banner.png'
+
 export default function HomeProduct() {
   return (
     <>
-    <div className="grid grid-cols-3 gap-2 max-w-3xl mx-auto mt-5">
-      <div className="p-2"><img className="w-full mb-2" src={protein} alt="protein görseli" /></div>
-      <div className="p-2"><img className="w-full mb-2" src={vitaminler} alt="vitaminler görseli" /></div>
-      <div className="p-2"><img className="w-full mb-2" src={saglık} alt="sağlık ürünleri görseli" /></div>
-      <div className="p-2"><img className="w-full mb-2" src={sGıdaları} alt="Spor gıdaları ürünlerinin görseli" /></div>
-      <div className="p-2"><img className="w-full mb-2" src={gıda} alt="Gıda görseli" /></div>
-      <div className="p-2"><img className="w-full mb-2" src={tumu} alt="tüm ürünler görseli" /></div>
+    <div className="grid grid-cols-3 gap-4 max-w-6xl mx-auto mt-8 px-4">
+      <div className="p-2">
+        <img 
+          className="w-full h-[157px] object-cover rounded-lg" 
+          src={protein} 
+          alt="protein görseli" 
+        />
+      </div>
+      <div className="p-2">
+        <img 
+          className="w-full h-[157px] object-cover rounded-lg" 
+          src={vitaminler} 
+          alt="vitaminler görseli" 
+        />
+      </div>
+      <div className="p-2">
+        <img 
+          className="w-full h-[157px] object-cover rounded-lg" 
+          src={saglık} 
+          alt="sağlık ürünleri görseli" 
+        />
+      </div>
+      <div className="p-2">
+        <img 
+          className="w-full h-[157px] object-cover rounded-lg" 
+          src={sGıdaları} 
+          alt="Spor gıdaları ürünlerinin görseli" 
+        />
+      </div>
+      <div className="p-2">
+        <img 
+          className="w-full h-[157px] object-cover rounded-lg" 
+          src={gıda} 
+          alt="Gıda görseli" 
+        />
+      </div>
+      <div className="p-2">
+        <img 
+          className="w-full h-[157px] object-cover rounded-lg" 
+          src={tumu} 
+          alt="tüm ürünler görseli" 
+        />
+      </div>
     </div>
     
     <div className='mt-5 justify-items-center text-center'>
@@ -135,9 +173,21 @@ export default function HomeProduct() {
         <span className="text-lg font-bold text-green-600 mt-1">239 TL</span>
       </div>
     </div>
-
   </div>
 </div>
+
+{/* OJS Nutrition Banner - En altta */}
+<div className="mt-16 mb-8">
+  <div className="w-full">
+    <img 
+      src={ojsBanner} 
+      alt="OJS Nutrition Banner" 
+      className="w-full h-full object-cover shadow-lg"
+      style={{ display: 'block', margin: 0, padding: 0 }}
+    />
+  </div>
+</div>
+
   
     </>
   )
