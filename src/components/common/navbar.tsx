@@ -5,6 +5,14 @@ import { ShoppingCart, User } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 import { ModeToggle } from "@/components/mode-toggle"
 import logo from "@/assets/LOGO_Siyah.png"
+import {
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet"
 
 export default function Navbar() {
   return (
@@ -42,11 +50,32 @@ export default function Navbar() {
           </DropdownMenu>
 
           {/* Sepet */}
-          <Button variant="secondary" className="relative rounded-none">
-            <ShoppingCart className="w-5 h-5" />
-            <span className="ml-1">SEPET</span>
-            <Badge variant="destructive" className="absolute -top-2 -right-2 text-xs px-1">0</Badge>
-          </Button>
+           <Sheet>
+      {/* Senin buton → trigger */}
+      <SheetTrigger asChild>
+        <Button variant="secondary" className="relative rounded-none">
+          <ShoppingCart className="w-5 h-5" />
+          <span className="ml-1">SEPET</span>
+          <Badge
+            variant="destructive"
+            className="absolute -top-2 -right-2 text-xs px-1"
+          >
+            0
+          </Badge>
+        </Button>
+      </SheetTrigger>
+
+      {/* Açılacak kısım (sol taraf) */}
+      <SheetContent side="right">
+        <SheetHeader>
+          <SheetTitle>Sepet</SheetTitle>
+          <SheetDescription>
+            Şu an sepetiniz boş.
+          </SheetDescription>
+        </SheetHeader>
+        {/* Buraya sepet itemlerini listeleyeceksin */}
+      </SheetContent>
+    </Sheet>
         </div>
       </div>
 
