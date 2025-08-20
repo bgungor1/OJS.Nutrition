@@ -70,7 +70,7 @@ export default function HomeProduct() {
     <div className="relative">
       <img src={whey} alt="whey protein görseli" />
       <p className='text-lg font-medium'>WHEY PROTEIN</p>
-      <p className='text-sm text-muted-foreground'>EN ÇOK TERCİH EDİLEN <br /> PROTEİN TAKVİYESİ</p>
+      <p className='text-sm text-muted-foreground'> <span className="block">EN ÇOK TERCİH EDİLEN</span>  <span className='block'>PROTEİN TAKVİYESİ</span> </p>
       <div className="flex justify-center gap-1 mt-2">
         {[...Array(5)].map((_, index) => (
           <img key={index} src={star} alt="yıldız" className="w-4 h-4" />
@@ -85,7 +85,7 @@ export default function HomeProduct() {
     {/* 2 - FITNESS PAKETİ (İNDİRİM VAR) */}
     <div className="relative">
       <div className="absolute -top-2 -right-2 bg-red-500 text-white px-2 py-1 rounded text-xs font-bold">
-        %29<br />İNDİRİM
+        %29 <span className='block'>İNDİRİM</span>
       </div>
       <img src={fitness} alt="fitness paketi görseli" />
       <p className='text-lg font-medium'>FITNESS PAKETİ</p>
@@ -107,10 +107,10 @@ export default function HomeProduct() {
     {/* 3 - GÜNLÜK VİTAMİN PAKETİ (İNDİRİM VAR) */}
     <div className="relative">
       <div className="absolute -top-2 -right-2 bg-red-500 text-white px-2 py-1 rounded text-xs font-bold">
-        %15<br />İNDİRİM
+        %15<span className='block'>İNDİRİM</span>
       </div>
       <img src={gVitamin} alt="günlük vitamin paketi görseli" />
-      <p className='text-lg font-medium'>GÜNLÜK VİTAMİN <br /> PAKETİ</p>
+      <p className='text-lg font-medium'><span className='block'>GÜNLÜK VİTAMİN</span> <span className='block'>PAKETİ</span> </p>
       <p className='text-sm text-muted-foreground'>EN SIK TÜKETİLEN TAKVİYELER</p>
       <div className="flex justify-center gap-1 mt-2">
         {[...Array(5)].map((_, index) => (
@@ -129,8 +129,8 @@ export default function HomeProduct() {
     {/* 4 - WHEY PROTEIN (TEMİZ) */}
     <div>
       <img src={preworkout} alt="preworkout  görseli" />
-      <p className='text-lg font-medium'>PRE-WORKOUT <br /> SUPREME</p>
-      <p className='text-sm text-muted-foreground'>ANTRENMAN ÖNCESİ<br />TAKVİYE</p>
+      <p className='text-lg font-medium'><span className='block'>PRE-WORKOUT</span> <span className='block'>SUPREME</span></p>
+      <p className='text-sm text-muted-foreground'><span className='block'>ANTRENMAN ÖNCESİ</span><span className='block'>TAKVİYE</span></p>
       <div className="flex justify-center gap-1 mt-2">
         {[...Array(5)].map((_, index) => (
           <img key={index} src={star} alt="yıldız" className="w-4 h-4" />
@@ -146,7 +146,7 @@ export default function HomeProduct() {
     <div>
       <img src={cream} alt="cream of rice görseli" />
       <p className='text-lg font-medium'>CREAM OF RICE</p>
-      <p className='text-sm text-muted-foreground'>EN LEZZETLİ PİRİNÇ KREMASI</p>
+      <p className='text-sm text-muted-foreground'>EN LEZZETLİ <span className='block'>PİRİNÇ KREMASI</span></p>
       <div className="flex justify-center gap-1 mt-2">
         {[...Array(5)].map((_, index) => (
           <img key={index} src={star} alt="yıldız" className="w-4 h-4" />
@@ -162,7 +162,7 @@ export default function HomeProduct() {
     <div>
       <img src={creatine} alt="creatine görseli" />
       <p className='text-lg font-medium'>CREATINE</p>
-      <p className='text-sm text-muted-foreground'>EN POPÜLER SPORCU <br /> TAKVİYESİ</p>
+      <p className='text-sm text-muted-foreground'><span className='block'>EN POPÜLER SPORCU</span> <span className='block'>TAKVİYESİ</span></p>
       <div className="flex justify-center gap-1 mt-2">
         {[...Array(5)].map((_, index) => (
           <img key={index} src={star} alt="yıldız" className="w-4 h-4" />
