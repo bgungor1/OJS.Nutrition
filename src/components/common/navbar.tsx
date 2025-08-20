@@ -70,9 +70,27 @@ export default function Navbar() {
         <SheetHeader>
           <SheetTitle>Sepet</SheetTitle>
           <SheetDescription>
-            Şu an sepetiniz boş.
+           Sepetinze eklediğiniz ürünler burada gözükmekte.
           </SheetDescription>
         </SheetHeader>
+        <div className="flex m-2 flex-col gap-2 mt-4">
+
+          <div className="flex justify-between items-center">
+            <span>Ürün Adı</span>
+            <span>10000₺ Fiyat</span>
+          </div>
+        </div>
+
+        <div className="mt-auto m-2 pt-4 border-t flex flex-col gap-3">
+          <input type="text" placeholder="İndirim Kodu" className="border p-2 rounded"/>
+
+          <div className="flex m-2 justify-between font-bold">
+            <span>Toplam</span>
+            <span>10005₺</span>
+
+          </div>
+          <Button className="w-full">TAMAMLA</Button>
+        </div>
         {/* Buraya sepet itemlerini listeleyeceksin */}
       </SheetContent>
     </Sheet>
