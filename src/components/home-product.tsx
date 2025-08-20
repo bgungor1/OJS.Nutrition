@@ -63,7 +63,7 @@ export default function HomeProduct() {
     </div>
     
     <div className='mt-5 justify-items-center text-center'>
-  <h3 className="mb-2 font-semibold">ÇOK SATANLAR</h3>
+  <h1 className="mb-2 text-lg font-semibold">ÇOK SATANLAR</h1>
   <div className='mb-2 flex flex-row flex-wrap justify-between gap-4'>
 
     {/* 1 - WHEY PROTEIN (İNDİRİM YOK) */}

@@ -10,16 +10,16 @@ export default function Navbar() {
   return (
     <header className="w-full border-b overflow-x-hidden">
       {/* Üst Menü */}
-      <div className="flex justify-between items-center px-4 py-2 bg-white shadow-sm">
+      <div className="flex justify-around items-center px-4 py-2 bg-white shadow-sm">
         {/* Logo */}
-        <div className="ml-50 p-3 flex items-center">
+        <div className="p-3 flex items-center">
           <img src={logo} alt="OJS Nutrition Logo" className="h-8" />
         </div>
 
         {/* Arama Çubuğu */}
-        <div className="flex items-center gap-2 w-full max-w-md mx-4">
-          <Input placeholder="Aradığınız ürünü yazınız" className="rounded-none" />
-          <Button variant="secondary" className="rounded-none">ARA</Button>
+        <div className="relative flex items-center gap-2 w-full max-w-md mx-4">
+          <Input placeholder="Aradığınız ürünü yazınız" className="rounded-none pr-12" />
+          <Button variant="secondary" className="rounded-none absolute right-0 ">ARA</Button>
         </div>
 
         {/* Hesap, Sepet ve Tema Toggle */}
