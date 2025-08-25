@@ -21,7 +21,7 @@ export default function Navbar() {
   return (
     <header className="w-full border-b overflow-x-hidden">
       {/* Üst Menü */}
-      <div className="flex flex-col lg:flex-row justify-between items-center px-4 py-2 bg-white shadow-sm">
+      <div className="flex flex-col lg:flex-row justify-around items-center px-4 py-2 bg-white shadow-sm">
         {/* Logo ve Mobil Menü Butonu */}
         <div className="flex items-center justify-between w-full lg:w-auto">
           <div className="p-3 flex items-center">
