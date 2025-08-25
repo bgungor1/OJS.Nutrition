@@ -60,7 +60,7 @@ export default function HomeProduct() {
     <BestSellers />
 
     {/* OJS Nutrition Banner - En altta */}
-    <div className="mt-8 sm:mt-16 mb-4 sm:mb-8 px-2 sm:px-4">
+    <div className="mt-8 sm:mt-16 mb-4 sm:mb-8 -mx-2 sm:-mx-4">
       <div className="w-full">
         <img 
           src={ojsBanner} 

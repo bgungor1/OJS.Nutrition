@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import type { FC } from 'react'
 import star from '@/assets/yıldız.png'
 
 interface ProductCardProps {
@@ -23,7 +23,7 @@ const ProductCard: FC<ProductCardProps> = ({
   discountPercentage
 }) => {
   return (
-    <div className="relative w-full sm:w-auto">
+    <div className="relative w-full flex flex-col items-center">
       {/* İndirim Etiketi */}
       {discountPercentage && (
         <div className="absolute -top-2 -right-2 bg-red-500 text-white px-2 py-1 rounded text-xs font-bold z-10">
@@ -32,17 +32,17 @@ const ProductCard: FC<ProductCardProps> = ({
       )}
       
       {/* Ürün Görseli */}
-      <img src={image} alt={`${name} görseli`} className="w-full sm:w-auto" />
+      <img src={image} alt={`${name} görseli`} className="w-full h-auto object-contain" />
       
       {/* Ürün Adı */}
-      <p className='text-base sm:text-lg font-medium mt-2'>{name}</p>
+      <p className='text-sm sm:text-base font-medium mt-2 text-center'>{name}</p>
       
       {/* Ürün Açıklaması */}
-      <p className='text-xs sm:text-sm text-muted-foreground mt-1'>
+      <div className='text-xs text-muted-foreground mt-1 text-center'>
         {description.split('\n').map((line, index) => (
-          <span key={index} className="block">{line}</span>
+          <p key={index} className="block">{line}</p>
         ))}
-      </p>
+      </div>
       
       {/* Yıldız Değerlendirmesi */}
       <div className="flex justify-center gap-1 mt-2">
@@ -51,7 +51,7 @@ const ProductCard: FC<ProductCardProps> = ({
             key={index} 
             src={star} 
             alt="yıldız" 
-            className={`w-3 h-3 sm:w-4 sm:h-4 ${
+            className={`w-3 h-3 ${
               index < rating ? 'opacity-100' : 'opacity-30'
             }`} 
           />
@@ -60,15 +60,15 @@ const ProductCard: FC<ProductCardProps> = ({
       
       {/* Yorum Sayısı ve Fiyat */}
       <div className="flex flex-col items-center mt-2">
-        <span className="text-xs sm:text-sm text-gray-600">{reviewCount.toLocaleString()} yorum</span>
+        <span className="text-xs text-gray-600">{reviewCount.toLocaleString()} yorum</span>
         
         <div className="flex items-center gap-2 mt-1">
-          <span className="text-base sm:text-lg font-bold text-green-600">
+          <span className="text-sm font-bold text-green-600">
             {price.toLocaleString()} TL
           </span>
           
           {originalPrice && (
-            <span className="text-sm sm:text-base text-red-400 line-through">
+            <span className="text-xs text-red-400 line-through">
               {originalPrice.toLocaleString()} TL
             </span>
           )}
