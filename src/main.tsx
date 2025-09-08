@@ -4,19 +4,23 @@ import { createRoot } from 'react-dom/client'
 import './index.css'
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import Layout from './components/layout'
-import Home from './routes/home/home'
 import { ThemeProvider } from './components/theme-provider'
-import ProductDetail from './routes/product-detail/product-detail'
-import Contact from './routes/contact/contact'
-import FAQ from './routes/faq/faq'
-import LoginPage from './routes/login/login-page'
-import RegisterPage from './routes/register/register-page'
-import Account from './routes/account/account'
-import About from './routes/about/about'
-import Addresses from './routes/account/addresses'
-import Order from './routes/account/order'
-import Settings from './routes/account/settings'
-import Payment from './routes/payment/payment'
+
+// Barrel Export - Tüm route'lar tek seferde import ediliyor
+import {
+  Home,
+  About,
+  Contact,
+  FAQ,
+  ProductDetail,
+  LoginPage,
+  RegisterPage,
+  Account,
+  Addresses,
+  Order,
+  Settings,
+  Payment
+} from './routes'
 
 const router = createBrowserRouter([
   {
