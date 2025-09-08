@@ -21,3 +21,4 @@ export { default as Settings } from './account/settings'
 
 // Ödeme
 export { default as Payment } from './payment/payment'
+

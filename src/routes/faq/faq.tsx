@@ -1,9 +1,15 @@
 import React from 'react'
+import FAQ from '@/components/faq'
 
-function FAQ() {
+function FAQPage() {
   return (
-    <div>FAQ</div>
+    <div className="min-h-screen bg-white dark:bg-gray-900">
+      <FAQ 
+        title="Sıkça Sorulan Sorular" 
+        subtitle="Size yardımcı olmak için en sık sorulan soruları derledik." 
+      />
+    </div>
   )
 }
 
-export default FAQ
+export default FAQPage
