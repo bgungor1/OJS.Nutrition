@@ -15,6 +15,8 @@ import Account from './routes/account/account'
 import About from './routes/about/about'
 import Addresses from './routes/account/addresses'
 import Order from './routes/account/order'
+import Settings from './routes/account/settings'
+import Payment from './routes/payment/payment'
 
 const router = createBrowserRouter([
   {
@@ -64,9 +66,17 @@ const router = createBrowserRouter([
           {
             path: "order",
             element: <Order/>
+          },
+          {
+            path: "settings",
+            element: <Settings/>
           }
         ]
       },
+      {
+        path: "payment",
+        element: <Payment/>
+      }
     ]
   }
 ])
