@@ -11,7 +11,6 @@ export { default as ProductDetail } from './product-detail/product-detail'
 
 // Kimlik doğrulama
 export { default as LoginPage } from './login/login-page'
-export { default as RegisterPage } from './register/register-page'
 
 // Hesap yönetimi
 export { default as Account } from './account/account'

@@ -14,7 +14,6 @@ import {
   FAQ,
   ProductDetail,
   LoginPage,
-  RegisterPage,
   Account,
   Addresses,
   Order,
@@ -46,10 +45,6 @@ const router = createBrowserRouter([
       {
         path: "login",
         element: <LoginPage/>
-      },
-      {
-        path: "register",
-        element: <RegisterPage/>
       },
       {
         path: "about",

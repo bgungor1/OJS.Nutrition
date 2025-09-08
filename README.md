@@ -1,5 +1,7 @@
 # 🥤 Nutrition Store - React + TypeScript Project
 
+[English](./README_EN.md) | Türkçe
+
 Bu proje, supplement (besin takviyesi) odaklı bir e-ticaret sitesidir. Kullanıcılar ürünleri inceleyebilir, filtreleyebilir, yorum yapabilir, sepetlerine ekleyebilir ve hesap bilgilerini yönetebilir. 
 
 ---

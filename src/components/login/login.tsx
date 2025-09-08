@@ -56,7 +56,7 @@ export function  Login() {
                 </>
             )}
             <div className="grid gap-2">
-              <Label htmlFor="email">Email</Label>
+              <Label htmlFor="email">E-posta</Label>
               <Input
                 id="email"
                 type="email"
@@ -66,13 +66,13 @@ export function  Login() {
             </div>
             <div className="grid gap-2">
               <div className="flex items-center">
-                <Label htmlFor="password">Password</Label>
+                <Label htmlFor="password">Şifre</Label>
                 {isLogin && (
                           <a
                           href="#"
                           className="ml-auto inline-block text-sm underline-offset-4 hover:underline"
                         >
-                          Forgot your password?
+                          Şifremi Unuttum?
                         </a>
                 )}
           
