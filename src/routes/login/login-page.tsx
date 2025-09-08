@@ -1,8 +1,10 @@
-import React from 'react'
 
+import { Login } from '@/components/login/login'
 function LoginPage() {
   return (
-    <div>LoginPage</div>
+    <div className="flex items-center justify-center min-h-screen bg-background">
+      <Login />
+    </div>
   )
 }
 

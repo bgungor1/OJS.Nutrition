@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Badge } from "@/components/ui/badge";
 import { faqCategories, getFAQByCategory } from "@/data/faq-data";
-import ContactForm from "@/components/contact-form";
+import ContactForm from "@/components/contact/contact-form";
 
 interface FAQProps {
   title?: string;
