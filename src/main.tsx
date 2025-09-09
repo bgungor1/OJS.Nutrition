@@ -55,10 +55,6 @@ const router = createBrowserRouter([
         element: <Account/>,
         children: [
           {
-            index: true,
-            element: <Account/>
-          },
-          {
             path: "addresses",
             element: <Addresses/>
           },

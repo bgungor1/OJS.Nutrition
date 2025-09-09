@@ -15,14 +15,14 @@ export default function AccountSidebar({
       <h2 className='text-2xl font-bold mb-6'>{title}</h2>
       <nav className='space-y-2'>
         <Link 
-          to="/account/profile" 
+          to="/account" 
           className='flex items-center gap-3 p-3 text-gray-700 hover:bg-gray-100 rounded-lg transition-colors duration-200'
         >
           <User size={20} />
           <span className='font-medium'>Hesap Bilgilerim</span>
         </Link>
         <Link 
-          to="/account/orders" 
+          to="/account/order" 
           className='flex items-center gap-3 p-3 text-gray-700 hover:bg-gray-100 rounded-lg transition-colors duration-200'
         >
           <Package size={20} />
@@ -34,6 +34,13 @@ export default function AccountSidebar({
         >
           <MapPin size={20} />
           <span className='font-medium'>Adreslerim</span>
+        </Link>
+        <Link 
+          to="/account/settings" 
+          className='flex items-center gap-3 p-3 text-gray-700 hover:bg-gray-100 rounded-lg transition-colors duration-200'
+        >
+          <User size={20} />
+          <span className='font-medium'>Ayarlar</span>
         </Link>
       </nav>
     </div>
