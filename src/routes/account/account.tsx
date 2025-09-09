@@ -1,5 +1,3 @@
-import { Link } from 'react-router-dom'
-import { User, Package, MapPin } from 'lucide-react'
 import { z } from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
@@ -13,6 +11,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form"
+import AccountSidebar from "../../components/common/account-sidebar"
 
 const formSchema = z.object({
   firstName: z.string().min(2, "En az 2 karakter"),
@@ -39,24 +38,7 @@ function Account() {
   return (
     <div className='container mx-auto max-w-6xl px-4 py-8'>
       <div className='grid grid-cols-1 lg:grid-cols-3 gap-8 items-start'>
-        {/* Sol taraf - Menü */}
-        <div className='lg:col-span-1'>
-          <h2 className='text-2xl font-bold mb-6'>Hesabım</h2>
-          <nav className='space-y-2'>
-            <Link to="/account/profile" className='flex items-center gap-3 p-3 text-gray-700 hover:bg-gray-100 rounded-lg transition-colors duration-200'>
-              <User size={20} />
-              <span className='font-medium'>Hesap Bilgilerim</span>
-            </Link>
-            <Link to="/account/orders" className='flex items-center gap-3 p-3 text-gray-700 hover:bg-gray-100 rounded-lg transition-colors duration-200'>
-              <Package size={20} />
-              <span className='font-medium'>Siparişlerim</span>
-            </Link>
-            <Link to="/account/addresses" className='flex items-center gap-3 p-3 text-gray-700 hover:bg-gray-100 rounded-lg transition-colors duration-200'>
-              <MapPin size={20} />
-              <span className='font-medium'>Adreslerim</span>
-            </Link>
-          </nav>
-        </div>
+      <AccountSidebar/>
 
         {/* Sağ taraf - Form alanı */}
         <div className='lg:col-span-2'>
