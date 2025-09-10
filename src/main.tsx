@@ -17,7 +17,6 @@ import {
   Account,
   Addresses,
   Order,
-  Settings,
   Payment
 } from './routes'
 
@@ -61,18 +60,15 @@ const router = createBrowserRouter([
           {
             path: "order",
             element: <Order/>
-          },
-          {
-            path: "settings",
-            element: <Settings/>
           }
         ]
-      },
-      {
-        path: "payment",
-        element: <Payment/>
       }
     ]
+  },
+  // Payment sayfası Layout dışında, navbar olmadan
+  {
+    path: "payment",
+    element: <Payment/>
   }
 ])
 
