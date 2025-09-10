@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger, DropdownMenuItem } from "@/components/ui/dropdown-menu"
 import { ShoppingCart, User, Menu, X } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
+import { Separator } from "@/components/ui/separator"
 import { ModeToggle } from "@/components/mode-toggle"
 import logo from "@/assets/LOGO_Siyah.png"
 import { useState } from "react"
@@ -14,9 +15,21 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet"
+import { 
+  cartItems, 
+  calculateSubtotal,
+  calculateTax,
+  calculateTotal
+} from "@/data/payment-data"
 
 export default function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  
+  // Sepet hesaplamaları
+  const subtotal = calculateSubtotal(cartItems)
+  const shippingCost = 15 // Varsayılan kargo ücreti
+  const tax = calculateTax(subtotal)
+  const total = calculateTotal(subtotal, shippingCost, tax)
 
   return (
     <header className="w-full border-b overflow-x-hidden">
@@ -77,38 +90,79 @@ export default function Navbar() {
             variant="destructive"
             className="absolute -top-2 -right-2 text-xs px-1"
           >
-            0
+            {cartItems.reduce((total, item) => total + item.quantity, 0)}
           </Badge>
         </Button>
       </SheetTrigger>
 
       {/* Açılacak kısım (sol taraf) */}
-      <SheetContent side="right">
+      <SheetContent side="right" className="flex flex-col w-[400px] sm:w-[450px]">
         <SheetHeader>
-          <SheetTitle>Sepet</SheetTitle>
+          <SheetTitle>Sipariş Özeti</SheetTitle>
           <SheetDescription>
-           Sepetinze eklediğiniz ürünler burada gözükmekte.
+            Sepetinizdeki ürünler ve fiyat detayları
           </SheetDescription>
         </SheetHeader>
-        <div className="flex m-2 flex-col gap-2 mt-4">
+        
+        {/* Sepet ürünleri */}
+        <div className="flex-1 overflow-y-auto space-y-4 mt-4 px-2">
+          {cartItems.map((item) => (
+            <div key={item.id} className="flex items-center gap-4 p-4 bg-gray-50 rounded-lg">
+              <div className="relative">
+                <img 
+                  src={item.image} 
+                  alt={item.name}
+                  className="w-16 h-16 object-cover rounded-lg"
+                />
+                <Badge className="absolute -top-2 -right-2 bg-blue-600 text-white text-xs">
+                  {item.quantity}
+                </Badge>
+              </div>
+              <div className="flex-1">
+                <h3 className="font-medium text-gray-900 text-sm">{item.name}</h3>
+                <p className="text-xs text-gray-600">{item.variant}</p>
+                <p className="text-sm font-semibold text-gray-900 mt-1">
+                  ₺{(item.price * item.quantity).toFixed(2)}
+                </p>
+              </div>
+            </div>
+          ))}
+        </div>
 
-          <div className="flex justify-between items-center">
-            <span>Ürün Adı</span>
-            <span>10000₺ Fiyat</span>
+        <Separator className="my-4" />
+
+        {/* Fiyat özeti */}
+        <div className="space-y-3 mb-6 px-2">
+          <div className="flex justify-between text-sm">
+            <span className="text-gray-600">Ara Toplam</span>
+            <span className="text-gray-900">₺{subtotal.toFixed(2)}</span>
+          </div>
+          <div className="flex justify-between text-sm">
+            <span className="text-gray-600">Kargo</span>
+            <span className="text-gray-900">₺{shippingCost.toFixed(2)}</span>
+          </div>
+          <div className="flex justify-between text-sm">
+            <span className="text-gray-600">KDV (%18)</span>
+            <span className="text-gray-900">₺{tax.toFixed(2)}</span>
+          </div>
+          <Separator />
+          <div className="flex justify-between text-lg font-semibold">
+            <span className="text-gray-900">Toplam</span>
+            <span className="text-gray-900">₺{total.toFixed(2)}</span>
           </div>
         </div>
 
-        <div className="mt-auto m-2 pt-4 border-t flex flex-col gap-3">
-          <input type="text" placeholder="İndirim Kodu" className="border p-2 rounded"/>
-
-          <div className="flex m-2 justify-between font-bold">
-            <span>Toplam</span>
-            <span>10005₺</span>
-
-          </div>
-          <Button className="w-full">TAMAMLA</Button>
+        {/* İndirim kodu ve tamamla butonu */}
+        <div className="space-y-3 px-2 pb-4">
+          <input 
+            type="text" 
+            placeholder="İndirim Kodu" 
+            className="w-full border border-gray-300 p-3 rounded-md text-sm"
+          />
+          <Button className="w-full bg-blue-600 hover:bg-blue-700 py-3">
+            SEPETİ TAMAMLA
+          </Button>
         </div>
-        {/* Buraya sepet itemlerini listeleyeceksin */}
       </SheetContent>
     </Sheet>
         </div>

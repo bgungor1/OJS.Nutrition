@@ -35,13 +35,6 @@ export default function AccountSidebar({
           <MapPin size={20} />
           <span className='font-medium'>Adreslerim</span>
         </Link>
-        <Link 
-          to="/account/settings" 
-          className='flex items-center gap-3 p-3 text-gray-700 hover:bg-gray-100 rounded-lg transition-colors duration-200'
-        >
-          <User size={20} />
-          <span className='font-medium'>Ayarlar</span>
-        </Link>
       </nav>
     </div>
   )
