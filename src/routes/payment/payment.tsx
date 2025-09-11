@@ -33,14 +33,14 @@ function Payment() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <div className="grid grid-cols-1 lg:grid-cols-2 min-h-screen">
+      <div className="grid grid-cols-1 xl:grid-cols-2 min-h-screen">
         {/* Sol taraf - Beyaz bölüm */}
-        <div className="bg-white p-8">
+        <div className="bg-white p-4 sm:p-6 lg:p-8">
           <div className="max-w-2xl mx-auto">
-            <h1 className="text-3xl font-bold text-gray-900 mb-8">Ödeme</h1>
+            <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-6 sm:mb-8">Ödeme</h1>
             
             {/* Adım göstergesi */}
-            <div className="flex items-center justify-between mb-8">
+            <div className="flex items-center justify-between mb-6 sm:mb-8 overflow-x-auto">
               {steps.map((step, index) => (
                 <div key={step.id} className="flex items-center">
                   <div className={`flex items-center justify-center w-10 h-10 rounded-full border-2 ${
@@ -54,13 +54,13 @@ function Payment() {
                       <step.icon className="w-5 h-5" />
                     )}
                   </div>
-                  <span className={`ml-2 text-sm font-medium ${
+                  <span className={`ml-2 text-xs sm:text-sm font-medium ${
                     currentStep >= step.id ? 'text-blue-600' : 'text-gray-400'
                   }`}>
                     {step.title}
                   </span>
                   {index < steps.length - 1 && (
-                    <div className={`w-16 h-0.5 mx-4 ${
+                    <div className={`w-8 sm:w-16 h-0.5 mx-2 sm:mx-4 ${
                       currentStep > step.id ? 'bg-blue-600' : 'bg-gray-300'
                     }`} />
                   )}
@@ -245,9 +245,9 @@ function Payment() {
         </div>
 
         {/* Sağ taraf - Gri bölüm */}
-        <div className="bg-gray-100 p-8">
+        <div className="bg-gray-100 p-4 sm:p-6 lg:p-8">
           <div className="max-w-md mx-auto">
-            <h2 className="text-xl font-semibold text-gray-900 mb-6">Sipariş Özeti</h2>
+            <h2 className="text-lg sm:text-xl font-semibold text-gray-900 mb-6">Sipariş Özeti</h2>
             
             {/* Sepet ürünleri */}
             <div className="space-y-4 mb-6">

@@ -134,7 +134,7 @@ const ProductDetail: React.FC = () => {
             {product.flavors.length > 0 && (
               <div>
                 <label className="block text-sm font-bold text-gray-700 mb-3">AROMA:</label>
-                <div className="grid grid-cols-4 gap-2">
+                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2">
                   {product.flavors.map((flavor) => {
                     // Her aroma için uygun görsel
                     const getFlavorImage = (flavorId: string) => {
@@ -201,13 +201,13 @@ const ProductDetail: React.FC = () => {
             {/* Boyut Seçimi */}
             <div>
               <label className="block text-sm font-bold text-gray-700 mb-3">BOYUT:</label>
-              <div className="flex space-x-3">
+              <div className="flex flex-wrap gap-2 sm:gap-3">
                 {product.sizes.map((size) => (
                   <button
                     key={size.id}
                     onClick={() => setSelectedSize(size.id)}
                     disabled={!size.isAvailable}
-                    className={`relative p-4 border-2 rounded-lg text-sm font-medium transition-colors ${
+                    className={`relative p-3 sm:p-4 border-2 rounded-lg text-sm font-medium transition-colors ${
                       selectedSize === size.id
                         ? 'border-blue-500 bg-blue-50 text-blue-700'
                         : 'border-gray-200 hover:border-gray-300'
@@ -280,7 +280,7 @@ const ProductDetail: React.FC = () => {
             </div>
 
             {/* Güvenlik Rozetleri */}
-            <div className="grid grid-cols-3 gap-4 pt-4">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4">
               <div className="flex flex-col items-center text-center">
                 <Truck className="w-6 h-6 text-gray-600 mb-1" />
                 <span className="text-xs text-gray-600">Aynı Gün Ücretsiz Kargo</span>
@@ -331,7 +331,7 @@ const ProductDetail: React.FC = () => {
               </button>
               {expandedSections.nutrition && (
                 <div className="p-4 bg-gray-50 rounded-lg">
-                  <div className="grid grid-cols-2 gap-4 text-sm">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
                     <div>Kalori: {product.nutritionalInfo.calories}</div>
                     <div>Protein: {product.nutritionalInfo.protein}g</div>
                     <div>Karbonhidrat: {product.nutritionalInfo.carbohydrates}g</div>

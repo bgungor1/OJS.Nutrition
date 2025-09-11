@@ -23,8 +23,8 @@ function About() {
 
 
   return (
-    <div className='container  mx-auto max-w-8xl px-4  ' >
-      <h1 className='text-3xl font-bold mb-4'>Sağlıklı ve Fit Yaşamayı Zevkli ve Kolay Hale Getirmek İçin Varız</h1>
+    <div className='container mx-auto max-w-8xl px-4 py-8'>
+      <h1 className='text-2xl sm:text-3xl font-bold mb-4'>Sağlıklı ve Fit Yaşamayı Zevkli ve Kolay Hale Getirmek İçin Varız</h1>
       <div className='text-base  mb-4'>
       <p className='mb-4'>2016 yılından beri sporcu gıdaları, takviye edici gıdalar ve fonksiyonel gıdaları üreten bir firma olarak; müşterilerimize en kaliteli, en lezzetli, tüketilmesi kolay ürünler sunuyoruz.</p>
       <p className='mb-4'>Müşteri memnuniyeti ve sağlığı her zaman önceliğimiz olmuştur. Ürünlerimizde, yüksek kalite standartlarına bağlı olarak, sporcuların ve sağlıklı yaşam tutkunlarının ihtiyaçlarına yönelik <span className='block'>besleyici çözümler sunuyoruz. Ürün yelpazemizdeki protein tozları, aminoasitler, vitamin ve mineral takviyeleri ile spor performansınızı desteklemek içinideal besin değerlerini sunuyoruz.</span> 
@@ -37,12 +37,12 @@ function About() {
         <span className='block'>istiyorsanız, bize katılın ve en besleyici çözümlerle tanışın. Sağlıklı ve aktif bir yaşam için her zaman yanınızdayız.</span>
       </p>
 
-      <p className='text-3xl font-bold mb-4'>1.000.000+ den Fazla Mutlu Müşteri </p>
+      <p className='text-2xl sm:text-3xl font-bold mb-4'>1.000.000+ den Fazla Mutlu Müşteri </p>
       <p>Sanatçılardan profesyonel sporculara, doktordan öğrencilere hayatın her alanında sağlıklı yaşamı ve beslenmeyi hedefleyen 1.000.000'den fazla kişiye ulaştık.</p>
       </div>
       <div>
-        <h2 className='text-3xl font-bold mt-6'>Sertifikalarımız</h2>
-        <div className='flex flex-row flex-wrap gap-6 mb-10 mt-2'>
+        <h2 className='text-2xl sm:text-3xl font-bold mt-6'>Sertifikalarımız</h2>
+        <div className='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4 sm:gap-6 mb-10 mt-2'>
         <img 
             src="/src/assets/about/iso.png" 
             alt="ISO Sertifikası" 
@@ -98,15 +98,15 @@ function About() {
         {/* Yorum Kartları */}
         <div className='space-y-4'>
           {displayReviews.map((review) => (
-            <div key={review.id} className='bg-gray-50 rounded-lg p-6 text-left'>
-              <div className='flex items-center justify-between mb-3'>
-                <div className='flex items-center gap-3'>
+            <div key={review.id} className='bg-gray-50 rounded-lg p-4 sm:p-6 text-left'>
+              <div className='flex flex-col sm:flex-row sm:items-center sm:justify-between mb-3 gap-2'>
+                <div className='flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3'>
                   <div className='flex gap-1'>
                     {renderStars(review.rating)}
                   </div>
                   <span className='font-medium'>{review.reviewerName} {review.reviewerInitial}</span>
                   {review.isVerified && (
-                    <span className='bg-green-100 text-green-800 text-xs px-2 py-1 rounded-full'>
+                    <span className='bg-green-100 text-green-800 text-xs px-2 py-1 rounded-full w-fit'>
                       DOĞRULANMIŞ MÜŞTERİ
                     </span>
                   )}

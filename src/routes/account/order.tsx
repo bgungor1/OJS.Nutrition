@@ -58,13 +58,13 @@ function Order() {
     <div className="space-y-6">
       <div className="flex items-center gap-2 mb-6">
         <Package className="w-6 h-6" />
-        <h3 className="text-2xl font-bold">Siparişlerim</h3>
+        <h3 className="text-xl sm:text-2xl font-bold">Siparişlerim</h3>
       </div>
 
       <div className="space-y-4">
         {ordersData.map((order, index) => (
           <div key={order.id}>
-            <Card className="p-6 hover:shadow-md transition-shadow duration-200">
+            <Card className="p-4 sm:p-6 hover:shadow-md transition-shadow duration-200">
               <div className="flex flex-col lg:flex-row gap-4">
                 {/* Ürün Resmi */}
                 <div className="flex-shrink-0">
@@ -78,15 +78,15 @@ function Order() {
                 {/* Sipariş Bilgileri */}
                 <div className="flex-1 space-y-3">
                   <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-2">
-                    <div>
-                      <h4 className="font-semibold text-lg text-gray-900">
+                    <div className="flex-1">
+                      <h4 className="font-semibold text-base sm:text-lg text-gray-900">
                         {order.productName}
                       </h4>
                       <p className="text-sm text-gray-600">
                         Sipariş No: {order.orderNumber}
                       </p>
                     </div>
-                    <div className="flex items-center gap-2">
+                    <div className="flex items-center gap-2 mt-2 lg:mt-0">
                       {getStatusIcon(order.status)}
                       <Badge variant={getStatusVariant(order.status)}>
                         {getStatusText(order.status)}
@@ -122,14 +122,14 @@ function Order() {
                   </div>
 
                   <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
-                    <div className="flex items-center gap-4">
+                    <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4">
                       {order.quantity && (
                         <span className="text-sm text-gray-600">
                           <span className="font-medium">Adet:</span> {order.quantity}
                         </span>
                       )}
                       {order.price && (
-                        <span className="text-lg font-semibold text-gray-900">
+                        <span className="text-base sm:text-lg font-semibold text-gray-900">
                           ₺{order.price.toFixed(2)}
                         </span>
                       )}
