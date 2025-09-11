@@ -8,6 +8,8 @@ export { default as FAQ } from './faq/faq'
 
 // Ürün sayfaları
 export { default as ProductDetail } from './product-detail/product-detail'
+export { default as Products } from './products/products'
+export { default as Protein } from './products/protein'
 
 // Kimlik doğrulama
 export { default as LoginPage } from './login/login-page'

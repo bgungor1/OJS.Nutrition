@@ -13,6 +13,8 @@ import {
   Contact,
   FAQ,
   ProductDetail,
+  Products,
+  Protein,
   LoginPage,
   Account,
   Addresses,
@@ -32,6 +34,14 @@ const router = createBrowserRouter([
       {
         path: "product/:id",
         element: <ProductDetail/>
+      },
+      {
+        path: "products",
+        element: <Products/>
+      },
+      {
+        path: "products/protein",
+        element: <Protein/>
       },
       {
         path: "contact",
