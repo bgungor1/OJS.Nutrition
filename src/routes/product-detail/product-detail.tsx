@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { getProductById, getRelatedProducts } from '@/data/product-detail-data'
+import { bestSellersData } from '@/data/best-sellers-data'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import ProductCard from '@/components/common/product-card'
@@ -29,7 +30,7 @@ const ProductDetail: React.FC = () => {
   })
 
   const product = getProductById(Number(id))
-  const relatedProducts = getRelatedProducts(Number(id), 6)
+  const relatedProducts = getRelatedProducts(6)
 
   // İlk yüklemede varsayılan seçimleri ayarla
   useEffect(() => {
@@ -388,25 +389,26 @@ const ProductDetail: React.FC = () => {
         </div>
 
         {/* En Çok Satanlar */}
-        {relatedProducts.length > 0 && (
+        {bestSellersData.length > 0 && (
           <div className="mt-16 text-center">
             <h3 className="text-2xl font-bold mb-6">EN ÇOK SATANLAR</h3>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-6 justify-items-center">
-              {relatedProducts.map((relatedProduct) => (
+              {bestSellersData.map((bestSeller) => (
                 <div 
-                  key={relatedProduct.id} 
+                  key={bestSeller.id} 
                   className="cursor-pointer flex justify-center" 
-                  onClick={() => navigate(`/product/${relatedProduct.id}`)}
+                  onClick={() => navigate(`/product/${bestSeller.id}`)}
                 >
                   <ProductCard
-                    name={relatedProduct.name}
-                    image={relatedProduct.image}
-                    description={relatedProduct.description}
-                    reviewCount={relatedProduct.reviewCount}
-                    rating={relatedProduct.rating}
-                    price={relatedProduct.price}
-                    originalPrice={relatedProduct.originalPrice}
-                    discountPercentage={relatedProduct.discountPercentage}
+                    id={bestSeller.id}
+                    name={bestSeller.name}
+                    image={bestSeller.image}
+                    description={bestSeller.description}
+                    reviewCount={bestSeller.reviewCount}
+                    rating={bestSeller.rating}
+                    price={bestSeller.price}
+                    originalPrice={bestSeller.originalPrice}
+                    discountPercentage={bestSeller.discountPercentage}
                   />
                 </div>
               ))}

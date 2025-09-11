@@ -500,20 +500,7 @@ export const getProductById = (id: number): ProductDetail | undefined => {
 }
 
 // Benzer ürünleri getiren fonksiyon
-export const getRelatedProducts = (currentProductId: number, limit: number = 6): ProductDetail[] => {
-  // Whey protein'i her zaman dahil et (mevcut ürün olsa bile)
-  const wheyProtein = productDetailData.find(product => product.id === 1)
-  const otherProducts = productDetailData.filter(product => product.id !== 1 && product.id !== currentProductId)
-  
-  const result = []
-  
-  // Whey protein'i her zaman önce ekle
-  if (wheyProtein) {
-    result.push(wheyProtein)
-  }
-  
-  // Diğer ürünleri ekle (mevcut ürün hariç)
-  result.push(...otherProducts)
-  
-  return result.slice(0, limit)
+export const getRelatedProducts = (limit: number = 6): ProductDetail[] => {
+  // Tüm ürünleri dahil et (mevcut ürün dahil)
+  return productDetailData.slice(0, limit)
 }
