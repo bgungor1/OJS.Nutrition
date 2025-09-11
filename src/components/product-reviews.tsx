@@ -1,0 +1,231 @@
+import React from 'react'
+import { reviewData, getReviewStats } from '@/data/review-data'
+
+interface ProductReviewsProps {
+  productName?: string
+  maxReviews?: number
+}
+
+export default function ProductReviews({ productName, maxReviews = 15 }: ProductReviewsProps) {
+  // Ürüne göre yorumları filtrele
+  const filteredReviews = productName 
+    ? reviewData.filter(review => 
+        review.productName.toLowerCase().includes(productName.toLowerCase())
+      )
+    : reviewData
+
+  // Maksimum yorum sayısını sınırla
+  const displayReviews = filteredReviews.slice(0, maxReviews)
+
+  // İstatistikleri hesapla
+  const stats = getReviewStats(filteredReviews)
+
+  const renderStars = (rating: number) => {
+    return(
+      <div className='flex gap-1'>
+      {[...Array(5)].map((_, index) => (
+        <img 
+          key={index}
+          src="/src/assets/yıldız.png" 
+          alt="Yıldız" 
+          className={`w-4 h-4 object-contain ${index < Math.floor(rating) ? 'opacity-100' : 'opacity-30'}`}
+        />
+      ))}
+    </div>
+    )
+  }
+
+  return (
+    <div className='mb-12'>
+      {/* Üst çizgi */}
+      <div className='h-px bg-gray-300 mb-4'></div>
+      
+      <div className='flex items-center justify-between mb-4'>
+        <div className='flex items-center gap-4'>
+          <div className='flex gap-1'>
+            {renderStars(5)}
+          </div>
+          <span className='text-lg font-medium'>{stats.totalReviews.toLocaleString()} Yorum</span>
+        </div>
+        
+        {/* Yıldız Dağılım Grafiği */}
+        <div className="max-w-md">
+          <div className="space-y-2">
+            {/* 5 Yıldız */}
+            <div className="flex items-center gap-2">
+              <div className="flex items-center w-16 justify-start">
+                {[...Array(5)].map((_, index) => (
+                  <img 
+                    key={index} 
+                    src="/src/assets/yıldız.png" 
+                    alt="Yıldız" 
+                    className="w-3 h-3 object-contain"
+                  />
+                ))}
+              </div>
+              <div className="flex-1 flex items-center">
+                <div className="w-full bg-gray-200 rounded-full h-2">
+                  <div 
+                    className="bg-blue-600 h-2 rounded-full" 
+                    style={{ 
+                      width: `${stats.totalReviews > 0 ? (stats.ratingDistribution[5] / stats.totalReviews) * 100 : 0}%` 
+                    }}
+                  ></div>
+                </div>
+              </div>
+              <span className="text-xs text-blue-600 font-medium w-12 text-right">
+                {stats.ratingDistribution[5].toLocaleString()}
+              </span>
+            </div>
+            
+            {/* 4 Yıldız */}
+            <div className="flex items-center gap-2">
+              <div className="flex items-center w-16 justify-start">
+                {[...Array(4)].map((_, index) => (
+                  <img 
+                    key={index} 
+                    src="/src/assets/yıldız.png" 
+                    alt="Yıldız" 
+                    className="w-3 h-3 object-contain"
+                  />
+                ))}
+                <div className="w-3 h-3"></div>
+              </div>
+              <div className="flex-1 flex items-center">
+                <div className="w-full bg-gray-200 rounded-full h-2">
+                  <div 
+                    className="bg-blue-600 h-2 rounded-full" 
+                    style={{ 
+                      width: `${stats.totalReviews > 0 ? (stats.ratingDistribution[4] / stats.totalReviews) * 100 : 0}%` 
+                    }}
+                  ></div>
+                </div>
+              </div>
+              <span className="text-xs text-blue-600 font-medium w-12 text-right">
+                {stats.ratingDistribution[4].toLocaleString()}
+              </span>
+            </div>
+            
+            {/* 3 Yıldız */}
+            <div className="flex items-center gap-2">
+              <div className="flex items-center w-16 justify-start">
+                {[...Array(3)].map((_, index) => (
+                  <img 
+                    key={index} 
+                    src="/src/assets/yıldız.png" 
+                    alt="Yıldız" 
+                    className="w-3 h-3 object-contain"
+                  />
+                ))}
+                <div className="w-6 h-3"></div>
+              </div>
+              <div className="flex-1 flex items-center">
+                <div className="w-full bg-gray-200 rounded-full h-2">
+                  <div 
+                    className="bg-blue-600 h-2 rounded-full" 
+                    style={{ 
+                      width: `${stats.totalReviews > 0 ? (stats.ratingDistribution[3] / stats.totalReviews) * 100 : 0}%` 
+                    }}
+                  ></div>
+                </div>
+              </div>
+              <span className="text-xs text-blue-600 font-medium w-12 text-right">
+                {stats.ratingDistribution[3].toLocaleString()}
+              </span>
+            </div>
+            
+            {/* 2 Yıldız */}
+            <div className="flex items-center gap-2">
+              <div className="flex items-center w-16 justify-start">
+                {[...Array(2)].map((_, index) => (
+                  <img 
+                    key={index} 
+                    src="/src/assets/yıldız.png" 
+                    alt="Yıldız" 
+                    className="w-3 h-3 object-contain"
+                  />
+                ))}
+                <div className="w-9 h-3"></div>
+              </div>
+              <div className="flex-1 flex items-center">
+                <div className="w-full bg-gray-200 rounded-full h-2">
+                  <div 
+                    className="bg-blue-600 h-2 rounded-full" 
+                    style={{ 
+                      width: `${stats.totalReviews > 0 ? (stats.ratingDistribution[2] / stats.totalReviews) * 100 : 0}%` 
+                    }}
+                  ></div>
+                </div>
+              </div>
+              <span className="text-xs text-blue-600 font-medium w-12 text-right">
+                {stats.ratingDistribution[2].toLocaleString()}
+              </span>
+            </div>
+            
+            {/* 1 Yıldız */}
+            <div className="flex items-center gap-2">
+              <div className="flex items-center w-16 justify-start">
+                <img 
+                  src="/src/assets/yıldız.png" 
+                  alt="Yıldız" 
+                  className="w-3 h-3 object-contain"
+                />
+                <div className="w-12 h-3"></div>
+              </div>
+              <div className="flex-1 flex items-center">
+                <div className="w-full bg-gray-200 rounded-full h-2">
+                  <div 
+                    className="bg-blue-600 h-2 rounded-full" 
+                    style={{ 
+                      width: `${stats.totalReviews > 0 ? (stats.ratingDistribution[1] / stats.totalReviews) * 100 : 0}%` 
+                    }}
+                  ></div>
+                </div>
+              </div>
+              <span className="text-xs text-blue-600 font-medium w-12 text-right">
+                {stats.ratingDistribution[1].toLocaleString()}
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      {/* Alt çizgi */}
+      <div className='h-px bg-gray-300 mb-8'></div>
+      
+      <button className='bg-gradient-to-r from-[#387EC7] to-[#1F23AA] text-white px-6 py-3 rounded-full font-semibold hover:from-[#2d6bb3] hover:to-[#1a1d8f] transition-all duration-300 mb-8'>
+        YORUM (17)
+      </button>
+
+      {/* Yorum Kartları */}
+      <div className='space-y-4'>
+        {displayReviews.map((review) => (
+          <div key={review.id} className='bg-gray-50 rounded-lg p-6 text-left'>
+            <div className='flex items-center justify-between mb-3'>
+              <div className='flex items-center gap-3'>
+                <div className='flex gap-1'>
+                  {renderStars(review.rating)}
+                </div>
+                <span className='font-medium'>{review.reviewerName} {review.reviewerInitial}</span>
+                {review.isVerified && (
+                  <span className='bg-green-100 text-green-800 text-xs px-2 py-1 rounded-full'>
+                    DOĞRULANMIŞ MÜŞTERİ
+                  </span>
+                )}
+              </div>
+              <span className='text-sm text-gray-500'>{review.reviewDate}</span>
+            </div>
+            
+            <h3 className='font-semibold text-lg mb-2'>{review.reviewTitle}</h3>
+            <p className='text-gray-700 mb-3'>{review.reviewText}</p>
+            
+            <div className='text-sm text-gray-500'>
+              HAKKINDA {review.productName}
+            </div>
+          </div>
+        ))}
+      </div>
+
+    </div>
+  )
+}

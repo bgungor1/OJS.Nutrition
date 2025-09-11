@@ -1,7 +1,9 @@
 import type { FC } from 'react'
+import { useNavigate } from 'react-router-dom'
 import star from '@/assets/yıldız.png'
 
 interface ProductCardProps {
+  id?: number
   name: string
   image: string
   description: string
@@ -13,6 +15,7 @@ interface ProductCardProps {
 }
 
 const ProductCard: FC<ProductCardProps> = ({
+  id,
   name,
   image,
   description,
@@ -22,8 +25,19 @@ const ProductCard: FC<ProductCardProps> = ({
   originalPrice,
   discountPercentage
 }) => {
+  const navigate = useNavigate()
+
+  const handleClick = () => {
+    if (id) {
+      navigate(`/product/${id}`)
+    }
+  }
+
   return (
-    <div className="relative w-full flex flex-col items-center">
+    <div 
+      className="relative w-full max-w-[180px] flex flex-col items-center cursor-pointer hover:shadow-lg transition-shadow duration-200"
+      onClick={handleClick}
+    >
       {/* İndirim Etiketi */}
       {discountPercentage && (
         <div className="absolute -top-2 -right-2 bg-red-500 text-white px-2 py-1 rounded text-xs font-bold z-10">
@@ -60,7 +74,7 @@ const ProductCard: FC<ProductCardProps> = ({
       
       {/* Yorum Sayısı ve Fiyat */}
       <div className="flex flex-col items-center mt-2">
-        <span className="text-xs text-gray-600">{reviewCount.toLocaleString()} yorum</span>
+        <span className="text-xs text-gray-600">{reviewCount.toLocaleString()} Yorum</span>
         
         <div className="flex items-center gap-2 mt-1">
           <span className="text-sm font-bold text-green-600">
