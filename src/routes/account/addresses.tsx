@@ -18,12 +18,12 @@ function Addresses() {
       
       <div className="space-y-4">
         {/* Örnek adres kartı */}
-        <div className="border rounded-lg p-4 hover:shadow-md transition-shadow">
+        <div className="border dark:border-gray-600 rounded-lg p-4 hover:shadow-md transition-shadow bg-white dark:bg-gray-800">
           <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start mb-3 gap-2">
             <div className="flex items-center gap-2">
-              <MapPin size={16} className="text-gray-500" />
-              <span className="font-medium">Ev Adresi</span>
-              <span className="px-2 py-1 bg-blue-100 text-blue-800 text-xs rounded-full">Varsayılan</span>
+              <MapPin size={16} className="text-gray-500 dark:text-gray-400" />
+              <span className="font-medium text-gray-900 dark:text-white">Ev Adresi</span>
+              <span className="px-2 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 text-xs rounded-full">Varsayılan</span>
             </div>
             <div className="flex gap-2">
               <Button variant="outline" size="sm" className="flex-1 sm:flex-none">
@@ -34,7 +34,7 @@ function Addresses() {
               </Button>
             </div>
           </div>
-          <div className="text-gray-600">
+          <div className="text-gray-600 dark:text-gray-300">
             <p>Ahmet Yılmaz</p>
             <p>Atatürk Mahallesi, Cumhuriyet Caddesi No: 123</p>
             <p>Kadıköy/İstanbul 34710</p>
@@ -43,11 +43,11 @@ function Addresses() {
         </div>
 
         {/* İkinci adres kartı */}
-        <div className="border rounded-lg p-4 hover:shadow-md transition-shadow">
+        <div className="border dark:border-gray-600 rounded-lg p-4 hover:shadow-md transition-shadow bg-white dark:bg-gray-800">
           <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start mb-3 gap-2">
             <div className="flex items-center gap-2">
-              <MapPin size={16} className="text-gray-500" />
-              <span className="font-medium">İş Adresi</span>
+              <MapPin size={16} className="text-gray-500 dark:text-gray-400" />
+              <span className="font-medium text-gray-900 dark:text-white">İş Adresi</span>
             </div>
             <div className="flex gap-2">
               <Button variant="outline" size="sm" className="flex-1 sm:flex-none">
@@ -58,7 +58,7 @@ function Addresses() {
               </Button>
             </div>
           </div>
-          <div className="text-gray-600">
+          <div className="text-gray-600 dark:text-gray-300">
             <p>Ahmet Yılmaz</p>
             <p>Levent Mahallesi, Büyükdere Caddesi No: 456</p>
             <p>Beşiktaş/İstanbul 34330</p>
@@ -67,9 +67,9 @@ function Addresses() {
         </div>
 
         {/* Adres yoksa gösterilecek mesaj */}
-        <div className="text-center py-12 text-gray-500">
-          <MapPin size={48} className="mx-auto mb-4 text-gray-300" />
-          <p className="text-lg font-medium mb-2">Henüz adres eklenmemiş</p>
+        <div className="text-center py-12 text-gray-500 dark:text-gray-400">
+          <MapPin size={48} className="mx-auto mb-4 text-gray-300 dark:text-gray-600" />
+          <p className="text-lg font-medium mb-2 text-gray-900 dark:text-white">Henüz adres eklenmemiş</p>
           <p className="text-sm">İlk adresinizi eklemek için yukarıdaki butona tıklayın.</p>
         </div>
       </div>

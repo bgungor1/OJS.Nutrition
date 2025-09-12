@@ -32,12 +32,12 @@ function Payment() {
   ]
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
       <div className="grid grid-cols-1 xl:grid-cols-2 min-h-screen">
         {/* Sol taraf - Beyaz bölüm */}
-        <div className="bg-white p-4 sm:p-6 lg:p-8">
+        <div className="bg-white dark:bg-gray-800 p-4 sm:p-6 lg:p-8">
           <div className="max-w-2xl mx-auto">
-            <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-6 sm:mb-8">Ödeme</h1>
+            <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-6 sm:mb-8">Ödeme</h1>
             
             {/* Adım göstergesi */}
             <div className="flex items-center justify-between mb-6 sm:mb-8 overflow-x-auto">
@@ -245,14 +245,14 @@ function Payment() {
         </div>
 
         {/* Sağ taraf - Gri bölüm */}
-        <div className="bg-gray-100 p-4 sm:p-6 lg:p-8">
+        <div className="bg-gray-100 dark:bg-gray-700 p-4 sm:p-6 lg:p-8">
           <div className="max-w-md mx-auto">
-            <h2 className="text-lg sm:text-xl font-semibold text-gray-900 mb-6">Sipariş Özeti</h2>
+            <h2 className="text-lg sm:text-xl font-semibold text-gray-900 dark:text-white mb-6">Sipariş Özeti</h2>
             
             {/* Sepet ürünleri */}
             <div className="space-y-4 mb-6">
               {cartItems.map((item) => (
-                <div key={item.id} className="flex items-center gap-4 p-4 bg-white rounded-lg">
+                <div key={item.id} className="flex items-center gap-4 p-4 bg-white dark:bg-gray-600 rounded-lg">
                   <div className="relative">
                     <img 
                       src={item.image} 
@@ -264,9 +264,9 @@ function Payment() {
                     </Badge>
                   </div>
                   <div className="flex-1">
-                    <h3 className="font-medium text-gray-900 text-sm">{item.name}</h3>
-                    <p className="text-xs text-gray-600">{item.variant}</p>
-                    <p className="text-sm font-semibold text-gray-900 mt-1">
+                    <h3 className="font-medium text-gray-900 dark:text-white text-sm">{item.name}</h3>
+                    <p className="text-xs text-gray-600 dark:text-gray-300">{item.variant}</p>
+                    <p className="text-sm font-semibold text-gray-900 dark:text-white mt-1">
                       ₺{(item.price * item.quantity).toFixed(2)}
                     </p>
                   </div>
@@ -279,21 +279,21 @@ function Payment() {
             {/* Fiyat özeti */}
             <div className="space-y-3">
               <div className="flex justify-between text-sm">
-                <span className="text-gray-600">Ara Toplam</span>
-                <span className="text-gray-900">₺{subtotal.toFixed(2)}</span>
+                <span className="text-gray-600 dark:text-gray-300">Ara Toplam</span>
+                <span className="text-gray-900 dark:text-white">₺{subtotal.toFixed(2)}</span>
               </div>
               <div className="flex justify-between text-sm">
-                <span className="text-gray-600">Kargo</span>
-                <span className="text-gray-900">₺{shippingCost.toFixed(2)}</span>
+                <span className="text-gray-600 dark:text-gray-300">Kargo</span>
+                <span className="text-gray-900 dark:text-white">₺{shippingCost.toFixed(2)}</span>
               </div>
               <div className="flex justify-between text-sm">
-                <span className="text-gray-600">KDV (%18)</span>
-                <span className="text-gray-900">₺{tax.toFixed(2)}</span>
+                <span className="text-gray-600 dark:text-gray-300">KDV (%18)</span>
+                <span className="text-gray-900 dark:text-white">₺{tax.toFixed(2)}</span>
               </div>
               <Separator />
               <div className="flex justify-between text-lg font-semibold">
-                <span className="text-gray-900">Toplam</span>
-                <span className="text-gray-900">₺{total.toFixed(2)}</span>
+                <span className="text-gray-900 dark:text-white">Toplam</span>
+                <span className="text-gray-900 dark:text-white">₺{total.toFixed(2)}</span>
               </div>
             </div>
           </div>

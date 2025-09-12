@@ -79,7 +79,7 @@ const ProductDetail: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen bg-white py-8">
+    <div className="min-h-screen bg-white dark:bg-gray-900 py-8">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
           {/* Sol Taraf - Ürün Görseli */}
@@ -97,8 +97,8 @@ const ProductDetail: React.FC = () => {
           <div className="space-y-6">
             {/* Ürün Başlığı ve Değerlendirme */}
             <div>
-              <h1 className="text-3xl font-bold text-gray-900 mb-2">{product.name}</h1>
-              <p className="text-lg text-gray-600 mb-4">{product.description}</p>
+              <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">{product.name}</h1>
+              <p className="text-lg text-gray-600 dark:text-gray-300 mb-4">{product.description}</p>
               
               {/* Değerlendirme */}
               <div className="flex items-center space-x-2 mb-4">
@@ -110,7 +110,7 @@ const ProductDetail: React.FC = () => {
                     />
                   ))}
                 </div>
-                <span className="text-sm text-gray-800 font-medium">
+                <span className="text-sm text-gray-800 dark:text-gray-200 font-medium">
                   {product.reviewCount.toLocaleString()} Yorum
                 </span>
               </div>
@@ -129,7 +129,7 @@ const ProductDetail: React.FC = () => {
                 </Badge>
               )}
             </div>
-            <div className="border-t border-gray-200 my-6"></div>
+            <div className="border-t border-gray-200 dark:border-gray-700 my-6"></div>
             {/* Aroma Seçimi */}
             {product.flavors.length > 0 && (
               <div>
@@ -228,25 +228,25 @@ const ProductDetail: React.FC = () => {
             {/* Fiyat ve Miktar */}
             <div className="space-y-4">
               <div className="flex items-center space-x-3">
-                <span className="text-3xl font-bold text-gray-900">
+                <span className="text-3xl font-bold text-gray-900 dark:text-white">
                   {currentPrice.toLocaleString()} TL
                 </span>
                 {currentOriginalPrice && (
-                  <span className="text-xl text-gray-400 line-through">
+                  <span className="text-xl text-gray-400 dark:text-gray-500 line-through">
                     {currentOriginalPrice.toLocaleString()} TL
                   </span>
                 )}
               </div>
               
               {selectedSizeData && (
-                <p className="text-sm text-gray-600">
+                <p className="text-sm text-gray-600 dark:text-gray-300">
                   {Math.round(currentPrice / selectedSizeData.servings * 100) / 100} TL/Servis
                 </p>
               )}
 
               {/* Miktar Seçimi */}
               <div className="flex items-center space-x-3">
-                <span className="text-sm font-medium text-gray-700">Miktar:</span>
+                <span className="text-sm font-medium text-gray-700 dark:text-gray-300">Miktar:</span>
                 <div className="flex items-center border border-gray-300 rounded-lg">
                   <Button
                     variant="ghost"
@@ -296,10 +296,10 @@ const ProductDetail: React.FC = () => {
             </div>
 
             {/* Güvenlik rozetleri sonrası çizgi */}
-            <div className="border-t border-gray-200 my-6"></div>
+            <div className="border-t border-gray-200 dark:border-gray-700 my-6"></div>
 
             {/* Son Kullanım Tarihi */}
-            <div className="text-sm text-gray-600">
+            <div className="text-sm text-gray-600 dark:text-gray-300">
               Son Kullanım Tarihi: {product.expirationDate}
             </div>
 
@@ -307,16 +307,16 @@ const ProductDetail: React.FC = () => {
             <div className="space-y-2">
               <button
                 onClick={() => toggleSection('features')}
-                className="w-full flex items-center justify-between p-3 border border-gray-200 rounded-lg hover:bg-gray-50"
+                className="w-full flex items-center justify-between p-3 border border-gray-200 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700"
               >
-                <span className="font-medium">ÖZELLİKLER</span>
+                <span className="font-medium text-gray-900 dark:text-white">ÖZELLİKLER</span>
                 <ChevronDown className={`w-4 h-4 transition-transform ${expandedSections.features ? 'rotate-180' : ''}`} />
               </button>
               {expandedSections.features && (
-                <div className="p-4 bg-gray-50 rounded-lg">
+                <div className="p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
                   <ul className="space-y-2">
                     {product.features.map((feature, index) => (
-                      <li key={index} className="text-sm text-gray-600">• {feature}</li>
+                      <li key={index} className="text-sm text-gray-600 dark:text-gray-300">• {feature}</li>
                     ))}
                   </ul>
                 </div>
@@ -324,14 +324,14 @@ const ProductDetail: React.FC = () => {
 
               <button
                 onClick={() => toggleSection('nutrition')}
-                className="w-full flex items-center justify-between p-3 border border-gray-200 rounded-lg hover:bg-gray-50"
+                className="w-full flex items-center justify-between p-3 border border-gray-200 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700"
               >
-                <span className="font-medium">BESİN İÇERİĞİ</span>
+                <span className="font-medium text-gray-900 dark:text-white">BESİN İÇERİĞİ</span>
                 <ChevronDown className={`w-4 h-4 transition-transform ${expandedSections.nutrition ? 'rotate-180' : ''}`} />
               </button>
               {expandedSections.nutrition && (
-                <div className="p-4 bg-gray-50 rounded-lg">
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
+                <div className="p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm text-gray-600 dark:text-gray-300">
                     <div>Kalori: {product.nutritionalInfo.calories}</div>
                     <div>Protein: {product.nutritionalInfo.protein}g</div>
                     <div>Karbonhidrat: {product.nutritionalInfo.carbohydrates}g</div>
@@ -342,14 +342,14 @@ const ProductDetail: React.FC = () => {
 
               <button
                 onClick={() => toggleSection('usage')}
-                className="w-full flex items-center justify-between p-3 border border-gray-200 rounded-lg hover:bg-gray-50"
+                className="w-full flex items-center justify-between p-3 border border-gray-200 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700"
               >
-                <span className="font-medium">KULLANIM ŞEKLİ</span>
+                <span className="font-medium text-gray-900 dark:text-white">KULLANIM ŞEKLİ</span>
                 <ChevronDown className={`w-4 h-4 transition-transform ${expandedSections.usage ? 'rotate-180' : ''}`} />
               </button>
               {expandedSections.usage && (
-                <div className="p-4 bg-gray-50 rounded-lg">
-                  <p className="text-sm text-gray-600">{product.usageInstructions}</p>
+                <div className="p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
+                  <p className="text-sm text-gray-600 dark:text-gray-300">{product.usageInstructions}</p>
                 </div>
               )}
             </div>

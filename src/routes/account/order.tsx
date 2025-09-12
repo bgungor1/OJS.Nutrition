@@ -64,7 +64,7 @@ function Order() {
       <div className="space-y-4">
         {ordersData.map((order, index) => (
           <div key={order.id}>
-            <Card className="p-4 sm:p-6 hover:shadow-md transition-shadow duration-200">
+            <Card className="p-4 sm:p-6 hover:shadow-md transition-shadow duration-200 bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-600">
               <div className="flex flex-col lg:flex-row gap-4">
                 {/* Ürün Resmi */}
                 <div className="flex-shrink-0">
@@ -79,10 +79,10 @@ function Order() {
                 <div className="flex-1 space-y-3">
                   <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-2">
                     <div className="flex-1">
-                      <h4 className="font-semibold text-base sm:text-lg text-gray-900">
+                      <h4 className="font-semibold text-base sm:text-lg text-gray-900 dark:text-white">
                         {order.productName}
                       </h4>
-                      <p className="text-sm text-gray-600">
+                      <p className="text-sm text-gray-600 dark:text-gray-300">
                         Sipariş No: {order.orderNumber}
                       </p>
                     </div>
@@ -96,16 +96,16 @@ function Order() {
 
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
                     <div className="flex items-center gap-2">
-                      <Calendar className="w-4 h-4 text-gray-500" />
-                      <span className="text-gray-600">
+                      <Calendar className="w-4 h-4 text-gray-500 dark:text-gray-400" />
+                      <span className="text-gray-600 dark:text-gray-300">
                         <span className="font-medium">Sipariş Tarihi:</span> {order.orderDate}
                       </span>
                     </div>
                     
                     {order.deliveryDate && (
                       <div className="flex items-center gap-2">
-                        <CheckCircle className="w-4 h-4 text-gray-500" />
-                        <span className="text-gray-600">
+                        <CheckCircle className="w-4 h-4 text-gray-500 dark:text-gray-400" />
+                        <span className="text-gray-600 dark:text-gray-300">
                           <span className="font-medium">Teslim Tarihi:</span> {order.deliveryDate}
                         </span>
                       </div>
@@ -113,8 +113,8 @@ function Order() {
                     
                     {order.trackingNumber && (
                       <div className="flex items-center gap-2">
-                        <Truck className="w-4 h-4 text-gray-500" />
-                        <span className="text-gray-600">
+                        <Truck className="w-4 h-4 text-gray-500 dark:text-gray-400" />
+                        <span className="text-gray-600 dark:text-gray-300">
                           <span className="font-medium">Takip No:</span> {order.trackingNumber}
                         </span>
                       </div>
@@ -124,12 +124,12 @@ function Order() {
                   <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
                     <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4">
                       {order.quantity && (
-                        <span className="text-sm text-gray-600">
+                        <span className="text-sm text-gray-600 dark:text-gray-300">
                           <span className="font-medium">Adet:</span> {order.quantity}
                         </span>
                       )}
                       {order.price && (
-                        <span className="text-base sm:text-lg font-semibold text-gray-900">
+                        <span className="text-base sm:text-lg font-semibold text-gray-900 dark:text-white">
                           ₺{order.price.toFixed(2)}
                         </span>
                       )}
@@ -157,12 +157,12 @@ function Order() {
 
       {/* Sipariş yoksa */}
       {ordersData.length === 0 && (
-        <Card className="p-12 text-center">
-          <Package className="w-16 h-16 text-gray-400 mx-auto mb-4" />
-          <h3 className="text-xl font-semibold text-gray-900 mb-2">
+        <Card className="p-12 text-center bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-600">
+          <Package className="w-16 h-16 text-gray-400 dark:text-gray-500 mx-auto mb-4" />
+          <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
             Henüz siparişiniz yok
           </h3>
-          <p className="text-gray-600 mb-6">
+          <p className="text-gray-600 dark:text-gray-300 mb-6">
             İlk siparişinizi vermek için ürünlerimizi inceleyin
           </p>
           <Button>

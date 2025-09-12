@@ -48,7 +48,7 @@ function Account() {
         <div className='lg:col-span-2'>
           {isAccountPage ? (
             <>
-              <h3 className='text-xl sm:text-2xl font-bold mb-6'>Hesap Bilgileri</h3>
+              <h3 className='text-xl sm:text-2xl font-bold mb-6 text-gray-900 dark:text-white'>Hesap Bilgileri</h3>
               
               <Form {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">

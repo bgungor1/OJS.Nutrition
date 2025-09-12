@@ -38,14 +38,14 @@ export default function ProductReviews({ productName, maxReviews = 15 }: Product
   return (
     <div className='mb-12'>
       {/* Üst çizgi */}
-      <div className='h-px bg-gray-300 mb-4'></div>
+      <div className='h-px bg-gray-300 dark:bg-gray-600 mb-4'></div>
       
       <div className='flex items-center justify-between mb-4'>
         <div className='flex items-center gap-4'>
           <div className='flex gap-1'>
             {renderStars(5)}
           </div>
-          <span className='text-lg font-medium'>{stats.totalReviews.toLocaleString()} Yorum</span>
+          <span className='text-lg font-medium text-gray-900 dark:text-white'>{stats.totalReviews.toLocaleString()} Yorum</span>
         </div>
         
         {/* Yıldız Dağılım Grafiği */}
@@ -64,7 +64,7 @@ export default function ProductReviews({ productName, maxReviews = 15 }: Product
                 ))}
               </div>
               <div className="flex-1 flex items-center">
-                <div className="w-full bg-gray-200 rounded-full h-2">
+                <div className="w-full bg-gray-200 dark:bg-gray-600 rounded-full h-2">
                   <div 
                     className="bg-blue-600 h-2 rounded-full" 
                     style={{ 
@@ -92,7 +92,7 @@ export default function ProductReviews({ productName, maxReviews = 15 }: Product
                 <div className="w-3 h-3"></div>
               </div>
               <div className="flex-1 flex items-center">
-                <div className="w-full bg-gray-200 rounded-full h-2">
+                <div className="w-full bg-gray-200 dark:bg-gray-600 rounded-full h-2">
                   <div 
                     className="bg-blue-600 h-2 rounded-full" 
                     style={{ 
@@ -120,7 +120,7 @@ export default function ProductReviews({ productName, maxReviews = 15 }: Product
                 <div className="w-6 h-3"></div>
               </div>
               <div className="flex-1 flex items-center">
-                <div className="w-full bg-gray-200 rounded-full h-2">
+                <div className="w-full bg-gray-200 dark:bg-gray-600 rounded-full h-2">
                   <div 
                     className="bg-blue-600 h-2 rounded-full" 
                     style={{ 
@@ -148,7 +148,7 @@ export default function ProductReviews({ productName, maxReviews = 15 }: Product
                 <div className="w-9 h-3"></div>
               </div>
               <div className="flex-1 flex items-center">
-                <div className="w-full bg-gray-200 rounded-full h-2">
+                <div className="w-full bg-gray-200 dark:bg-gray-600 rounded-full h-2">
                   <div 
                     className="bg-blue-600 h-2 rounded-full" 
                     style={{ 
@@ -173,7 +173,7 @@ export default function ProductReviews({ productName, maxReviews = 15 }: Product
                 <div className="w-12 h-3"></div>
               </div>
               <div className="flex-1 flex items-center">
-                <div className="w-full bg-gray-200 rounded-full h-2">
+                <div className="w-full bg-gray-200 dark:bg-gray-600 rounded-full h-2">
                   <div 
                     className="bg-blue-600 h-2 rounded-full" 
                     style={{ 
@@ -191,7 +191,7 @@ export default function ProductReviews({ productName, maxReviews = 15 }: Product
       </div>
       
       {/* Alt çizgi */}
-      <div className='h-px bg-gray-300 mb-8'></div>
+      <div className='h-px bg-gray-300 dark:bg-gray-600 mb-8'></div>
       
       <button className='bg-gradient-to-r from-[#387EC7] to-[#1F23AA] text-white px-6 py-3 rounded-full font-semibold hover:from-[#2d6bb3] hover:to-[#1a1d8f] transition-all duration-300 mb-8'>
         YORUM (17)
@@ -200,26 +200,26 @@ export default function ProductReviews({ productName, maxReviews = 15 }: Product
       {/* Yorum Kartları */}
       <div className='space-y-4'>
         {displayReviews.map((review) => (
-          <div key={review.id} className='bg-gray-50 rounded-lg p-6 text-left'>
+          <div key={review.id} className='bg-gray-50 dark:bg-gray-800 rounded-lg p-6 text-left'>
             <div className='flex items-center justify-between mb-3'>
               <div className='flex items-center gap-3'>
                 <div className='flex gap-1'>
                   {renderStars(review.rating)}
                 </div>
-                <span className='font-medium'>{review.reviewerName} {review.reviewerInitial}</span>
+                <span className='font-medium text-gray-900 dark:text-white'>{review.reviewerName} {review.reviewerInitial}</span>
                 {review.isVerified && (
-                  <span className='bg-green-100 text-green-800 text-xs px-2 py-1 rounded-full'>
+                  <span className='bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200 text-xs px-2 py-1 rounded-full'>
                     DOĞRULANMIŞ MÜŞTERİ
                   </span>
                 )}
               </div>
-              <span className='text-sm text-gray-500'>{review.reviewDate}</span>
+              <span className='text-sm text-gray-500 dark:text-gray-400'>{review.reviewDate}</span>
             </div>
             
-            <h3 className='font-semibold text-lg mb-2'>{review.reviewTitle}</h3>
-            <p className='text-gray-700 mb-3'>{review.reviewText}</p>
+            <h3 className='font-semibold text-lg mb-2 text-gray-900 dark:text-white'>{review.reviewTitle}</h3>
+            <p className='text-gray-700 dark:text-gray-300 mb-3'>{review.reviewText}</p>
             
-            <div className='text-sm text-gray-500'>
+            <div className='text-sm text-gray-500 dark:text-gray-400'>
               HAKKINDA {review.productName}
             </div>
           </div>

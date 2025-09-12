@@ -1,4 +1,3 @@
-import React from 'react'
 import { reviewData, getReviewStats } from '@/data/review-data'
 
 
@@ -42,7 +41,7 @@ function About() {
       </div>
       <div>
         <h2 className='text-2xl sm:text-3xl font-bold mt-6'>Sertifikalarımız</h2>
-        <div className='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4 sm:gap-6 mb-10 mt-2'>
+        <div className='flex flex-wrap gap-2 mb-10 mt-2'>
         <img 
             src="/src/assets/about/iso.png" 
             alt="ISO Sertifikası" 
@@ -79,17 +78,17 @@ function About() {
 {/* Yorumlar Bölümü */}
 <div className='mb-12 '>
         {/* Üst çizgi */}
-        <div className='h-px bg-gray-300 mb-4'></div>
+        <div className='h-px bg-gray-300 dark:bg-gray-600 mb-4'></div>
         
         <div className='flex items-center gap-4 mb-4'>
           <div className='flex gap-1'>
             {renderStars(5)}
           </div>
-          <span className='text-lg font-medium'>{stats.totalReviews.toLocaleString()} Yorum</span>
+          <span className='text-lg font-medium text-gray-900 dark:text-white'>{stats.totalReviews.toLocaleString()} Yorum</span>
         </div>
         
         {/* Alt çizgi */}
-        <div className='h-px bg-gray-300 mb-8'></div>
+        <div className='h-px bg-gray-300 dark:bg-gray-600 mb-8'></div>
         
         <button className='bg-gradient-to-r from-[#387EC7] to-[#1F23AA] text-white px-6 py-3 rounded-full font-semibold hover:from-[#2d6bb3] hover:to-[#1a1d8f] transition-all duration-300 mb-8'>
           ÜRÜN İNCELEMELERİ
@@ -98,26 +97,26 @@ function About() {
         {/* Yorum Kartları */}
         <div className='space-y-4'>
           {displayReviews.map((review) => (
-            <div key={review.id} className='bg-gray-50 rounded-lg p-4 sm:p-6 text-left'>
+            <div key={review.id} className='bg-gray-50 dark:bg-gray-800 rounded-lg p-4 sm:p-6 text-left'>
               <div className='flex flex-col sm:flex-row sm:items-center sm:justify-between mb-3 gap-2'>
                 <div className='flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3'>
                   <div className='flex gap-1'>
                     {renderStars(review.rating)}
                   </div>
-                  <span className='font-medium'>{review.reviewerName} {review.reviewerInitial}</span>
+                  <span className='font-medium text-gray-900 dark:text-white'>{review.reviewerName} {review.reviewerInitial}</span>
                   {review.isVerified && (
-                    <span className='bg-green-100 text-green-800 text-xs px-2 py-1 rounded-full w-fit'>
+                    <span className='bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200 text-xs px-2 py-1 rounded-full w-fit'>
                       DOĞRULANMIŞ MÜŞTERİ
                     </span>
                   )}
                 </div>
-                <span className='text-sm text-gray-500'>{review.reviewDate}</span>
+                <span className='text-sm text-gray-500 dark:text-gray-400'>{review.reviewDate}</span>
               </div>
               
-              <h3 className='font-semibold text-lg mb-2'>{review.reviewTitle}</h3>
-              <p className='text-gray-700 mb-3'>{review.reviewText}</p>
+              <h3 className='font-semibold text-lg mb-2 text-gray-900 dark:text-white'>{review.reviewTitle}</h3>
+              <p className='text-gray-700 dark:text-gray-300 mb-3'>{review.reviewText}</p>
               
-              <div className='text-sm text-gray-500'>
+              <div className='text-sm text-gray-500 dark:text-gray-400'>
                 HAKKINDA {review.productName}
               </div>
             </div>

@@ -5,7 +5,9 @@ import { ShoppingCart, User, Menu, X } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 import { Separator } from "@/components/ui/separator"
 import { ModeToggle } from "@/components/mode-toggle"
-import logo from "@/assets/LOGO_Siyah.png"
+import { useTheme } from "@/components/use-theme"
+import logoBlack from "@/assets/LOGO_Siyah.png"
+import logoWhite from "@/assets/LOGO_Beyaz.png"
 import { useState } from "react"
 import {
   Sheet,
@@ -24,21 +26,25 @@ import {
 
 export default function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  const { theme } = useTheme()
   
   // Sepet hesaplamaları
   const subtotal = calculateSubtotal(cartItems)
   const shippingCost = 15 // Varsayılan kargo ücreti
   const tax = calculateTax(subtotal)
   const total = calculateTotal(subtotal, shippingCost, tax)
+  
+  // Tema durumuna göre logo seçimi
+  const currentLogo = theme === "dark" ? logoWhite : logoBlack
 
   return (
     <header className="w-full border-b overflow-x-hidden">
       {/* Üst Menü */}
-      <div className="flex flex-col lg:flex-row justify-around items-center px-4 py-2 bg-white shadow-sm">
+      <div className="flex flex-col lg:flex-row justify-around items-center px-4 py-2 bg-white dark:bg-gray-800 shadow-sm">
         {/* Logo ve Mobil Menü Butonu */}
         <div className="flex items-center justify-between w-full lg:w-auto">
           <div className="p-3 flex items-center">
-            <img src={logo} alt="OJS Nutrition Logo" className="h-8" />
+            <img src={currentLogo} alt="OJS Nutrition Logo" className="h-8" />
           </div>
           
           {/* Mobil Menü Butonu */}
@@ -107,7 +113,7 @@ export default function Navbar() {
         {/* Sepet ürünleri */}
         <div className="flex-1 overflow-y-auto space-y-4 mt-4 px-2">
           {cartItems.map((item) => (
-            <div key={item.id} className="flex items-center gap-4 p-4 bg-gray-50 rounded-lg">
+            <div key={item.id} className="flex items-center gap-4 p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
               <div className="relative">
                 <img 
                   src={item.image} 
@@ -119,9 +125,9 @@ export default function Navbar() {
                 </Badge>
               </div>
               <div className="flex-1">
-                <h3 className="font-medium text-gray-900 text-sm">{item.name}</h3>
-                <p className="text-xs text-gray-600">{item.variant}</p>
-                <p className="text-sm font-semibold text-gray-900 mt-1">
+                <h3 className="font-medium text-gray-900 dark:text-white text-sm">{item.name}</h3>
+                <p className="text-xs text-gray-600 dark:text-gray-300">{item.variant}</p>
+                <p className="text-sm font-semibold text-gray-900 dark:text-white mt-1">
                   ₺{(item.price * item.quantity).toFixed(2)}
                 </p>
               </div>
@@ -134,21 +140,21 @@ export default function Navbar() {
         {/* Fiyat özeti */}
         <div className="space-y-3 mb-6 px-2">
           <div className="flex justify-between text-sm">
-            <span className="text-gray-600">Ara Toplam</span>
-            <span className="text-gray-900">₺{subtotal.toFixed(2)}</span>
+            <span className="text-gray-600 dark:text-gray-300">Ara Toplam</span>
+            <span className="text-gray-900 dark:text-white">₺{subtotal.toFixed(2)}</span>
           </div>
           <div className="flex justify-between text-sm">
-            <span className="text-gray-600">Kargo</span>
-            <span className="text-gray-900">₺{shippingCost.toFixed(2)}</span>
+            <span className="text-gray-600 dark:text-gray-300">Kargo</span>
+            <span className="text-gray-900 dark:text-white">₺{shippingCost.toFixed(2)}</span>
           </div>
           <div className="flex justify-between text-sm">
-            <span className="text-gray-600">KDV (%18)</span>
-            <span className="text-gray-900">₺{tax.toFixed(2)}</span>
+            <span className="text-gray-600 dark:text-gray-300">KDV (%18)</span>
+            <span className="text-gray-900 dark:text-white">₺{tax.toFixed(2)}</span>
           </div>
           <Separator />
           <div className="flex justify-between text-lg font-semibold">
-            <span className="text-gray-900">Toplam</span>
-            <span className="text-gray-900">₺{total.toFixed(2)}</span>
+            <span className="text-gray-900 dark:text-white">Toplam</span>
+            <span className="text-gray-900 dark:text-white">₺{total.toFixed(2)}</span>
           </div>
         </div>
 
@@ -157,7 +163,7 @@ export default function Navbar() {
           <input 
             type="text" 
             placeholder="İndirim Kodu" 
-            className="w-full border border-gray-300 p-3 rounded-md text-sm"
+            className="w-full border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white p-3 rounded-md text-sm"
           />
           <Button className="w-full bg-blue-600 hover:bg-blue-700 py-3">
             SEPETİ TAMAMLA
@@ -181,7 +187,7 @@ export default function Navbar() {
       </nav>
 
       {/* Bilgilendirme Bandı - Mobilde dikey düzen */}
-      <div className="bg-white border-t flex flex-col lg:flex-row justify-center items-center gap-4 lg:gap-10 text-xs py-2 text-center px-4">
+      <div className="bg-white dark:bg-gray-800 border-t dark:border-gray-700 flex flex-col lg:flex-row justify-center items-center gap-4 lg:gap-10 text-xs py-2 text-center px-4">
         <div className="flex items-center gap-1">
           📦 <strong>AYNI GÜN KARGO</strong> - 16:00'dan önceki siparişlerde
         </div>

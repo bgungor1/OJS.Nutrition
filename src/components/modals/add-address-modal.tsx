@@ -65,7 +65,7 @@ function AddAddressModal({ children }: AddAddressModalProps) {
       </DialogTrigger>
       <DialogContent className="sm:max-w-[600px]">
         <DialogHeader>
-          <DialogTitle className="text-xl font-semibold">Yeni Adres Ekle</DialogTitle>
+          <DialogTitle className="text-xl font-semibold text-gray-900 dark:text-white">Yeni Adres Ekle</DialogTitle>
         </DialogHeader>
         
         <Form {...form}>

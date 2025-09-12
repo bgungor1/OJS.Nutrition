@@ -8,7 +8,7 @@ const Protein = () => {
     <h1 className='text-4xl font-bold mb-4'>
       PROTEİN
     </h1>
-       <p className='text-gray-600 max-w-3xl mx-auto'>
+       <p className='text-gray-600 dark:text-gray-300 max-w-3xl mx-auto'>
        Vücudun tüm fonksiyonlarını sağlıklı bir şekilde yerine getirmesini sağlayan temel yapı taşlarından biri proteindir. 
        Protein kısaca, bir veya daha fazla amino asit artığından oluşan organik bileşiklerdir.
        </p>
@@ -30,7 +30,7 @@ const Protein = () => {
     ))}
    </div>
 
-   <div className='text-center text-gray-600'>
+   <div className='text-center text-gray-600 dark:text-gray-300'>
     <p className=''>Toplam {proteinData.length} ürün görüntüleniyor</p>
    </div>
     </div>
