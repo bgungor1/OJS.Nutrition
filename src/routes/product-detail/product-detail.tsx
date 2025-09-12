@@ -29,7 +29,18 @@ const ProductDetail: React.FC = () => {
     usage: false
   })
 
-  const product = getProductById(Number(id))
+  // Slug'ı id'ye çeviren mapping
+  const slugToIdMap: { [key: string]: number } = {
+    'whey-protein': 1,
+    'fitness-paketi': 2,
+    'gunluk-vitamin-paketi': 3,
+    'pre-workout-supreme': 4,
+    'cream-of-rice': 5,
+    'creatine': 6
+  }
+  
+  const productId = slugToIdMap[id || ''] || parseInt(id || '0') || 1
+  const product = getProductById(productId)
   const relatedProducts = getRelatedProducts(6)
 
   // İlk yüklemede varsayılan seçimleri ayarla

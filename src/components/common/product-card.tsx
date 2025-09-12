@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import star from '@/assets/yıldız.png'
 
 interface ProductCardProps {
-  id?: number
+  id?: number | string
   name: string
   image: string
   description: string
@@ -35,7 +35,7 @@ const ProductCard: FC<ProductCardProps> = ({
 
   return (
     <div 
-      className="relative w-full max-w-[180px] flex flex-col items-center cursor-pointer hover:shadow-lg transition-shadow duration-200"
+      className="relative w-full max-w-[180px] h-full flex flex-col items-center cursor-pointer hover:shadow-lg transition-shadow duration-200 bg-white dark:bg-gray-800 rounded-lg p-4"
       onClick={handleClick}
     >
       {/* İndirim Etiketi */}
@@ -45,21 +45,25 @@ const ProductCard: FC<ProductCardProps> = ({
         </div>
       )}
       
-      {/* Ürün Görseli */}
-      <img src={image} alt={`${name} görseli`} className="w-full h-auto object-contain" />
+      {/* Ürün Görseli - Sabit yükseklik */}
+      <div className="w-full h-32 flex items-center justify-center mb-3">
+        <img src={image} alt={`${name} görseli`} className="max-w-full max-h-full object-contain" />
+      </div>
       
-      {/* Ürün Adı */}
-      <p className='text-sm sm:text-base font-medium mt-2 text-center'>{name}</p>
+      {/* Ürün Adı - Sabit yükseklik */}
+      <div className="h-12 flex items-center justify-center mb-2">
+        <p className='text-sm sm:text-base font-medium text-center leading-tight'>{name}</p>
+      </div>
       
-      {/* Ürün Açıklaması */}
-      <div className='text-xs text-muted-foreground mt-1 text-center'>
+      {/* Ürün Açıklaması - Sabit yükseklik */}
+      <div className='text-xs text-muted-foreground text-center h-8 flex items-center justify-center mb-2'>
         {description.split('\n').map((line, index) => (
           <p key={index} className="block">{line}</p>
         ))}
       </div>
       
       {/* Yıldız Değerlendirmesi */}
-      <div className="flex justify-center gap-1 mt-2">
+      <div className="flex justify-center gap-1 mb-2">
         {[...Array(5)].map((_, index) => (
           <img 
             key={index} 
@@ -72,11 +76,11 @@ const ProductCard: FC<ProductCardProps> = ({
         ))}
       </div>
       
-      {/* Yorum Sayısı ve Fiyat */}
-      <div className="flex flex-col items-center mt-2">
-        <span className="text-xs text-gray-600">{reviewCount.toLocaleString()} Yorum</span>
+      {/* Yorum Sayısı ve Fiyat - Alt kısımda sabit konumda */}
+      <div className="flex flex-col items-center mt-auto">
+        <span className="text-xs text-gray-600 mb-1">{reviewCount.toLocaleString()} Yorum</span>
         
-        <div className="flex items-center gap-2 mt-1">
+        <div className="flex items-center gap-2">
           <span className="text-sm font-bold text-green-600">
             {price.toLocaleString()} TL
           </span>

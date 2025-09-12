@@ -6,8 +6,15 @@ import gıda from '@/assets/gıda.png'
 import tumu from '@/assets/tum-urunler.png'
 import ojsBanner from '@/assets/ojs-nutrition-banner.png'
 import BestSellers from './best-sellers'
+import type { ApiBestSellerProduct } from '@/types/api'
 
-export default function HomeProduct() {
+
+
+interface HomeProductProps {
+  bestSellers?: ApiBestSellerProduct[]
+}
+
+export default function HomeProduct({bestSellers}: HomeProductProps) {
   return (
     <>
     {/* Ürün Kategorileri Grid */}
@@ -57,7 +64,7 @@ export default function HomeProduct() {
     </div>
     
     {/* Çok Satanlar Bölümü */}
-    <BestSellers />
+    <BestSellers products={bestSellers}/>
 
     {/* OJS Nutrition Banner - En altta */}
     <div className="mt-8 sm:mt-16 mb-4 sm:mb-8 -mx-2 sm:-mx-4">

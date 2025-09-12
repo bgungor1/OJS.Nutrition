@@ -22,6 +22,32 @@ import {
   Payment
 } from './routes'
 
+import {bestSellersApi} from './services/best-sellers'
+
+const homeLoader = async () => {
+  console.log('🚀 Loader çalışıyor!')
+  
+  try {
+    console.log('📡 API çağrısı yapılıyor...')
+    const response = await bestSellersApi.getBestSellers()
+    console.log('✅ API başarılı:', response)
+    
+    // API response'undan data kısmını al
+    const bestSellers = response.data || []
+    console.log('📦 Best sellers data:', bestSellers)
+    
+    return {
+      bestSellers
+    }
+  } catch (error) {
+    console.error('❌ API hatası:', error)
+    return {
+      bestSellers: []
+    }
+  }
+}
+
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -29,7 +55,8 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <Home />
+        element: <Home />,
+        loader: homeLoader
       },
       {
         path: "product/:id",
