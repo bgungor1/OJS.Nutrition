@@ -23,6 +23,7 @@ import {
 } from './routes'
 
 import {bestSellersApi} from './services/best-sellers'
+import { productsLoader } from './routes/products/loader'
 
 const homeLoader = async () => {
   console.log('🚀 Loader çalışıyor!')
@@ -64,7 +65,8 @@ const router = createBrowserRouter([
       },
       {
         path: "products",
-        element: <Products/>
+        element: <Products/>,
+        loader: productsLoader
       },
       {
         path: "products/protein",
