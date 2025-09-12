@@ -12,7 +12,6 @@ import {
   About,
   Contact,
   FAQ,
-  ProductDetail,
   Products,
   Protein,
   LoginPage,
@@ -21,6 +20,7 @@ import {
   Order,
   Payment
 } from './routes'
+import ProductDetail from './routes/product-detail/product-detail'
 
 import {bestSellersApi} from './services/best-sellers'
 import { productsLoader } from './routes/products/loader'

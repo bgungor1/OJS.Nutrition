@@ -1,5 +1,5 @@
 import { apiClient } from './api'
-import type { ApiProductsResponse } from '@/types/api'
+import type { ApiProductsResponse, ApiProductDetailResponse } from '@/types/api'
 
 export interface ProductsParams {
   page?: number
@@ -20,6 +20,16 @@ export const productsApi = {
       return response
     } catch (error) {
       console.error('Products API hatası:', error)
+      throw error
+    }
+  },
+
+  getProductBySlug: async (slug: string): Promise<ApiProductDetailResponse> => {
+    try {
+      const response = await apiClient.get<ApiProductDetailResponse>(`/products/${slug}`)
+      return response
+    } catch (error) {
+      console.error('Product detail API hatası:', error)
       throw error
     }
   }

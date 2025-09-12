@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
-import { getProductById, getRelatedProducts } from '@/data/product-detail-data'
-import { bestSellersData } from '@/data/best-sellers-data'
+import { productsApi } from '@/services/products'
+import { bestSellersApi } from '@/services/best-sellers'
+import { transformApiProductToProductDetail } from '@/utils/productTransform'
+import type { ProductDetail as ProductDetailType } from '@/types/product'
+import type { ApiBestSellerProduct } from '@/types/api'
+import { getRelatedProducts } from '@/data/product-detail-data'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import ProductCard from '@/components/common/product-card'
@@ -20,6 +24,9 @@ import {
 const ProductDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>()
   const navigate = useNavigate()
+  const [product, setProduct] = useState<ProductDetailType | null>(null)
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState<string | null>(null)
   const [quantity, setQuantity] = useState(1)
   const [selectedFlavor, setSelectedFlavor] = useState('')
   const [selectedSize, setSelectedSize] = useState('')
@@ -28,39 +35,102 @@ const ProductDetail: React.FC = () => {
     nutrition: false,
     usage: false
   })
+  const [bestSellers, setBestSellers] = useState<ApiBestSellerProduct[]>([])
+  const [bestSellersLoading, setBestSellersLoading] = useState(false)
+  const [bestSellersError, setBestSellersError] = useState<string | null>(null)
 
-  // Slug'ı id'ye çeviren mapping
-  const slugToIdMap: { [key: string]: number } = {
-    'whey-protein': 1,
-    'fitness-paketi': 2,
-    'gunluk-vitamin-paketi': 3,
-    'pre-workout-supreme': 4,
-    'cream-of-rice': 5,
-    'creatine': 6
-  }
-  
-  const productId = slugToIdMap[id || ''] || parseInt(id || '0') || 1
-  const product = getProductById(productId)
   const relatedProducts = getRelatedProducts(6)
 
-  // İlk yüklemede varsayılan seçimleri ayarla
+  // API'den gelen best seller verilerini ProductCard formatına dönüştür
+  const transformBestSellerToProductCard = (bestSeller: ApiBestSellerProduct) => ({
+    id: bestSeller.slug,
+    name: bestSeller.name,
+    image: bestSeller.photo_src ? `https://fe1111.projects.academy.onlyjs.com${bestSeller.photo_src}` : '/src/assets/whey-protein.jpg',
+    description: bestSeller.short_explanation,
+    reviewCount: bestSeller.comment_count,
+    rating: bestSeller.average_star,
+    price: bestSeller.price_info.discounted_price || bestSeller.price_info.total_price,
+    originalPrice: bestSeller.price_info.discounted_price ? bestSeller.price_info.total_price : undefined,
+    discountPercentage: bestSeller.price_info.discount_percentage || undefined
+  })
+
   useEffect(() => {
-    if (product) {
-      if (product.flavors.length > 0 && !selectedFlavor) {
-        setSelectedFlavor(product.selectedFlavor || product.flavors[0].id)
-      }
-      if (product.sizes.length > 0 && !selectedSize) {
-        setSelectedSize(product.selectedSize || product.sizes[0].id)
+    const fetchProduct = async () => {
+      try {
+        setLoading(true)
+        setError(null)
+        
+        // Slug'ı id'ye çevir (eğer gerekirse)
+        const slug = id || 'whey-protein'
+        
+        const response = await productsApi.getProductBySlug(slug)
+        
+        if (response.status === 'success') {
+          const transformedProduct = transformApiProductToProductDetail(response.data)
+          setProduct(transformedProduct)
+          
+          // İlk yüklemede varsayılan seçimleri ayarla
+          if (transformedProduct.flavors.length > 0) {
+            setSelectedFlavor(transformedProduct.flavors[0].id)
+          }
+          if (transformedProduct.sizes.length > 0) {
+            setSelectedSize(transformedProduct.sizes[0].id)
+          }
+        } else {
+          setError('Ürün bulunamadı')
+        }
+      } catch (err) {
+        console.error('Ürün yükleme hatası:', err)
+        setError('Ürün yüklenirken bir hata oluştu')
+      } finally {
+        setLoading(false)
       }
     }
-  }, [product, selectedFlavor, selectedSize])
 
-  if (!product) {
+    fetchProduct()
+  }, [id])
+
+  useEffect(() => {
+    const fetchBestSellers = async () => {
+      try {
+        setBestSellersLoading(true)
+        setBestSellersError(null)
+        
+        const response = await bestSellersApi.getBestSellers()
+        
+        if (response.status === 'success') {
+          setBestSellers(response.data)
+        } else {
+          setBestSellersError('En çok satanlar yüklenemedi')
+        }
+      } catch (err) {
+        console.error('En çok satanlar yükleme hatası:', err)
+        setBestSellersError('En çok satanlar yüklenirken bir hata oluştu')
+      } finally {
+        setBestSellersLoading(false)
+      }
+    }
+
+    fetchBestSellers()
+  }, [])
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gray-50">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-gray-900 mx-auto"></div>
+          <p className="mt-4 text-gray-600">Ürün yükleniyor...</p>
+        </div>
+      </div>
+    )
+  }
+
+  if (error || !product) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gray-50">
         <div className="text-center">
           <h1 className="text-2xl font-bold text-gray-900 mb-4">Ürün Bulunamadı</h1>
-          <p className="text-gray-600 mb-6">Aradığınız ürün mevcut değil.</p>
+          <p className="text-gray-600 mb-6">{error || 'Aradığınız ürün mevcut değil.'}</p>
           <Button onClick={() => navigate('/')} variant="outline">
             Ana Sayfaya Dön
           </Button>
@@ -141,6 +211,7 @@ const ProductDetail: React.FC = () => {
               )}
             </div>
             <div className="border-t border-gray-200 dark:border-gray-700 my-6"></div>
+            
             {/* Aroma Seçimi */}
             {product.flavors.length > 0 && (
               <div>
@@ -156,8 +227,8 @@ const ProductDetail: React.FC = () => {
                         'caramel': '/src/assets/flavors/salted caramel.webp',
                         'choco-nut': '/src/assets/flavors/choco-nut.webp',
                         'coconut': '/src/assets/flavors/cookie-cream.webp',
-                        'raspberry': '/src/assets/flavors/strawberry.webp', // Raspberry cheesecake için strawberry
-                        'strawberry': '/src/assets/flavors/strawberry.webp' // Çilek için strawberry
+                        'raspberry': '/src/assets/flavors/strawberry.webp',
+                        'strawberry': '/src/assets/flavors/strawberry.webp'
                       }
                       return imageMap[flavorId] || '/src/assets/flavors/strawberry.webp'
                     }
@@ -179,7 +250,6 @@ const ProductDetail: React.FC = () => {
                             alt={flavor.name}
                             className="w-8 h-8 object-contain"
                             onError={(e) => {
-                              // Görsel yüklenemezse emoji göster
                               const emojiMap: { [key: string]: string } = {
                                 'biscuit': '',
                                 'chocolate': '🍫',
@@ -205,9 +275,6 @@ const ProductDetail: React.FC = () => {
                 </div>
               </div>
             )}
-
-            {/* Aroma bölümü sonrası çizgi */}
-      
 
             {/* Boyut Seçimi */}
             <div>
@@ -400,32 +467,56 @@ const ProductDetail: React.FC = () => {
         </div>
 
         {/* En Çok Satanlar */}
-        {bestSellersData.length > 0 && (
-          <div className="mt-16 text-center">
-            <h3 className="text-2xl font-bold mb-6">EN ÇOK SATANLAR</h3>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-6 justify-items-center">
-              {bestSellersData.map((bestSeller) => (
-                <div 
-                  key={bestSeller.id} 
-                  className="cursor-pointer flex justify-center" 
-                  onClick={() => navigate(`/product/${bestSeller.id}`)}
-                >
-                  <ProductCard
-                    id={bestSeller.id}
-                    name={bestSeller.name}
-                    image={bestSeller.image}
-                    description={bestSeller.description}
-                    reviewCount={bestSeller.reviewCount}
-                    rating={bestSeller.rating}
-                    price={bestSeller.price}
-                    originalPrice={bestSeller.originalPrice}
-                    discountPercentage={bestSeller.discountPercentage}
-                  />
-                </div>
-              ))}
+        <div className="mt-16 text-center">
+          <h3 className="text-2xl font-bold mb-6">EN ÇOK SATANLAR</h3>
+          
+          {bestSellersLoading ? (
+            <div className="flex justify-center items-center py-8">
+              <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900"></div>
+              <span className="ml-2 text-gray-600">En çok satanlar yükleniyor...</span>
             </div>
-          </div>
-        )}
+          ) : bestSellersError ? (
+            <div className="text-center py-8">
+              <p className="text-red-600 mb-4">{bestSellersError}</p>
+              <Button 
+                onClick={() => window.location.reload()} 
+                variant="outline"
+                size="sm"
+              >
+                Tekrar Dene
+              </Button>
+            </div>
+          ) : bestSellers.length > 0 ? (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-6 justify-items-center">
+              {bestSellers.map((bestSeller) => {
+                const productCardData = transformBestSellerToProductCard(bestSeller)
+                return (
+                  <div 
+                    key={bestSeller.slug} 
+                    className="cursor-pointer flex justify-center" 
+                    onClick={() => navigate(`/product/${bestSeller.slug}`)}
+                  >
+                    <ProductCard
+                      id={productCardData.id}
+                      name={productCardData.name}
+                      image={productCardData.image}
+                      description={productCardData.description}
+                      reviewCount={productCardData.reviewCount}
+                      rating={productCardData.rating}
+                      price={productCardData.price}
+                      originalPrice={productCardData.originalPrice}
+                      discountPercentage={productCardData.discountPercentage}
+                    />
+                  </div>
+                )
+              })}
+            </div>
+          ) : (
+            <div className="text-center py-8">
+              <p className="text-gray-600">En çok satanlar bulunamadı.</p>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   )
