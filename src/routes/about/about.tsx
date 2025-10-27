@@ -1,4 +1,13 @@
 import { reviewData, getReviewStats } from '@/data/review-data'
+import {
+  Breadcrumb,
+  BreadcrumbList,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb"
+import { Link } from 'react-router-dom'
 
 
 function About() {
@@ -23,6 +32,19 @@ function About() {
 
   return (
     <div className='container mx-auto max-w-6xl px-4 py-8'>
+      <Breadcrumb className="mb-4">
+        <BreadcrumbList>
+          <BreadcrumbItem>
+            <BreadcrumbLink asChild>
+              <Link to="/">Ana Sayfa</Link>
+            </BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbSeparator />
+          <BreadcrumbItem>
+            <BreadcrumbPage>Hakkımızda</BreadcrumbPage>
+          </BreadcrumbItem>
+        </BreadcrumbList>
+      </Breadcrumb>
       <h1 className='text-2xl sm:text-3xl font-bold mb-4'>Sağlıklı ve Fit Yaşamayı Zevkli ve Kolay Hale Getirmek İçin Varız</h1>
       <div className='text-base  mb-4'>
       <p className='mb-4'>2016 yılından beri sporcu gıdaları, takviye edici gıdalar ve fonksiyonel gıdaları üreten bir firma olarak; müşterilerimize en kaliteli, en lezzetli, tüketilmesi kolay ürünler sunuyoruz.</p>

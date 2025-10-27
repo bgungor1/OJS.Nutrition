@@ -1,9 +1,32 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import { proteinData } from '@/data/protein-data'
 import ProductCard from '@/components/common/product-card'
+import {
+  Breadcrumb,
+  BreadcrumbList,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb"
+
 const Protein = () => {
   return (
     <div className='container mx-auto px-4 py-8'>
+      <Breadcrumb className="mb-4">
+        <BreadcrumbList>
+          <BreadcrumbItem>
+            <BreadcrumbLink asChild>
+              <Link to="/">Ana Sayfa</Link>
+            </BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbSeparator />
+          <BreadcrumbItem>
+            <BreadcrumbPage>Protein Ürünleri</BreadcrumbPage>
+          </BreadcrumbItem>
+        </BreadcrumbList>
+      </Breadcrumb>
    <div className='text-center mb-8'>
     <h1 className='text-4xl font-bold mb-4'>
       PROTEİN

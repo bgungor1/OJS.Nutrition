@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { useParams, useNavigate } from 'react-router-dom'
+import { useParams, useNavigate, Link } from 'react-router-dom'
 import { productsApi } from '@/services/products'
 import { bestSellersApi } from '@/services/best-sellers'
 import { transformApiProductToProductDetail } from '@/utils/productTransform'
@@ -10,6 +10,14 @@ import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import ProductCard from '@/components/common/product-card'
 import ProductReviews from '@/components/product-reviews'
+import {
+  Breadcrumb,
+  BreadcrumbList,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb"
 import { 
   Star, 
   Plus, 
@@ -162,6 +170,25 @@ const ProductDetail: React.FC = () => {
   return (
     <div className="min-h-screen bg-white dark:bg-gray-900 py-8">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <Breadcrumb className="mb-8">
+          <BreadcrumbList>
+            <BreadcrumbItem>
+              <BreadcrumbLink asChild>
+                <Link to="/">Ana Sayfa</Link>
+              </BreadcrumbLink>
+            </BreadcrumbItem>
+            <BreadcrumbSeparator />
+            <BreadcrumbItem>
+              <BreadcrumbLink asChild>
+                <Link to="/products">Ürünler</Link>
+              </BreadcrumbLink>
+            </BreadcrumbItem>
+            <BreadcrumbSeparator />
+            <BreadcrumbItem>
+              <BreadcrumbPage>{product.name}</BreadcrumbPage>
+            </BreadcrumbItem>
+          </BreadcrumbList>
+        </Breadcrumb>
         <div className="grid grid-cols-1 xl:grid-cols-2 gap-12">
           {/* Sol Taraf - Ürün Görseli */}
           <div className="flex justify-center order-1">

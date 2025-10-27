@@ -1,9 +1,30 @@
-
+import { Link } from 'react-router-dom'
 import ContactForm from '@/components/contact/contact-form'
+import {
+  Breadcrumb,
+  BreadcrumbList,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb"
 
 function Contact() {
   return (
     <div className="container text-center items-center mx-auto px-4 py-8">
+      <Breadcrumb className="mb-4">
+        <BreadcrumbList>
+          <BreadcrumbItem>
+            <BreadcrumbLink asChild>
+              <Link to="/">Ana Sayfa</Link>
+            </BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbSeparator />
+          <BreadcrumbItem>
+            <BreadcrumbPage>İletişim</BreadcrumbPage>
+          </BreadcrumbItem>
+        </BreadcrumbList>
+      </Breadcrumb>
       <div className='text-center mb-8'>
         <h1 className='text-2xl sm:text-3xl lg:text-4xl font-bold mb-4'>Bize Ulaşın</h1>
         <p className='text-base sm:text-lg text-muted-foreground'>
