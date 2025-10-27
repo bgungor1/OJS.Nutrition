@@ -1,4 +1,3 @@
-import React from 'react'
 import { reviewData, getReviewStats } from '@/data/review-data'
 
 interface ProductReviewsProps {
@@ -40,20 +39,21 @@ export default function ProductReviews({ productName, maxReviews = 15 }: Product
       {/* Üst çizgi */}
       <div className='h-px bg-gray-300 dark:bg-gray-600 mb-4'></div>
       
-      <div className='flex items-center justify-between mb-4'>
-        <div className='flex items-center gap-4'>
+      <div className='flex items-start justify-between mb-4'>
+        {/* Sol taraf - Başlık */}
+        <div className='flex items-center gap-4 flex-shrink-0'>
           <div className='flex gap-1'>
-            {renderStars(5)}
+            {renderStars(stats.averageRating)}
           </div>
           <span className='text-lg font-medium text-gray-900 dark:text-white'>{stats.totalReviews.toLocaleString()} Yorum</span>
         </div>
         
-        {/* Yıldız Dağılım Grafiği */}
-        <div className="max-w-md">
+        {/* Sağ taraf - Yıldız Dağılım Grafiği */}
+        <div className="flex-1 max-w-2xl ml-12">
           <div className="space-y-2">
             {/* 5 Yıldız */}
             <div className="flex items-center gap-2">
-              <div className="flex items-center w-16 justify-start">
+              <div className="flex items-center gap-0.5 flex-shrink-0">
                 {[...Array(5)].map((_, index) => (
                   <img 
                     key={index} 
@@ -73,14 +73,14 @@ export default function ProductReviews({ productName, maxReviews = 15 }: Product
                   ></div>
                 </div>
               </div>
-              <span className="text-xs text-blue-600 font-medium w-12 text-right">
-                {stats.ratingDistribution[5].toLocaleString()}
+              <span className="text-xs text-blue-600 font-medium whitespace-nowrap text-right w-16">
+                ({stats.ratingDistribution[5].toLocaleString()})
               </span>
             </div>
             
             {/* 4 Yıldız */}
             <div className="flex items-center gap-2">
-              <div className="flex items-center w-16 justify-start">
+              <div className="flex items-center gap-0.5 flex-shrink-0">
                 {[...Array(4)].map((_, index) => (
                   <img 
                     key={index} 
@@ -89,7 +89,6 @@ export default function ProductReviews({ productName, maxReviews = 15 }: Product
                     className="w-3 h-3 object-contain"
                   />
                 ))}
-                <div className="w-3 h-3"></div>
               </div>
               <div className="flex-1 flex items-center">
                 <div className="w-full bg-gray-200 dark:bg-gray-600 rounded-full h-2">
@@ -101,14 +100,14 @@ export default function ProductReviews({ productName, maxReviews = 15 }: Product
                   ></div>
                 </div>
               </div>
-              <span className="text-xs text-blue-600 font-medium w-12 text-right">
-                {stats.ratingDistribution[4].toLocaleString()}
+              <span className="text-xs text-blue-600 font-medium whitespace-nowrap text-right w-16">
+                ({stats.ratingDistribution[4].toLocaleString()})
               </span>
             </div>
             
             {/* 3 Yıldız */}
             <div className="flex items-center gap-2">
-              <div className="flex items-center w-16 justify-start">
+              <div className="flex items-center gap-0.5 flex-shrink-0">
                 {[...Array(3)].map((_, index) => (
                   <img 
                     key={index} 
@@ -117,7 +116,6 @@ export default function ProductReviews({ productName, maxReviews = 15 }: Product
                     className="w-3 h-3 object-contain"
                   />
                 ))}
-                <div className="w-6 h-3"></div>
               </div>
               <div className="flex-1 flex items-center">
                 <div className="w-full bg-gray-200 dark:bg-gray-600 rounded-full h-2">
@@ -129,14 +127,14 @@ export default function ProductReviews({ productName, maxReviews = 15 }: Product
                   ></div>
                 </div>
               </div>
-              <span className="text-xs text-blue-600 font-medium w-12 text-right">
-                {stats.ratingDistribution[3].toLocaleString()}
+              <span className="text-xs text-blue-600 font-medium whitespace-nowrap text-right w-16">
+                ({stats.ratingDistribution[3].toLocaleString()})
               </span>
             </div>
             
             {/* 2 Yıldız */}
             <div className="flex items-center gap-2">
-              <div className="flex items-center w-16 justify-start">
+              <div className="flex items-center gap-0.5 flex-shrink-0">
                 {[...Array(2)].map((_, index) => (
                   <img 
                     key={index} 
@@ -145,7 +143,6 @@ export default function ProductReviews({ productName, maxReviews = 15 }: Product
                     className="w-3 h-3 object-contain"
                   />
                 ))}
-                <div className="w-9 h-3"></div>
               </div>
               <div className="flex-1 flex items-center">
                 <div className="w-full bg-gray-200 dark:bg-gray-600 rounded-full h-2">
@@ -157,20 +154,19 @@ export default function ProductReviews({ productName, maxReviews = 15 }: Product
                   ></div>
                 </div>
               </div>
-              <span className="text-xs text-blue-600 font-medium w-12 text-right">
-                {stats.ratingDistribution[2].toLocaleString()}
+              <span className="text-xs text-blue-600 font-medium whitespace-nowrap text-right w-16">
+                ({stats.ratingDistribution[2].toLocaleString()})
               </span>
             </div>
             
             {/* 1 Yıldız */}
             <div className="flex items-center gap-2">
-              <div className="flex items-center w-16 justify-start">
+              <div className="flex items-center gap-0.5 flex-shrink-0">
                 <img 
                   src="/src/assets/yıldız.png" 
                   alt="Yıldız" 
                   className="w-3 h-3 object-contain"
                 />
-                <div className="w-12 h-3"></div>
               </div>
               <div className="flex-1 flex items-center">
                 <div className="w-full bg-gray-200 dark:bg-gray-600 rounded-full h-2">
@@ -182,8 +178,8 @@ export default function ProductReviews({ productName, maxReviews = 15 }: Product
                   ></div>
                 </div>
               </div>
-              <span className="text-xs text-blue-600 font-medium w-12 text-right">
-                {stats.ratingDistribution[1].toLocaleString()}
+              <span className="text-xs text-blue-600 font-medium whitespace-nowrap text-right w-16">
+                ({stats.ratingDistribution[1].toLocaleString()})
               </span>
             </div>
           </div>

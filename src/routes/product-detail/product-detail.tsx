@@ -162,9 +162,9 @@ const ProductDetail: React.FC = () => {
   return (
     <div className="min-h-screen bg-white dark:bg-gray-900 py-8">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+        <div className="grid grid-cols-1 xl:grid-cols-2 gap-12">
           {/* Sol Taraf - Ürün Görseli */}
-          <div className="flex justify-center">
+          <div className="flex justify-center order-1">
             <div className="w-full max-w-md">
               <img
                 src={product.image}
@@ -174,8 +174,59 @@ const ProductDetail: React.FC = () => {
             </div>
           </div>
 
+          {/* Açılır Bölümler - Mobilde görselin altında gösterilir */}
+          <div className="space-y-2 order-2 xl:hidden">
+            <button
+              onClick={() => toggleSection('features')}
+              className="w-full flex items-center justify-between p-3 border border-gray-200 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700"
+            >
+              <span className="font-medium text-gray-900 dark:text-white">ÖZELLİKLER</span>
+              <ChevronDown className={`w-4 h-4 transition-transform ${expandedSections.features ? 'rotate-180' : ''}`} />
+            </button>
+            {expandedSections.features && (
+              <div className="p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
+                <ul className="space-y-2">
+                  {product.features.map((feature, index) => (
+                    <li key={index} className="text-sm text-gray-600 dark:text-gray-300">• {feature}</li>
+                  ))}
+                </ul>
+              </div>
+            )}
+
+            <button
+              onClick={() => toggleSection('nutrition')}
+              className="w-full flex items-center justify-between p-3 border border-gray-200 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700"
+            >
+              <span className="font-medium text-gray-900 dark:text-white">BESİN İÇERİĞİ</span>
+              <ChevronDown className={`w-4 h-4 transition-transform ${expandedSections.nutrition ? 'rotate-180' : ''}`} />
+            </button>
+            {expandedSections.nutrition && (
+              <div className="p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm text-gray-600 dark:text-gray-300">
+                  <div>Kalori: {product.nutritionalInfo.calories}</div>
+                  <div>Protein: {product.nutritionalInfo.protein}g</div>
+                  <div>Karbonhidrat: {product.nutritionalInfo.carbohydrates}g</div>
+                  <div>Yağ: {product.nutritionalInfo.fat}g</div>
+                </div>
+              </div>
+            )}
+
+            <button
+              onClick={() => toggleSection('usage')}
+              className="w-full flex items-center justify-between p-3 border border-gray-200 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700"
+            >
+              <span className="font-medium text-gray-900 dark:text-white">KULLANIM ŞEKLİ</span>
+              <ChevronDown className={`w-4 h-4 transition-transform ${expandedSections.usage ? 'rotate-180' : ''}`} />
+            </button>
+            {expandedSections.usage && (
+              <div className="p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
+                <p className="text-sm text-gray-600 dark:text-gray-300">{product.usageInstructions}</p>
+              </div>
+            )}
+          </div>
+
           {/* Sağ Taraf - Ürün Bilgileri */}
-          <div className="space-y-6">
+          <div className="space-y-6 order-3 xl:order-2">
             {/* Ürün Başlığı ve Değerlendirme */}
             <div>
               <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">{product.name}</h1>
@@ -381,8 +432,8 @@ const ProductDetail: React.FC = () => {
               Son Kullanım Tarihi: {product.expirationDate}
             </div>
 
-            {/* Açılır Bölümler */}
-            <div className="space-y-2">
+            {/* Açılır Bölümler - Desktop'ta gösterilir */}
+            <div className="space-y-2 hidden xl:block">
               <button
                 onClick={() => toggleSection('features')}
                 className="w-full flex items-center justify-between p-3 border border-gray-200 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700"
