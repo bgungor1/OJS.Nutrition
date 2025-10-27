@@ -44,7 +44,7 @@ const Products = () => {
         </p>
       </div>
       
-      <div className='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4 mb-8'>
+      <div className='grid grid-cols-4 gap-1 mb-8'>
         {products.map((product) => {
           // Görsel URL'ini tam URL olarak oluştur
           const imageUrl = `https://fe1111.projects.academy.onlyjs.com${product.photo_src}`

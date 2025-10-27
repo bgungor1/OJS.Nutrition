@@ -22,7 +22,7 @@ function About() {
 
 
   return (
-    <div className='container mx-auto max-w-8xl px-4 py-8'>
+    <div className='container mx-auto max-w-6xl px-4 py-8'>
       <h1 className='text-2xl sm:text-3xl font-bold mb-4'>Sağlıklı ve Fit Yaşamayı Zevkli ve Kolay Hale Getirmek İçin Varız</h1>
       <div className='text-base  mb-4'>
       <p className='mb-4'>2016 yılından beri sporcu gıdaları, takviye edici gıdalar ve fonksiyonel gıdaları üreten bir firma olarak; müşterilerimize en kaliteli, en lezzetli, tüketilmesi kolay ürünler sunuyoruz.</p>
