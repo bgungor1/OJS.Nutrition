@@ -9,6 +9,7 @@ import { useTheme } from "@/components/use-theme"
 import logoBlack from "@/assets/LOGO_Siyah.png"
 import logoWhite from "@/assets/LOGO_Beyaz.png"
 import { useState } from "react"
+import { useNavigate } from "react-router-dom"
 import {
   Sheet,
   SheetContent,
@@ -27,6 +28,7 @@ import {
 export default function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const { theme } = useTheme()
+  const navigate = useNavigate()
   
   // Sepet hesaplamaları
   const subtotal = calculateSubtotal(cartItems)
@@ -43,7 +45,7 @@ export default function Navbar() {
       <div className="flex flex-col lg:flex-row justify-around items-center px-4 py-2 bg-white dark:bg-gray-800 shadow-sm">
         {/* Logo ve Mobil Menü Butonu */}
         <div className="flex items-center justify-between w-full lg:w-auto">
-          <div className="p-3 flex items-center">
+          <div className="p-3 flex items-center cursor-pointer" onClick={() => navigate('/')}>
             <img src={currentLogo} alt="OJS Nutrition Logo" className="h-8" />
           </div>
           
@@ -79,9 +81,9 @@ export default function Navbar() {
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent>
-              <DropdownMenuItem>Giriş Yap</DropdownMenuItem>
-              <DropdownMenuItem>Üye Ol</DropdownMenuItem>
-              <DropdownMenuItem>Hesap Bilgileri</DropdownMenuItem>
+              <DropdownMenuItem onClick={() => navigate('/login')}>Giriş Yap</DropdownMenuItem>
+              <DropdownMenuItem onClick={() => navigate('/login')}>Üye Ol</DropdownMenuItem>
+              <DropdownMenuItem onClick={() => navigate('/account')}>Hesap Bilgileri</DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
 
@@ -165,7 +167,7 @@ export default function Navbar() {
             placeholder="İndirim Kodu" 
             className="w-full border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white p-3 rounded-md text-sm"
           />
-          <Button className="w-full bg-blue-600 hover:bg-blue-700 py-3">
+          <Button className="w-full bg-blue-600 hover:bg-blue-700 py-3" onClick={() => navigate('/payment')}>
             SEPETİ TAMAMLA
           </Button>
         </div>

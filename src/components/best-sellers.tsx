@@ -27,7 +27,7 @@ export default function BestSellers({products}: BestSellersProps) {
           <p className="text-lg text-gray-600 dark:text-gray-300">Müşterilerimizin en çok tercih ettiği ürünler</p>
         </div>
         
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-6 items-stretch">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-6 lg:gap-4 xl:gap-3 items-stretch sm:justify-items-center">
           {products.map((product) => {
             // Görsel URL'ini test edelim
             const imageUrl = `https://fe1111.projects.academy.onlyjs.com${product.photo_src}`

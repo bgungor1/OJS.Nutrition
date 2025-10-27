@@ -35,7 +35,7 @@ const ProductCard: FC<ProductCardProps> = ({
 
   return (
     <div 
-      className="relative w-full max-w-[180px] h-full flex flex-col items-center cursor-pointer hover:shadow-lg transition-shadow duration-200 bg-white dark:bg-gray-800 rounded-lg p-4"
+      className="relative w-full h-full flex flex-col items-center cursor-pointer hover:shadow-lg transition-shadow duration-200 bg-white dark:bg-gray-800 rounded-lg p-4"
       onClick={handleClick}
     >
       {/* İndirim Etiketi */}
