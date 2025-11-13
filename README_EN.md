@@ -25,15 +25,70 @@ This project is a supplement-focused e-commerce website. Users can browse produc
 
 ```bash
 src/
-├── components/       # UI components (ProductCard, Button, Modal, etc.)
-├── pages/            # Page components (Home, ProductDetail, Login, etc.)
-├── routes/           # All route structure
-├── services/         # API functions
+├── assets/           # Images, icons
+│   ├── about/        # About page images
+│   ├── flavors/      # Product flavor images
+│   ├── order/        # Order images
+│   └── protein-list/ # Protein product images
+├── components/       # UI components
+│   ├── common/       # Common components (Navbar, Footer, ProductCard, AccountSidebar)
+│   ├── contact/      # Contact form components
+│   ├── login/        # Login components
+│   ├── modals/       # Modal components
+│   ├── ui/           # Shadcn UI components (Button, Card, Dialog, Breadcrumb, etc.)
+│   ├── banner.tsx
+│   ├── best-sellers.tsx
+│   ├── customer-reviews.tsx
+│   ├── faq.tsx
+│   ├── home-product.tsx
+│   ├── layout.tsx
+│   ├── product-reviews.tsx
+│   ├── theme-provider.tsx
+│   └── ...
+├── data/             # Dummy data files
+│   ├── best-sellers-data.ts
+│   ├── faq-data.ts
+│   ├── order-data.ts
+│   ├── payment-data.ts
+│   ├── product-detail-data.ts
+│   ├── protein-data.ts
+│   └── review-data.ts
 ├── hooks/            # Custom React hooks
-├── store/            # Zustand global state
+│   └── useProductVariants.ts
+├── lib/              # Helper libraries
+│   └── utils.ts      # Utility functions
+├── routes/           # All route structure
+│   ├── about/        # About page
+│   ├── account/      # Account pages (Account, Addresses, Order)
+│   ├── contact/      # Contact page
+│   ├── faq/          # FAQ page
+│   ├── home/         # Home page (Home, Loader)
+│   ├── login/        # Login page
+│   ├── payment/      # Payment page
+│   ├── product-detail/ # Product detail page
+│   ├── products/     # Products page (Products, Protein, Loader)
+│   ├── register/     # Register page
+│   └── index.ts      # Route export file
+├── schemas/          # Form validation schemas
+│   └── auth.ts       # Authentication schemas
+├── services/         # API functions
+│   ├── api.ts        # API base configuration
+│   ├── best-sellers.ts
+│   └── products.ts
+├── store/            # Zustand global state (empty)
 ├── types/            # TypeScript type definitions
+│   ├── api.ts
+│   ├── faq.ts
+│   ├── order.ts
+│   ├── product.ts
+│   └── review.ts
 ├── utils/            # Helper functions
-└── assets/           # Images, icons
+│   └── productTransform.ts
+├── examples/         # Example components
+│   └── ProductDetailWithVariants.tsx
+├── main.tsx          # Main entry point
+├── index.css         # Global styles
+└── vite-env.d.ts     # Vite type definitions
 ```
 
 ---
@@ -120,7 +175,7 @@ npx shadcn-ui@latest init
 To run the project in development mode:
 
 ```bash
-npm run dev
+pnpm run dev
 ```
 
 Open [http://localhost:5173](http://localhost:5173) in your browser.

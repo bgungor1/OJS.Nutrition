@@ -25,15 +25,70 @@ Bu proje, supplement (besin takviyesi) odaklı bir e-ticaret sitesidir. Kullanı
 
 ```bash
 src/
-├── components/       # UI bileşenleri (ProductCard, Button, Modal, vs.)
-├── pages/            # Sayfa bileşenleri (Home, ProductDetail, Login, vs.)
-├── routes/           # Tüm route yapısı
-├── services/         # API fonksiyonları
+├── assets/           # Görseller, ikonlar
+│   ├── about/        # Hakkımızda sayfası görselleri
+│   ├── flavors/      # Ürün aroma görselleri
+│   ├── order/        # Sipariş görselleri
+│   └── protein-list/ # Protein ürün görselleri
+├── components/       # UI bileşenleri
+│   ├── common/       # Ortak bileşenler (Navbar, Footer, ProductCard, AccountSidebar)
+│   ├── contact/      # İletişim formu bileşenleri
+│   ├── login/        # Giriş bileşenleri
+│   ├── modals/       # Modal bileşenleri
+│   ├── ui/           # Shadcn UI bileşenleri (Button, Card, Dialog, Breadcrumb, vs.)
+│   ├── banner.tsx
+│   ├── best-sellers.tsx
+│   ├── customer-reviews.tsx
+│   ├── faq.tsx
+│   ├── home-product.tsx
+│   ├── layout.tsx
+│   ├── product-reviews.tsx
+│   ├── theme-provider.tsx
+│   └── ...
+├── data/             # Dummy data dosyaları
+│   ├── best-sellers-data.ts
+│   ├── faq-data.ts
+│   ├── order-data.ts
+│   ├── payment-data.ts
+│   ├── product-detail-data.ts
+│   ├── protein-data.ts
+│   └── review-data.ts
 ├── hooks/            # Özel React hook'ları
-├── store/            # Zustand global state
+│   └── useProductVariants.ts
+├── lib/              # Yardımcı kütüphaneler
+│   └── utils.ts      # Utility fonksiyonları
+├── routes/           # Tüm route yapısı
+│   ├── about/        # Hakkımızda sayfası
+│   ├── account/      # Hesap sayfaları (Account, Addresses, Order)
+│   ├── contact/      # İletişim sayfası
+│   ├── faq/          # SSS sayfası
+│   ├── home/         # Ana sayfa (Home, Loader)
+│   ├── login/        # Giriş sayfası
+│   ├── payment/      # Ödeme sayfası
+│   ├── product-detail/ # Ürün detay sayfası
+│   ├── products/     # Ürünler sayfası (Products, Protein, Loader)
+│   ├── register/     # Kayıt sayfası
+│   └── index.ts      # Route export dosyası
+├── schemas/          # Form validation şemaları
+│   └── auth.ts       # Authentication şemaları
+├── services/         # API fonksiyonları
+│   ├── api.ts        # API base konfigürasyonu
+│   ├── best-sellers.ts
+│   └── products.ts
+├── store/            # Zustand global state (boş)
 ├── types/            # TypeScript tip tanımları
+│   ├── api.ts
+│   ├── faq.ts
+│   ├── order.ts
+│   ├── product.ts
+│   └── review.ts
 ├── utils/            # Yardımcı fonksiyonlar
-└── assets/           # Görseller, ikonlar
+│   └── productTransform.ts
+├── examples/         # Örnek bileşenler
+│   └── ProductDetailWithVariants.tsx
+├── main.tsx          # Ana giriş noktası
+├── index.css         # Global stiller
+└── vite-env.d.ts     # Vite tip tanımları
 ```
 
 ---
@@ -120,7 +175,7 @@ npx shadcn-ui@latest init
 Projeyi geliştirme modunda çalıştırmak için:
 
 ```bash
-npm run dev
+pnpm run dev
 ```
 
 Tarayıcınızda [http://localhost:5173](http://localhost:5173) adresini açın.
