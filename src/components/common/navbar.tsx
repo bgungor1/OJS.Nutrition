@@ -1,7 +1,7 @@
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger, DropdownMenuItem } from "@/components/ui/dropdown-menu"
-import { ShoppingCart, User, Menu, X } from "lucide-react"
+import { ShoppingCart, User, Menu, X, MinusCircle, PlusCircle } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 import { Separator } from "@/components/ui/separator"
 import { ModeToggle } from "@/components/mode-toggle"
@@ -17,27 +17,29 @@ import {
   SheetHeader,
   SheetTitle,
   SheetTrigger,
+  SheetClose
 } from "@/components/ui/sheet"
-import { 
-  cartItems, 
-  calculateSubtotal,
-  calculateTax,
-  calculateTotal
-} from "@/data/payment-data"
+import { useCartStore } from "@/store/cartStore"
 
 export default function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const { theme } = useTheme()
   const navigate = useNavigate()
-  
+  const { items, getTotalItems, getTotalPrice, removeItem, updateItemQuantity } = useCartStore()
+
   // Sepet hesaplamaları
-  const subtotal = calculateSubtotal(cartItems)
+  const subtotal = getTotalPrice()
   const shippingCost = 15 // Varsayılan kargo ücreti
-  const tax = calculateTax(subtotal)
-  const total = calculateTotal(subtotal, shippingCost, tax)
+  const taxRate = 0.18 // KDV oranı %18
+  const tax = subtotal * taxRate
+  const total = subtotal + shippingCost + tax
   
   // Tema durumuna göre logo seçimi
   const currentLogo = theme === "dark" ? logoWhite : logoBlack
+
+  const handleUpdateQuantity = (id: string, newQuantity: number) => {
+    updateItemQuantity(id, newQuantity);
+  };
 
   return (
     <header className="w-full border-b overflow-x-hidden">
@@ -98,7 +100,7 @@ export default function Navbar() {
             variant="destructive"
             className="absolute -top-2 -right-2 text-xs px-1"
           >
-            {cartItems.reduce((total, item) => total + item.quantity, 0)}
+            {getTotalItems()}
           </Badge>
         </Button>
       </SheetTrigger>
@@ -114,27 +116,51 @@ export default function Navbar() {
         
         {/* Sepet ürünleri */}
         <div className="flex-1 overflow-y-auto space-y-4 mt-4 px-2">
-          {cartItems.map((item) => (
-            <div key={item.id} className="flex items-center gap-4 p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
-              <div className="relative">
+          {items.length === 0 ? (
+            <p className="text-center text-gray-500 dark:text-gray-400">Sepetiniz boş.</p>
+          ) : (
+            items.map((item) => (
+              <div key={item.id} className="flex items-center gap-4 p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
                 <img 
                   src={item.image} 
                   alt={item.name}
                   className="w-16 h-16 object-cover rounded-lg"
                 />
-                <Badge className="absolute -top-2 -right-2 bg-blue-600 text-white text-xs">
-                  {item.quantity}
-                </Badge>
+                <div className="flex-1">
+                  <h3 className="font-medium text-gray-900 dark:text-white text-sm">{item.name}</h3>
+                  <p className="text-sm font-semibold text-gray-900 dark:text-white mt-1">
+                    ₺{(item.price * item.quantity).toFixed(2)}
+                  </p>
+                  <div className="flex items-center gap-2 mt-2">
+                    <Button 
+                      variant="ghost" 
+                      size="icon" 
+                      onClick={() => handleUpdateQuantity(item.id, item.quantity - 1)}
+                      disabled={item.quantity === 1}
+                    >
+                      <MinusCircle className="h-4 w-4" />
+                    </Button>
+                    <span className="text-sm font-medium">{item.quantity}</span>
+                    <Button 
+                      variant="ghost" 
+                      size="icon" 
+                      onClick={() => handleUpdateQuantity(item.id, item.quantity + 1)}
+                    >
+                      <PlusCircle className="h-4 w-4" />
+                    </Button>
+                    <Button 
+                      variant="destructive" 
+                      size="sm" 
+                      onClick={() => removeItem(item.id)}
+                      className="ml-auto"
+                    >
+                      Kaldır
+                    </Button>
+                  </div>
+                </div>
               </div>
-              <div className="flex-1">
-                <h3 className="font-medium text-gray-900 dark:text-white text-sm">{item.name}</h3>
-                <p className="text-xs text-gray-600 dark:text-gray-300">{item.variant}</p>
-                <p className="text-sm font-semibold text-gray-900 dark:text-white mt-1">
-                  ₺{(item.price * item.quantity).toFixed(2)}
-                </p>
-              </div>
-            </div>
-          ))}
+            ))
+          )}
         </div>
 
         <Separator className="my-4" />

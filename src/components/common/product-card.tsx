@@ -1,6 +1,9 @@
 import type { FC } from 'react'
 import { useNavigate } from 'react-router-dom'
 import star from '@/assets/yıldız.png'
+import { ShoppingCart } from 'lucide-react'
+import { Button } from '@/components/ui/button'
+import { useCartStore } from '@/store/cartStore'
 
 interface ProductCardProps {
   id?: number | string
@@ -26,10 +29,18 @@ const ProductCard: FC<ProductCardProps> = ({
   discountPercentage
 }) => {
   const navigate = useNavigate()
+  const addItem = useCartStore((state) => state.addItem)
 
   const handleClick = () => {
     if (id) {
       navigate(`/product/${id}`)
+    }
+  }
+
+  const handleAddToCart = (e: React.MouseEvent) => {
+    e.stopPropagation() // Ürüne tıklama olayını engelle
+    if (id) {
+      addItem({ id: String(id), name, price, quantity: 1, image })
     }
   }
 
@@ -90,6 +101,14 @@ const ProductCard: FC<ProductCardProps> = ({
               {originalPrice.toLocaleString()} TL
             </span>
           )}
+          <Button
+            variant="ghost"
+            size="icon"
+            className="ml-2"
+            onClick={handleAddToCart}
+          >
+            <ShoppingCart className="h-4 w-4" />
+          </Button>
         </div>
       </div>
     </div>
