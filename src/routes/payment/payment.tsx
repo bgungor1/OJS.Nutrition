@@ -4,15 +4,12 @@ import { Card } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Separator } from '@/components/ui/separator'
 import { Check, MapPin, Truck, CreditCard } from 'lucide-react'
-import { 
-  cartItems, 
+import {
   savedAddresses, 
   shippingOptions, 
   paymentMethods,
-  calculateSubtotal,
-  calculateTax,
-  calculateTotal
 } from '@/data/payment-data'
+import { useCartStore } from '@/store/cartStore'
 
 function Payment() {
   const [currentStep, setCurrentStep] = useState(1)
@@ -20,10 +17,13 @@ function Payment() {
   const [selectedShipping, setSelectedShipping] = useState("standard")
   const [selectedPayment, setSelectedPayment] = useState("credit_card")
 
-  const subtotal = calculateSubtotal(cartItems)
+  const { items, getTotalPrice } = useCartStore()
+
+  const subtotal = getTotalPrice()
   const shippingCost = shippingOptions.find(s => s.id === selectedShipping)?.price || 15
-  const tax = calculateTax(subtotal)
-  const total = calculateTotal(subtotal, shippingCost, tax)
+  const taxRate = 0.18 // KDV oranı %18
+  const tax = subtotal * taxRate
+  const total = subtotal + shippingCost + tax
 
   const steps = [
     { id: 1, title: "Adres", icon: MapPin },
@@ -251,27 +251,31 @@ function Payment() {
             
             {/* Sepet ürünleri */}
             <div className="space-y-4 mb-6">
-              {cartItems.map((item) => (
-                <div key={item.id} className="flex items-center gap-4 p-4 bg-white dark:bg-gray-600 rounded-lg">
-                  <div className="relative">
-                    <img 
-                      src={item.image} 
-                      alt={item.name}
-                      className="w-16 h-16 object-cover rounded-lg"
-                    />
-                    <Badge className="absolute -top-2 -right-2 bg-blue-600 text-white text-xs">
-                      {item.quantity}
-                    </Badge>
+              {items.length === 0 ? (
+                <p className="text-center text-gray-500 dark:text-gray-400">Sepetiniz boş.</p>
+              ) : (
+                items.map((item) => (
+                  <div key={item.id} className="flex items-center gap-4 p-4 bg-white dark:bg-gray-600 rounded-lg">
+                    <div className="relative">
+                      <img 
+                        src={item.image} 
+                        alt={item.name}
+                        className="w-16 h-16 object-cover rounded-lg"
+                      />
+                      <Badge className="absolute -top-2 -right-2 bg-blue-600 text-white text-xs">
+                        {item.quantity}
+                      </Badge>
+                    </div>
+                    <div className="flex-1">
+                      <h3 className="font-medium text-gray-900 dark:text-white text-sm">{item.name}</h3>
+                      {/* <p className="text-xs text-gray-600 dark:text-gray-300">{item.variant}</p> */}
+                      <p className="text-sm font-semibold text-gray-900 dark:text-white mt-1">
+                        ₺{(item.price * item.quantity).toFixed(2)}
+                      </p>
+                    </div>
                   </div>
-                  <div className="flex-1">
-                    <h3 className="font-medium text-gray-900 dark:text-white text-sm">{item.name}</h3>
-                    <p className="text-xs text-gray-600 dark:text-gray-300">{item.variant}</p>
-                    <p className="text-sm font-semibold text-gray-900 dark:text-white mt-1">
-                      ₺{(item.price * item.quantity).toFixed(2)}
-                    </p>
-                  </div>
-                </div>
-              ))}
+                ))
+              )}
             </div>
 
             <Separator className="my-6" />
