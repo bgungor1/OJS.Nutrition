@@ -14,6 +14,7 @@ import {
   FAQ,
   Products,
   Protein,
+  WooCommerceProducts,
   LoginPage,
   Account,
   Addresses,
@@ -71,6 +72,10 @@ const router = createBrowserRouter([
       {
         path: "products/protein",
         element: <Protein/>
+      },
+      {
+        path: "woocommerce-products",
+        element: <WooCommerceProducts/>
       },
       {
         path: "contact",
