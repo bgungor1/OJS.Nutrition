@@ -21,6 +21,7 @@ export { default as Order } from './account/order'
 
 // Ödeme
 export { default as Payment } from './payment/payment'
+export { default as ThankYou } from './payment/thank-you'
 
 // WooCommerce
 export { default as WooCommerceProducts } from './WooCommerce/WooCommerceProducts'

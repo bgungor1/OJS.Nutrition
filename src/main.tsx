@@ -19,7 +19,8 @@ import {
   Account,
   Addresses,
   Order,
-  Payment
+  Payment,
+  ThankYou
 } from './routes'
 import ProductDetail from './routes/product-detail/product-detail'
 
@@ -113,6 +114,10 @@ const router = createBrowserRouter([
   {
     path: "payment",
     element: <Payment/>
+  },
+  {
+    path: "payment/thank-you",
+    element: <ThankYou/>
   }
 ])
 
