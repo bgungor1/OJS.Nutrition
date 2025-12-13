@@ -23,6 +23,7 @@ import {
   ThankYou
 } from './routes'
 import ProductDetail from './routes/product-detail/product-detail'
+import ViewTransitionWrapper from './components/view-transition-wrapper'
 
 import {bestSellersApi} from './services/best-sellers'
 import { productsLoader } from './routes/products/loader'
@@ -63,16 +64,28 @@ const router = createBrowserRouter([
       },
       {
         path: "product/:id",
-        element: <ProductDetail/>
+        element: (
+          <ViewTransitionWrapper>
+            <ProductDetail/>
+          </ViewTransitionWrapper>
+        )
       },
       {
         path: "products",
-        element: <Products/>,
+        element: (
+          <ViewTransitionWrapper>
+            <Products/>
+          </ViewTransitionWrapper>
+        ),
         loader: productsLoader
       },
       {
         path: "products/protein",
-        element: <Protein/>
+        element: (
+          <ViewTransitionWrapper>
+            <Protein/>
+          </ViewTransitionWrapper>
+        )
       },
       {
         path: "woocommerce-products",
