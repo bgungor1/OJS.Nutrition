@@ -8,7 +8,7 @@ import { ModeToggle } from "@/components/mode-toggle"
 import { useTheme } from "@/components/use-theme"
 import logoBlack from "@/assets/LOGO_Siyah.png"
 import logoWhite from "@/assets/LOGO_Beyaz.png"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 import {
   Sheet,
@@ -17,7 +17,6 @@ import {
   SheetHeader,
   SheetTitle,
   SheetTrigger,
-  SheetClose
 } from "@/components/ui/sheet"
 import { useCartStore } from "@/store/cartStore"
 import { AnimatePresence, motion } from "motion/react"
@@ -27,7 +26,11 @@ export default function Navbar() {
   const [cartOpen, setCartOpen] = useState(false)
   const { theme } = useTheme()
   const navigate = useNavigate()
-  const { items, getTotalItems, getTotalPrice, removeItem, updateItemQuantity } = useCartStore()
+  const { items, getTotalItems, getTotalPrice, removeItem, updateItemQuantity, setCartOpen: setStoreCartOpen } = useCartStore()
+
+  useEffect(() => {
+    setStoreCartOpen(cartOpen);
+  }, [cartOpen, setStoreCartOpen]);
 
   // Sepet hesaplamaları
   const subtotal = getTotalPrice()

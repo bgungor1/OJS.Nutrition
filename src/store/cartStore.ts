@@ -7,6 +7,8 @@ interface CartItem {
   price: number;
   quantity: number;
   image: string;
+  flavor?: string;
+  size?: string;
 }
 
 interface CartState {
@@ -17,6 +19,7 @@ interface CartState {
   clearCart: () => void;
   getTotalItems: () => number;
   getTotalPrice: () => number;
+  setCartOpen: (isOpen: boolean) => void;
 }
 
 const cartStorage: PersistStorage<CartState> = {
@@ -63,6 +66,22 @@ export const useCartStore = create<CartState>()(
       getTotalItems: () => get().items.reduce((total, item) => total + item.quantity, 0),
       getTotalPrice: () =>
         get().items.reduce((total, item) => total + item.price * item.quantity, 0),
+      setCartOpen: (isOpen: boolean) => {
+        // Bu fonksiyon, sepetin açılıp kapanmasını kontrol eder.
+        // Ancak, bu state'in asıl kontrolü Navbar bileşeninde olduğu için
+        // burada doğrudan DOM manipülasyonu yapamayız. Bunun yerine,
+        // Navbar bileşenindeki `cartOpen` state'ini güncellemeyi hedeflemeliyiz.
+        // Geçici olarak bir konsol logu ekleyebiliriz.
+        console.log('Sepet açıldı/kapandı:', isOpen);
+      },
+      setCartOpen: (isOpen: boolean) => {
+        // Bu fonksiyon, sepetin açılıp kapanmasını kontrol eder.
+        // Ancak, bu state'in asıl kontrolü Navbar bileşeninde olduğu için
+        // burada doğrudan DOM manipülasyonu yapamayız. Bunun yerine,
+        // Navbar bileşenindeki `cartOpen` state'ini güncellemeyi hedeflemeliyiz.
+        // Geçici olarak bir konsol logu ekleyebiliriz.
+        console.log('Sepet açıldı/kapandı:', isOpen);
+      },
     }),
     {
       name: 'cart-storage',

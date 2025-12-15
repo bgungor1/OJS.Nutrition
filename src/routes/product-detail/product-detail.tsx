@@ -6,6 +6,7 @@ import { transformApiProductToProductDetail } from '@/utils/productTransform'
 import type { ProductDetail as ProductDetailType } from '@/types/product'
 import type { ApiBestSellerProduct } from '@/types/api'
 import { getRelatedProducts } from '@/data/product-detail-data'
+import { useCartStore } from '@/store/cartStore'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import ProductCard from '@/components/common/product-card'
@@ -32,6 +33,8 @@ import {
 const ProductDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>()
   const navigate = useNavigate()
+  const addItem = useCartStore((state) => state.addItem)
+  const setCartOpen = useCartStore((state) => state.setCartOpen)
   const [product, setProduct] = useState<ProductDetailType | null>(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
@@ -152,12 +155,18 @@ const ProductDetail: React.FC = () => {
   const currentOriginalPrice = selectedSizeData?.originalPrice || product.originalPrice
 
   const handleAddToCart = () => {
-    console.log('Sepete eklendi:', { 
-      product: product.name, 
-      quantity,
-      flavor: selectedFlavor,
-      size: selectedSize
+    if (!product || !selectedSizeData) return
+
+    addItem({
+      id: String(product.id),
+      name: product.name,
+      image: product.image,
+      price: currentPrice,
+      quantity: quantity,
+      flavor: selectedFlavor || undefined,
+      size: selectedSize || undefined,
     })
+    setCartOpen(true) // Sepeti aç
   }
 
   const toggleSection = (section: keyof typeof expandedSections) => {

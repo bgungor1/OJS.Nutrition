@@ -6,7 +6,8 @@ export interface CartItem {
   image: string
   price: number
   quantity: number
-  variant: string
+  flavor?: string
+  size?: string
 }
 
 export interface SavedAddress {
