@@ -124,7 +124,6 @@ const router = createBrowserRouter([
       }
     ]
   },
-  // Payment sayfası Layout dışında, navbar olmadan
   {
     path: "payment",
     element: <ProtectedRoute><Payment /></ProtectedRoute>
