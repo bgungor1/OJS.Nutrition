@@ -25,21 +25,22 @@ import {
 import ProductDetail from './routes/product-detail/product-detail'
 import ViewTransitionWrapper from './components/view-transition-wrapper'
 
-import {bestSellersApi} from './services/best-sellers'
+import { bestSellersApi } from './services/best-sellers'
 import { productsLoader } from './routes/products/loader'
+import { ProtectedRoute, GuestRoute } from './routes/protected-route'
 
 const homeLoader = async () => {
   console.log('🚀 Loader çalışıyor!')
-  
+
   try {
     console.log('📡 API çağrısı yapılıyor...')
     const response = await bestSellersApi.getBestSellers()
     console.log('✅ API başarılı:', response)
-    
+
     // API response'undan data kısmını al
     const bestSellers = response.data || []
     console.log('📦 Best sellers data:', bestSellers)
-    
+
     return {
       bestSellers
     }
@@ -66,7 +67,7 @@ const router = createBrowserRouter([
         path: "product/:id",
         element: (
           <ViewTransitionWrapper>
-            <ProductDetail/>
+            <ProductDetail />
           </ViewTransitionWrapper>
         )
       },
@@ -74,7 +75,7 @@ const router = createBrowserRouter([
         path: "products",
         element: (
           <ViewTransitionWrapper>
-            <Products/>
+            <Products />
           </ViewTransitionWrapper>
         ),
         loader: productsLoader
@@ -83,41 +84,41 @@ const router = createBrowserRouter([
         path: "products/protein",
         element: (
           <ViewTransitionWrapper>
-            <Protein/>
+            <Protein />
           </ViewTransitionWrapper>
         )
       },
       {
         path: "woocommerce-products",
-        element: <WooCommerceProducts/>
+        element: <WooCommerceProducts />
       },
       {
         path: "contact",
-        element: <Contact/>
+        element: <Contact />
       },
       {
         path: "faq",
-        element: <FAQ/>
+        element: <FAQ />
       },
       {
         path: "login",
-        element: <LoginPage/>
+        element: <GuestRoute><LoginPage /></GuestRoute>
       },
       {
         path: "about",
-        element: <About/>
+        element: <About />
       },
       {
         path: "account",
-        element: <Account/>,
+        element: <ProtectedRoute><Account /></ProtectedRoute>,
         children: [
           {
             path: "addresses",
-            element: <Addresses/>
+            element: <Addresses />
           },
           {
             path: "order",
-            element: <Order/>
+            element: <Order />
           }
         ]
       }
@@ -126,11 +127,11 @@ const router = createBrowserRouter([
   // Payment sayfası Layout dışında, navbar olmadan
   {
     path: "payment",
-    element: <Payment/>
+    element: <ProtectedRoute><Payment /></ProtectedRoute>
   },
   {
     path: "payment/thank-you",
-    element: <ThankYou/>
+    element: <ThankYou />
   }
 ])
 
