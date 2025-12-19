@@ -19,21 +19,21 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb"
-import { 
-  Star, 
-  Plus, 
+import {
+  Star,
+  Plus,
   Minus,
   ChevronDown,
   ShoppingCart,
   Truck,
-  Users, 
+  Users,
   CheckCircle
 } from 'lucide-react'
 
 const ProductDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>()
   const navigate = useNavigate()
-  const addItem = useCartStore((state) => state.addItem)
+  const syncAddToCart = useCartStore((state) => state.syncAddToCart)
   const setCartOpen = useCartStore((state) => state.setCartOpen)
   const [product, setProduct] = useState<ProductDetailType | null>(null)
   const [loading, setLoading] = useState(true)
@@ -70,16 +70,16 @@ const ProductDetail: React.FC = () => {
       try {
         setLoading(true)
         setError(null)
-        
+
         // Slug'ı id'ye çevir (eğer gerekirse)
         const slug = id || 'whey-protein'
-        
+
         const response = await productsApi.getProductBySlug(slug)
-        
+
         if (response.status === 'success') {
           const transformedProduct = transformApiProductToProductDetail(response.data)
           setProduct(transformedProduct)
-          
+
           // İlk yüklemede varsayılan seçimleri ayarla
           if (transformedProduct.flavors.length > 0) {
             setSelectedFlavor(transformedProduct.flavors[0].id)
@@ -106,9 +106,9 @@ const ProductDetail: React.FC = () => {
       try {
         setBestSellersLoading(true)
         setBestSellersError(null)
-        
+
         const response = await bestSellersApi.getBestSellers()
-        
+
         if (response.status === 'success') {
           setBestSellers(response.data)
         } else {
@@ -154,10 +154,10 @@ const ProductDetail: React.FC = () => {
   const currentPrice = selectedSizeData?.price || product.price
   const currentOriginalPrice = selectedSizeData?.originalPrice || product.originalPrice
 
-  const handleAddToCart = () => {
+  const handleAddToCart = async () => {
     if (!product || !selectedSizeData) return
 
-    addItem({
+    await syncAddToCart({
       id: String(product.id),
       name: product.name,
       image: product.image,
@@ -165,8 +165,10 @@ const ProductDetail: React.FC = () => {
       quantity: quantity,
       flavor: selectedFlavor || undefined,
       size: selectedSize || undefined,
+      product_id: product.id,
+      product_variant_id: selectedSizeData.id,
     })
-    setCartOpen(true) // Sepeti aç
+    setCartOpen(true)
   }
 
   const toggleSection = (section: keyof typeof expandedSections) => {
@@ -267,7 +269,7 @@ const ProductDetail: React.FC = () => {
             <div>
               <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">{product.name}</h1>
               <p className="text-lg text-gray-600 dark:text-gray-300 mb-4">{product.description}</p>
-              
+
               {/* Değerlendirme */}
               <div className="flex items-center space-x-2 mb-4">
                 <div className="flex items-center">
@@ -298,7 +300,7 @@ const ProductDetail: React.FC = () => {
               )}
             </div>
             <div className="border-t border-gray-200 dark:border-gray-700 my-6"></div>
-            
+
             {/* Aroma Seçimi */}
             {product.flavors.length > 0 && (
               <div>
@@ -325,15 +327,14 @@ const ProductDetail: React.FC = () => {
                         key={flavor.id}
                         onClick={() => setSelectedFlavor(flavor.id)}
                         disabled={!flavor.isAvailable}
-                        className={`p-3 border-2 rounded-lg text-sm font-medium transition-colors ${
-                          selectedFlavor === flavor.id
-                            ? 'border-blue-500 bg-blue-50 text-blue-700'
-                            : 'border-gray-200 hover:border-gray-300'
-                        } ${!flavor.isAvailable ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}
+                        className={`p-3 border-2 rounded-lg text-sm font-medium transition-colors ${selectedFlavor === flavor.id
+                          ? 'border-blue-500 bg-blue-50 text-blue-700'
+                          : 'border-gray-200 hover:border-gray-300'
+                          } ${!flavor.isAvailable ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}
                       >
                         <div className="w-10 h-10 mx-auto mb-2 flex items-center justify-center">
-                          <img 
-                            src={getFlavorImage(flavor.id)} 
+                          <img
+                            src={getFlavorImage(flavor.id)}
                             alt={flavor.name}
                             className="w-8 h-8 object-contain"
                             onError={(e) => {
@@ -372,11 +373,10 @@ const ProductDetail: React.FC = () => {
                     key={size.id}
                     onClick={() => setSelectedSize(size.id)}
                     disabled={!size.isAvailable}
-                    className={`relative p-3 sm:p-4 border-2 rounded-lg text-sm font-medium transition-colors ${
-                      selectedSize === size.id
-                        ? 'border-blue-500 bg-blue-50 text-blue-700'
-                        : 'border-gray-200 hover:border-gray-300'
-                    } ${!size.isAvailable ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}
+                    className={`relative p-3 sm:p-4 border-2 rounded-lg text-sm font-medium transition-colors ${selectedSize === size.id
+                      ? 'border-blue-500 bg-blue-50 text-blue-700'
+                      : 'border-gray-200 hover:border-gray-300'
+                      } ${!size.isAvailable ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}
                   >
                     {size.discountPercentage && (
                       <div className="absolute -top-2 -right-2 bg-red-500 text-white text-xs px-2 py-1 rounded">
@@ -402,7 +402,7 @@ const ProductDetail: React.FC = () => {
                   </span>
                 )}
               </div>
-              
+
               {selectedSizeData && (
                 <p className="text-sm text-gray-600 dark:text-gray-300">
                   {Math.round(currentPrice / selectedSizeData.servings * 100) / 100} TL/Servis
@@ -527,9 +527,9 @@ const ProductDetail: React.FC = () => {
             <h3 className="text-2xl font-bold mb-6">SON GÖRÜNTÜLENEN ÜRÜNLER</h3>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-6 justify-items-center">
               {relatedProducts.map((relatedProduct) => (
-                <div 
-                  key={relatedProduct.id} 
-                  className="cursor-pointer flex justify-center" 
+                <div
+                  key={relatedProduct.id}
+                  className="cursor-pointer flex justify-center"
                   onClick={() => navigate(`/product/${relatedProduct.id}`)}
                 >
                   <ProductCard
@@ -556,7 +556,7 @@ const ProductDetail: React.FC = () => {
         {/* En Çok Satanlar */}
         <div className="mt-16 text-center">
           <h3 className="text-2xl font-bold mb-6">EN ÇOK SATANLAR</h3>
-          
+
           {bestSellersLoading ? (
             <div className="flex justify-center items-center py-8">
               <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900"></div>
@@ -565,8 +565,8 @@ const ProductDetail: React.FC = () => {
           ) : bestSellersError ? (
             <div className="text-center py-8">
               <p className="text-red-600 mb-4">{bestSellersError}</p>
-              <Button 
-                onClick={() => window.location.reload()} 
+              <Button
+                onClick={() => window.location.reload()}
                 variant="outline"
                 size="sm"
               >
@@ -578,9 +578,9 @@ const ProductDetail: React.FC = () => {
               {bestSellers.map((bestSeller) => {
                 const productCardData = transformBestSellerToProductCard(bestSeller)
                 return (
-                  <div 
-                    key={bestSeller.slug} 
-                    className="cursor-pointer flex justify-center" 
+                  <div
+                    key={bestSeller.slug}
+                    className="cursor-pointer flex justify-center"
                     onClick={() => navigate(`/product/${bestSeller.slug}`)}
                   >
                     <ProductCard
