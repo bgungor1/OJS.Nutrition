@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom'
 import star from '@/assets/yıldız.png'
 import { ShoppingCart } from 'lucide-react'
 import { Button } from '@/components/ui/button'
-import { useCartStore } from '@/store/cartStore'
 
 interface ProductCardProps {
   id?: number | string
@@ -29,7 +28,6 @@ const ProductCard: FC<ProductCardProps> = ({
   discountPercentage
 }) => {
   const navigate = useNavigate()
-  const addItem = useCartStore((state) => state.addItem)
 
   const handleClick = () => {
     if (id) {
@@ -38,14 +36,14 @@ const ProductCard: FC<ProductCardProps> = ({
   }
 
   const handleAddToCart = (e: React.MouseEvent) => {
-    e.stopPropagation() // Ürüne tıklama olayını engelle
+    e.stopPropagation()
     if (id) {
-      addItem({ id: String(id), name, price, quantity: 1, image })
+      navigate(`/product/${id}`)
     }
   }
 
   return (
-    <div 
+    <div
       className="relative w-full h-full flex flex-col items-center cursor-pointer hover:shadow-lg transition-shadow duration-200 bg-white dark:bg-gray-800 rounded-lg p-4"
       onClick={handleClick}
     >
@@ -55,47 +53,46 @@ const ProductCard: FC<ProductCardProps> = ({
           %{discountPercentage} <span className='block'>İNDİRİM</span>
         </div>
       )}
-      
+
       {/* Ürün Görseli - Sabit yükseklik */}
       <div className="w-full h-32 flex items-center justify-center mb-3">
         <img src={image} alt={`${name} görseli`} className="max-w-full max-h-full object-contain" />
       </div>
-      
+
       {/* Ürün Adı - Sabit yükseklik */}
       <div className="h-12 flex items-center justify-center mb-2">
         <p className='text-sm sm:text-base font-medium text-center leading-tight'>{name}</p>
       </div>
-      
+
       {/* Ürün Açıklaması - Sabit yükseklik */}
       <div className='text-xs text-muted-foreground text-center h-8 flex items-center justify-center mb-2'>
         {description.split('\n').map((line, index) => (
           <p key={index} className="block">{line}</p>
         ))}
       </div>
-      
+
       {/* Yıldız Değerlendirmesi */}
       <div className="flex justify-center gap-1 mb-2">
         {[...Array(5)].map((_, index) => (
-          <img 
-            key={index} 
-            src={star} 
-            alt="yıldız" 
-            className={`w-3 h-3 ${
-              index < rating ? 'opacity-100' : 'opacity-30'
-            }`} 
+          <img
+            key={index}
+            src={star}
+            alt="yıldız"
+            className={`w-3 h-3 ${index < rating ? 'opacity-100' : 'opacity-30'
+              }`}
           />
         ))}
       </div>
-      
+
       {/* Yorum Sayısı ve Fiyat - Alt kısımda sabit konumda */}
       <div className="flex flex-col items-center mt-auto">
         <span className="text-xs text-gray-600 mb-1">{reviewCount.toLocaleString()} Yorum</span>
-        
+
         <div className="flex items-center gap-2">
           <span className="text-sm font-bold text-green-600">
             {price.toLocaleString()} TL
           </span>
-          
+
           {originalPrice && (
             <span className="text-xs text-red-400 line-through">
               {originalPrice.toLocaleString()} TL
