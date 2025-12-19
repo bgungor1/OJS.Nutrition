@@ -30,6 +30,6 @@ export const addressApi = {
     },
 
     delete: async (id: string): Promise<void> => {
-        await apiClient.delete(`/users/addresses/${id}`)
+        await apiClient.del(`/users/addresses/${id}`)
     }
 }
