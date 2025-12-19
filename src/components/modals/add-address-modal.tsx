@@ -19,17 +19,20 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog"
-import { X } from "lucide-react"
+import { useAddressStore } from '@/store/addressStore'
 
 const formSchema = z.object({
-  title: z.string().min(2, "En az 2 karakter"),
-  firstName: z.string().min(2, "En az 2 karakter"),
-  lastName: z.string().min(2, "En az 2 karakter"),
-  address: z.string().min(10, "En az 10 karakter"),
-  city: z.string().min(2, "En az 2 karakter"),
-  district: z.string().min(2, "En az 2 karakter"),
-  phone: z.string().min(10, "En az 10 karakter"),
+  title: z.string().min(2, "En az 2 karakter gerekli"),
+  first_name: z.string().min(2, "En az 2 karakter gerekli"),
+  last_name: z.string().min(2, "En az 2 karakter gerekli"),
+  country_id: z.number().min(1, "Ülke seçimi zorunlu"),
+  region_id: z.number().min(1, "İl seçimi zorunlu"),
+  subregion_id: z.number().min(1, "İlçe seçimi zorunlu"),
+  full_address: z.string().min(10, "En az 10 karakter gerekli"),
+  phone_number: z.string().min(10, "Geçerli bir telefon numarası girin"),
 })
+
+type FormData = z.infer<typeof formSchema>
 
 interface AddAddressModalProps {
   children: React.ReactNode
@@ -37,25 +40,30 @@ interface AddAddressModalProps {
 
 function AddAddressModal({ children }: AddAddressModalProps) {
   const [open, setOpen] = useState(false)
+  const { addAddress, isLoading } = useAddressStore()
 
-  const form = useForm<z.infer<typeof formSchema>>({
+  const form = useForm<FormData>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       title: "",
-      firstName: "",
-      lastName: "",
-      address: "",
-      city: "",
-      district: "",
-      phone: "",
+      first_name: "",
+      last_name: "",
+      country_id: 226,
+      region_id: 0,
+      subregion_id: 0,
+      full_address: "",
+      phone_number: "",
     },
   })
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log("Yeni adres:", values)
-    // Burada API çağrısı yapılacak
-    setOpen(false)
-    form.reset()
+  async function onSubmit(values: FormData) {
+    console.log('📤 Gönderilen adres verisi:', values)
+    const success = await addAddress(values)
+
+    if (success) {
+      setOpen(false)
+      form.reset()
+    }
   }
 
   return (
@@ -65,12 +73,14 @@ function AddAddressModal({ children }: AddAddressModalProps) {
       </DialogTrigger>
       <DialogContent className="sm:max-w-[600px]">
         <DialogHeader>
-          <DialogTitle className="text-xl font-semibold text-gray-900 dark:text-white">Yeni Adres Ekle</DialogTitle>
+          <DialogTitle className="text-xl font-semibold text-gray-900 dark:text-white">
+            Yeni Adres Ekle
+          </DialogTitle>
         </DialogHeader>
-        
+
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-            
+
             {/* Adres Başlığı */}
             <FormField
               control={form.control}
@@ -79,37 +89,49 @@ function AddAddressModal({ children }: AddAddressModalProps) {
                 <FormItem>
                   <FormLabel>Adres Başlığı</FormLabel>
                   <FormControl>
-                    <Input placeholder="Örn: Ev, İş, Yazlık" {...field} />
+                    <Input
+                      placeholder="Örn: Ev, İş, Yazlık"
+                      {...field}
+                      disabled={isLoading}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
 
-            {/* Ad ve Soyad yan yana */}
+            {/* Ad ve Soyad */}
             <div className="grid grid-cols-2 gap-4">
               <FormField
                 control={form.control}
-                name="firstName"
+                name="first_name"
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Ad</FormLabel>
                     <FormControl>
-                      <Input placeholder="Adınız" {...field} />
+                      <Input
+                        placeholder="Adınız"
+                        {...field}
+                        disabled={isLoading}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}
               />
-              
+
               <FormField
                 control={form.control}
-                name="lastName"
+                name="last_name"
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Soyad</FormLabel>
                     <FormControl>
-                      <Input placeholder="Soyadınız" {...field} />
+                      <Input
+                        placeholder="Soyadınız"
+                        {...field}
+                        disabled={isLoading}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -117,78 +139,99 @@ function AddAddressModal({ children }: AddAddressModalProps) {
               />
             </div>
 
-            {/* Adres */}
+            <div className="grid grid-cols-2 gap-4">
+              <FormField
+                control={form.control}
+                name="region_id"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>İl ID</FormLabel>
+                    <FormControl>
+                      <Input
+                        type="number"
+                        placeholder="Örn: 3495"
+                        {...field}
+                        onChange={(e) => field.onChange(Number(e.target.value))}
+                        disabled={isLoading}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name="subregion_id"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>İlçe ID</FormLabel>
+                    <FormControl>
+                      <Input
+                        type="number"
+                        placeholder="Örn: 39395"
+                        {...field}
+                        onChange={(e) => field.onChange(Number(e.target.value))}
+                        disabled={isLoading}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
+
             <FormField
               control={form.control}
-              name="address"
+              name="full_address"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Adres</FormLabel>
+                  <FormLabel>Tam Adres</FormLabel>
                   <FormControl>
-                    <Input placeholder="Mahalle, sokak, bina no, daire no" {...field} />
+                    <Input
+                      placeholder="Mahalle, sokak, bina no, daire no"
+                      {...field}
+                      disabled={isLoading}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
-
-            {/* Şehir ve İlçe yan yana */}
-            <div className="grid grid-cols-2 gap-4">
-              <FormField
-                control={form.control}
-                name="city"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Şehir</FormLabel>
-                    <FormControl>
-                      <Input placeholder="İstanbul" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              
-              <FormField
-                control={form.control}
-                name="district"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>İlçe</FormLabel>
-                    <FormControl>
-                      <Input placeholder="Kadıköy" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            </div>
-
-            {/* Telefon */}
             <FormField
               control={form.control}
-              name="phone"
+              name="phone_number"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Telefon</FormLabel>
                   <FormControl>
-                    <Input type="tel" placeholder="0555 123 45 67" {...field} />
+                    <Input
+                      type="tel"
+                      placeholder="+905551234567"
+                      {...field}
+                      disabled={isLoading}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
 
-            {/* Butonlar */}
             <div className="flex justify-end gap-3 pt-4">
-              <Button 
-                type="button" 
-                variant="outline" 
+              <Button
+                type="button"
+                variant="outline"
                 onClick={() => setOpen(false)}
+                disabled={isLoading}
               >
                 İptal
               </Button>
-              <Button type="submit" className="px-8">
-                Kaydet
+              <Button
+                type="submit"
+                className="px-8"
+                disabled={isLoading}
+              >
+                {isLoading ? 'Kaydediliyor...' : 'Kaydet'}
               </Button>
             </div>
           </form>
