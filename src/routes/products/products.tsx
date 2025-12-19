@@ -60,18 +60,18 @@ const Products = () => {
           PROTEİN
         </h1>
         <p className='text-gray-600 dark:text-gray-300 max-w-3xl mx-auto'>
-          Vücudun tüm fonksiyonlarını sağlıklı bir şekilde yerine getirmesini sağlayan temel yapı taşlarından biri proteindir. 
+          Vücudun tüm fonksiyonlarını sağlıklı bir şekilde yerine getirmesini sağlayan temel yapı taşlarından biri proteindir.
           Protein kısaca, bir veya daha fazla amino asit artığından oluşan organik bileşiklerdir.
         </p>
       </div>
-      
+
       <div className='grid grid-cols-4 gap-1 mb-8'>
         {products.map((product) => {
           // Görsel URL'ini tam URL olarak oluştur
           const imageUrl = `https://fe1111.projects.academy.onlyjs.com${product.photo_src}`
           console.log('🔍 Tam görsel URL:', imageUrl)
           console.log('🔍 Product slug:', product.slug)
-          
+
           return (
             <ProductCard
               key={product.id}
@@ -96,18 +96,16 @@ const Products = () => {
             {/* Önceki Sayfa */}
             {pagination.currentPage > 1 && (
               <PaginationItem>
-                <Link to={createPageUrl(pagination.currentPage - 1)}>
-                  <PaginationPrevious>
-                    Önceki
-                  </PaginationPrevious>
-                </Link>
+                <PaginationPrevious href={createPageUrl(pagination.currentPage - 1)}>
+                  Önceki
+                </PaginationPrevious>
               </PaginationItem>
             )}
 
             {/* Sayfa Numaraları */}
             {Array.from({ length: Math.min(5, pagination.totalPages) }, (_, i) => {
               let pageNum: number
-              
+
               if (pagination.totalPages <= 5) {
                 pageNum = i + 1
               } else if (pagination.currentPage <= 3) {
@@ -120,11 +118,12 @@ const Products = () => {
 
               return (
                 <PaginationItem key={pageNum}>
-                  <Link to={createPageUrl(pageNum)}>
-                    <PaginationLink isActive={pageNum === pagination.currentPage}>
-                      {pageNum}
-                    </PaginationLink>
-                  </Link>
+                  <PaginationLink
+                    href={createPageUrl(pageNum)}
+                    isActive={pageNum === pagination.currentPage}
+                  >
+                    {pageNum}
+                  </PaginationLink>
                 </PaginationItem>
               )
             })}
@@ -132,11 +131,9 @@ const Products = () => {
             {/* Sonraki Sayfa */}
             {pagination.currentPage < pagination.totalPages && (
               <PaginationItem>
-                <Link to={createPageUrl(pagination.currentPage + 1)}>
-                  <PaginationNext>
-                    Sonraki
-                  </PaginationNext>
-                </Link>
+                <PaginationNext href={createPageUrl(pagination.currentPage + 1)}>
+                  Sonraki
+                </PaginationNext>
               </PaginationItem>
             )}
           </PaginationContent>
@@ -145,7 +142,7 @@ const Products = () => {
 
       <div className='text-center text-gray-600 dark:text-gray-300'>
         <p>
-          Sayfa {pagination.currentPage} / {pagination.totalPages} 
+          Sayfa {pagination.currentPage} / {pagination.totalPages}
           ({pagination.count} ürün toplam)
         </p>
       </div>
