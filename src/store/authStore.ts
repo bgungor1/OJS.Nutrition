@@ -1,6 +1,9 @@
 import { create } from 'zustand'
 import { persist, type PersistStorage, type StorageValue } from 'zustand/middleware'
 import type { User } from '@/types/auth'
+import type { UpdateProfileRequest } from '@/types/account'
+import { accountApi } from '@/services/account'
+
 
 interface AuthState {
     user: User | null
@@ -10,12 +13,16 @@ interface AuthState {
     isLoading: boolean
     error: string | null
 
+
     setAuth: (user: User, accessToken: string, refreshToken: string) => void
     logout: () => void
     setLoading: (loading: boolean) => void
     setError: (error: string | null) => void
     clearError: () => void
     updateTokens: (accessToken: string, refreshToken?: string) => void
+
+    fetchProfile: () => Promise<void>              // API'den profil bilgilerini çek
+    updateProfile: (data: UpdateProfileRequest) => Promise<boolean>  // Profili güncelle
 }
 
 
@@ -57,13 +64,6 @@ export const useAuthStore = create<AuthState>()(
             isLoading: false,
             error: null,
 
-
-
-            /**
-             * @param user - API'den gelen kullanıcı bilgileri
-             * @param accessToken - JWT access token
-             * @param refreshToken - JWT refresh token
-             */
             setAuth: (user, accessToken, refreshToken) => set({
                 user,
                 accessToken,
@@ -71,7 +71,6 @@ export const useAuthStore = create<AuthState>()(
                 isAuthenticated: true,
                 error: null
             }),
-
 
             logout: () => set({
                 user: null,
@@ -81,27 +80,79 @@ export const useAuthStore = create<AuthState>()(
                 error: null
             }),
 
-
             setLoading: (isLoading) => set({ isLoading }),
-
             setError: (error) => set({ error }),
-
             clearError: () => set({ error: null }),
 
-            /**
-             * @param accessToken - Yeni access token
-             * @param refreshToken - Opsiyonel: Yeni refresh token (bazı sistemler ikisini de yeniler)
-             */
             updateTokens: (accessToken, refreshToken) => set((state) => ({
                 accessToken,
-                // Yeni refresh token geldiyse güncelle, gelmediyse eskisini koru
                 refreshToken: refreshToken ?? state.refreshToken
-            }))
+            })),
+
+            fetchProfile: async () => {
+                set({ isLoading: true, error: null })
+
+                try {
+                    const response = await accountApi.getProfile() as any
+
+                    console.log('👤 Profile API Response:', response)
+
+
+                    const profileData = response.data || response
+
+                    // User objesini oluştur
+                    const user: User = {
+                        id: profileData.id,
+                        email: profileData.email,
+                        first_name: profileData.first_name,
+                        last_name: profileData.last_name,
+                        phone_number: profileData.phone_number
+                    }
+
+                    set({ user, isLoading: false })
+                } catch (error) {
+                    console.error('Profil yüklenemedi:', error)
+                    set({
+                        error: 'Profil bilgileri yüklenirken hata oluştu',
+                        isLoading: false
+                    })
+                }
+            },
+
+
+            updateProfile: async (data: UpdateProfileRequest) => {
+                set({ isLoading: true, error: null })
+
+                try {
+                    const response = await accountApi.updateProfile(data) as any
+
+                    console.log('👤 Update Profile Response:', response)
+
+                    const profileData = response.data || response
+                    set((state) => ({
+                        user: state.user ? {
+                            ...state.user,
+                            first_name: profileData.first_name,
+                            last_name: profileData.last_name,
+                            phone_number: profileData.phone_number
+                        } : null,
+                        isLoading: false
+                    }))
+
+                    return true
+                } catch (error) {
+                    console.error('Profil güncellenemedi:', error)
+                    set({
+                        error: 'Profil güncellenirken hata oluştu',
+                        isLoading: false
+                    })
+                    return false
+                }
+            }
         }),
         {
             name: 'auth-storage',
             storage: authStorage,
-
 
             partialize: (state) => ({
                 user: state.user,
