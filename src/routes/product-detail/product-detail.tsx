@@ -49,10 +49,10 @@ const ProductDetail: React.FC = () => {
   const [bestSellers, setBestSellers] = useState<ApiBestSellerProduct[]>([])
   const [bestSellersLoading, setBestSellersLoading] = useState(false)
   const [bestSellersError, setBestSellersError] = useState<string | null>(null)
+  const [isAdded, setIsAdded] = useState(false)
 
   const relatedProducts = getRelatedProducts(6)
 
-  // API'den gelen best seller verilerini ProductCard formatına dönüştür
   const transformBestSellerToProductCard = (bestSeller: ApiBestSellerProduct) => ({
     id: bestSeller.slug,
     name: bestSeller.name,
@@ -169,6 +169,12 @@ const ProductDetail: React.FC = () => {
       product_variant_id: selectedSizeData.id,
     })
     setCartOpen(true)
+
+    // Buton animasyonu
+    setIsAdded(true)
+    setTimeout(() => {
+      setIsAdded(false)
+    }, 2000)
   }
 
   const toggleSection = (section: keyof typeof expandedSections) => {
@@ -436,11 +442,20 @@ const ProductDetail: React.FC = () => {
               {/* Sepete Ekle Butonu */}
               <Button
                 onClick={handleAddToCart}
-                disabled={!product.inStock}
-                className="w-full bg-black hover:bg-gray-800 text-white py-3 text-lg font-medium"
+                disabled={!product.inStock || isAdded}
+                className={`w-full py-3 text-lg font-medium transition-all duration-300 ${isAdded ? 'bg-green-600 hover:bg-green-600' : 'bg-black hover:bg-gray-800'} text-white`}
               >
-                <ShoppingCart className="w-5 h-5 mr-2" />
-                SEPETE EKLE
+                {isAdded ? (
+                  <>
+                    <CheckCircle className="w-5 h-5 mr-2" />
+                    SEPETE EKLENDİ
+                  </>
+                ) : (
+                  <>
+                    <ShoppingCart className="w-5 h-5 mr-2" />
+                    SEPETE EKLE
+                  </>
+                )}
               </Button>
             </div>
 
