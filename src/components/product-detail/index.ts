@@ -1,4 +1,4 @@
-// Barrel export - tüm product-detail componentlerini tek yerden export et
+
 export { default as ProductGallery } from './ProductGallery'
 export { default as ProductInfo } from './ProductInfo'
 export { default as FlavorSelector } from './FlavorSelector'
