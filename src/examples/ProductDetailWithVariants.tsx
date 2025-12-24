@@ -5,7 +5,6 @@ import { transformApiProductToProductDetail, transformApiVariantsToProductVarian
 import { useProductVariants } from '@/hooks/useProductVariants';
 import ProductVariantSelector from '@/components/ProductVariantSelector';
 import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
 import { Plus, Minus, ShoppingCart } from 'lucide-react';
 
 const ProductDetailWithVariants: React.FC = () => {
@@ -19,11 +18,7 @@ const ProductDetailWithVariants: React.FC = () => {
   const {
     selectedVariant,
     productAromas,
-    productSizes,
-    isSelectedAroma,
-    isSelectedSize,
-    selectAroma,
-    selectSize
+    productSizes
   } = useProductVariants(variants);
 
   useEffect(() => {
@@ -32,11 +27,11 @@ const ProductDetailWithVariants: React.FC = () => {
         setLoading(true);
         const slug = id || 'whey-protein';
         const response = await productsApi.getProductBySlug(slug);
-        
+
         if (response.status === 'success') {
           const transformedProduct = transformApiProductToProductDetail(response.data);
           const transformedVariants = transformApiVariantsToProductVariants(response.data);
-          
+
           setProduct(transformedProduct);
           setVariants(transformedVariants);
         }
@@ -112,8 +107,8 @@ const ProductDetailWithVariants: React.FC = () => {
             </div>
 
             {/* Variant Seçici */}
-            <ProductVariantSelector 
-              variants={variants} 
+            <ProductVariantSelector
+              variants={variants}
               onVariantChange={handleVariantChange}
             />
 
@@ -129,7 +124,7 @@ const ProductDetailWithVariants: React.FC = () => {
                   </span>
                 )}
               </div>
-              
+
               <p className="text-sm text-gray-600 dark:text-gray-300">
                 {Math.round(selectedVariant.price / selectedVariant.size.totalServices * 100) / 100} TL/Servis
               </p>

@@ -19,7 +19,7 @@ interface AddressState {
 }
 
 
-export const useAddressStore = create<AddressState>((set, get) => ({
+export const useAddressStore = create<AddressState>((set) => ({
     addresses: [],
     isLoading: false,
     error: null,

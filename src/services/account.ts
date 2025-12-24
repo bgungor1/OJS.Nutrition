@@ -1,7 +1,6 @@
 
 import { apiClient } from './api'
 import type {
-    AccountProfile,
     UpdateProfileRequest,
     AccountApiResponse
 } from '@/types/account'

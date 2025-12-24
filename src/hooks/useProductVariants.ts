@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 // ProductVariant tipini tanımlayalım
 export interface ProductVariant {
@@ -89,7 +89,7 @@ export function useProductVariants(productVariants: ProductVariant[]) {
     const variantsForAroma = productVariantsByAroma[aroma];
     if (variantsForAroma && variantsForAroma.length > 0) {
       // Aynı boyutta variant varsa onu seç, yoksa ilkini seç
-      const sameSizeVariant = variantsForAroma.find(variant => 
+      const sameSizeVariant = variantsForAroma.find(variant =>
         isSameSize(variant.size, selectedVariant.size)
       );
       setSelectedVariant(sameSizeVariant || variantsForAroma[0]);
@@ -98,7 +98,7 @@ export function useProductVariants(productVariants: ProductVariant[]) {
 
   // Boyut değiştir
   function selectSize(size: ProductVariantSize) {
-    const variantsForSize = productVariants.filter(variant => 
+    const variantsForSize = productVariants.filter(variant =>
       isSameSize(variant.size, size) && variant.aroma === selectedVariant.aroma
     );
     if (variantsForSize.length > 0) {
@@ -108,7 +108,7 @@ export function useProductVariants(productVariants: ProductVariant[]) {
 
   // Belirli bir aroma ve boyut kombinasyonu için variant bul
   function getVariantByAromaAndSize(aroma: string, size: ProductVariantSize): ProductVariant | undefined {
-    return productVariants.find(variant => 
+    return productVariants.find(variant =>
       variant.aroma === aroma && isSameSize(variant.size, size)
     );
   }

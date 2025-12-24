@@ -8,6 +8,7 @@ export interface CartItem {
   quantity: number
   flavor?: string
   size?: string
+  variant?: string
 }
 
 export interface SavedAddress {
@@ -48,7 +49,7 @@ export const cartItems: CartItem[] = [
     variant: "2.5kg"
   },
   {
-    id: "2", 
+    id: "2",
     name: "CREATINE MONOHYDRATE",
     image: "/src/assets/creatine.png",
     price: 199.99,
@@ -90,7 +91,7 @@ export const savedAddresses: SavedAddress[] = [
     fullName: "Ahmet Yılmaz",
     address: "Merkez Mahallesi, İstiklal Caddesi No: 123 Daire: 4",
     city: "Ankara",
-    district: "Çankaya", 
+    district: "Çankaya",
     postalCode: "06100",
     phone: "0555 987 65 43",
     isDefault: false
@@ -143,7 +144,7 @@ export const paymentMethods: PaymentMethod[] = [
   },
   {
     id: "bank_transfer",
-    type: "bank_transfer", 
+    type: "bank_transfer",
     name: "Banka Havalesi",
     description: "Hesap bilgileri e-posta ile gönderilecek",
     icon: "Bank"

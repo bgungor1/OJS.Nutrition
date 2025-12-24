@@ -1,11 +1,10 @@
-import React from 'react';
 import { CheckCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
 
 function ThankYou() {
   // Örnek sipariş numarası. Gerçek uygulamada bu, ödeme sonrası API'den alınacaktır.
-  const orderId = "OJS-20231211-12345"; 
+  const orderId = "OJS-20231211-12345";
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-50 dark:bg-gray-900 px-4 py-12 sm:px-6 lg:px-8">

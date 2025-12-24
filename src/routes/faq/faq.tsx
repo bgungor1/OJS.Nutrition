@@ -1,4 +1,3 @@
-import React from 'react'
 import { Link } from 'react-router-dom'
 import FAQ from '@/components/faq'
 import {
@@ -27,9 +26,9 @@ function FAQPage() {
             </BreadcrumbItem>
           </BreadcrumbList>
         </Breadcrumb>
-        <FAQ 
-          title="Sıkça Sorulan Sorular" 
-          subtitle="Size yardımcı olmak için en sık sorulan soruları derledik." 
+        <FAQ
+          title="Sıkça Sorulan Sorular"
+          subtitle="Size yardımcı olmak için en sık sorulan soruları derledik."
         />
       </div>
     </div>
