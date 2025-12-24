@@ -14,7 +14,6 @@ import {
   FAQ,
   Products,
   Protein,
-  WooCommerceProducts,
   LoginPage,
   Account,
   Addresses,
@@ -88,10 +87,7 @@ const router = createBrowserRouter([
           </ViewTransitionWrapper>
         )
       },
-      {
-        path: "woocommerce-products",
-        element: <WooCommerceProducts />
-      },
+
       {
         path: "contact",
         element: <Contact />
