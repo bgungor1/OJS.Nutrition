@@ -1,6 +1,10 @@
 import { useAuthStore } from '@/store/authStore'
+// Production'da Vercel proxy kullan, development'ta doğrudan API'ye git
+const isDevelopment = import.meta.env.DEV
+const DIRECT_API_URL = 'https://fe1111.projects.academy.onlyjs.com/api/v1'
+const PROXY_API_URL = '/api/proxy'
 
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'https://fe1111.projects.academy.onlyjs.com/api/v1'
+const API_BASE_URL = isDevelopment ? DIRECT_API_URL : PROXY_API_URL
 
 class ApiClient {
   private baseURL: string
