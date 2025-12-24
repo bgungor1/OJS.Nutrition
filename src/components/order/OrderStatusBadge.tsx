@@ -3,7 +3,7 @@ import { Badge } from '@/components/ui/badge'
 import { Truck, CheckCircle, Clock, XCircle } from 'lucide-react'
 
 
-type OrderStatus = 'delivered' | 'shipped' | 'processing' | 'cancelled' | 'returned' | 'pending'
+
 
 interface OrderStatusBadgeProps {
     status: string
