@@ -17,6 +17,7 @@ import {
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb"
 import type { ApiProduct } from '@/types/api'
+import { getImageUrl } from '@/utils/getImageUrl'
 
 interface ProductsLoaderData {
   products: ApiProduct[]
@@ -66,34 +67,25 @@ const Products = () => {
       </div>
 
       <div className='grid grid-cols-4 gap-1 mb-8'>
-        {products.map((product) => {
-          // Görsel URL'ini tam URL olarak oluştur
-          const imageUrl = `https://fe1111.projects.academy.onlyjs.com${product.photo_src}`
-          console.log('🔍 Tam görsel URL:', imageUrl)
-          console.log('🔍 Product slug:', product.slug)
-
-          return (
-            <ProductCard
-              key={product.id}
-              id={product.id}
-              name={product.name}
-              image={imageUrl}
-              description={product.short_explanation}
-              reviewCount={product.comment_count}
-              rating={product.average_star}
-              price={product.price_info.discounted_price || product.price_info.total_price}
-              originalPrice={product.price_info.discounted_price ? product.price_info.total_price : undefined}
-              discountPercentage={product.price_info.discount_percentage || undefined}
-            />
-          )
-        })}
+        {products.map((product) => (
+          <ProductCard
+            key={product.id}
+            id={product.id}
+            name={product.name}
+            image={getImageUrl(product.photo_src)}
+            description={product.short_explanation}
+            reviewCount={product.comment_count}
+            rating={product.average_star}
+            price={product.price_info.discounted_price || product.price_info.total_price}
+            originalPrice={product.price_info.discounted_price ? product.price_info.total_price : undefined}
+            discountPercentage={product.price_info.discount_percentage || undefined}
+          />
+        ))}
       </div>
 
-      {/* Shadcn Pagination */}
       {pagination.totalPages > 1 && (
         <Pagination className="mb-8">
           <PaginationContent>
-            {/* Önceki Sayfa */}
             {pagination.currentPage > 1 && (
               <PaginationItem>
                 <PaginationPrevious href={createPageUrl(pagination.currentPage - 1)}>
@@ -102,7 +94,6 @@ const Products = () => {
               </PaginationItem>
             )}
 
-            {/* Sayfa Numaraları */}
             {Array.from({ length: Math.min(5, pagination.totalPages) }, (_, i) => {
               let pageNum: number
 
@@ -128,7 +119,6 @@ const Products = () => {
               )
             })}
 
-            {/* Sonraki Sayfa */}
             {pagination.currentPage < pagination.totalPages && (
               <PaginationItem>
                 <PaginationNext href={createPageUrl(pagination.currentPage + 1)}>

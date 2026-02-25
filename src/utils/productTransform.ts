@@ -1,6 +1,7 @@
 import type { ApiProductDetail } from '@/types/api'
 import type { ProductDetail, FlavorOption, SizeOption } from '@/types/product'
 import type { ProductVariant } from '@/hooks/useProductVariants'
+import { getImageUrl } from '@/utils/getImageUrl'
 
 export const transformApiProductToProductDetail = (apiProduct: ApiProductDetail): ProductDetail => {
   // Aroma seçeneklerini oluştur
@@ -36,7 +37,7 @@ export const transformApiProductToProductDetail = (apiProduct: ApiProductDetail)
   return {
     id: parseInt(apiProduct.id),
     name: apiProduct.name,
-    image: apiProduct.variants[0]?.photo_src ? `https://fe1111.projects.academy.onlyjs.com${apiProduct.variants[0].photo_src}` : '/src/assets/whey-protein.jpg',
+    image: getImageUrl(apiProduct.variants[0]?.photo_src),
     description: apiProduct.explanation.description,
     shortDescription: apiProduct.short_explanation,
     reviewCount: apiProduct.comment_count,
@@ -44,30 +45,30 @@ export const transformApiProductToProductDetail = (apiProduct: ApiProductDetail)
     price: sizes[0]?.price || 0,
     originalPrice: sizes[0]?.originalPrice,
     discountPercentage: sizes[0]?.discountPercentage,
-    
+
     category: 'Protein',
     brand: 'OJS Nutrition',
     weight: `${sizes[0]?.weight || '400g'}`,
     servingSize: '25g',
     servingsPerContainer: sizes[0]?.servings || 16,
     pricePerServing: sizes[0]?.price ? Math.round(sizes[0].price / sizes[0].servings * 100) / 100 : 0,
-    
+
     flavors,
     sizes,
     selectedFlavor: flavors[0]?.id || '',
     selectedSize: sizes[0]?.id || '',
-    
+
     tags: apiProduct.tags,
     isVegetarian: apiProduct.tags.includes('VEJETARYEN'),
     isGlutenFree: apiProduct.tags.includes('GLUTENSİZ'),
     isNew: false,
     isBestSeller: false,
     isFeatured: false,
-    
+
     inStock: true,
     stockQuantity: 100,
     expirationDate: '2025-12-31',
-    
+
     features: apiProduct.explanation.features.split('\n').filter(f => f.trim()),
     nutritionalInfo: {
       calories: extractNumber(caloriesInfo?.amounts[0]) || 0,
@@ -83,7 +84,7 @@ export const transformApiProductToProductDetail = (apiProduct: ApiProductDetail)
     },
     usageInstructions: apiProduct.explanation.usage,
     ingredients: apiProduct.explanation.nutritional_content.ingredients.map(ing => ing.value),
-    images: apiProduct.variants.map(v => v.photo_src ? `https://fe1111.projects.academy.onlyjs.com${v.photo_src}` : '/src/assets/whey-protein.jpg')
+    images: apiProduct.variants.map(v => getImageUrl(v.photo_src))
   }
 }
 
@@ -124,6 +125,6 @@ export const transformApiVariantsToProductVariants = (apiProduct: ApiProductDeta
     originalPrice: variant.price.discounted_price || undefined,
     discountPercentage: variant.price.discount_percentage || undefined,
     isAvailable: variant.is_available,
-    image: variant.photo_src ? `https://fe1111.projects.academy.onlyjs.com${variant.photo_src}` : undefined
+    image: variant.photo_src ? getImageUrl(variant.photo_src) : undefined
   }))
 }

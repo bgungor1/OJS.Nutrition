@@ -1,12 +1,10 @@
-// ═══════════════════════════════════════════════════════════════════
-// 🤖 BU KISMI GÜNCELLEDİM - phone_number eklendi
-// ═══════════════════════════════════════════════════════════════════
+
 export interface User {
     id: string
     email: string
     first_name: string
     last_name: string
-    phone_number?: string | null  // Yeni eklenen alan (opsiyonel)
+    phone_number?: string | null
 }
 
 

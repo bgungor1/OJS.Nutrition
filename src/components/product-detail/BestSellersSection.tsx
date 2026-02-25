@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { Button } from '@/components/ui/button'
 import ProductCard from '@/components/common/product-card'
 import type { ApiBestSellerProduct } from '@/types/api'
+import { getImageUrl } from '@/utils/getImageUrl'
 
 interface BestSellersSectionProps {
     bestSellers: ApiBestSellerProduct[]
@@ -14,9 +15,7 @@ interface BestSellersSectionProps {
 const transformBestSellerToProductCard = (bestSeller: ApiBestSellerProduct) => ({
     id: bestSeller.slug,
     name: bestSeller.name,
-    image: bestSeller.photo_src
-        ? `https://fe1111.projects.academy.onlyjs.com${bestSeller.photo_src}`
-        : '/src/assets/whey-protein.jpg',
+    image: getImageUrl(bestSeller.photo_src),
     description: bestSeller.short_explanation,
     reviewCount: bestSeller.comment_count,
     rating: bestSeller.average_star,

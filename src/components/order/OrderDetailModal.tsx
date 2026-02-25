@@ -10,6 +10,7 @@ import {
 } from '@/components/ui/dialog'
 import OrderStatusBadge from './OrderStatusBadge'
 import type { Order } from '@/types/order'
+import { getImageUrl } from '@/utils/getImageUrl'
 
 interface OrderDetailModalProps {
     order: Order | null
@@ -59,7 +60,7 @@ export default function OrderDetailModal({ order, onClose }: OrderDetailModalPro
                                         >
                                             {item.photo_src && (
                                                 <img
-                                                    src={`https://fe1111.projects.academy.onlyjs.com${item.photo_src}`}
+                                                    src={getImageUrl(item.photo_src)}
                                                     alt={item.name}
                                                     className="w-16 h-16 object-cover rounded-md"
                                                 />
