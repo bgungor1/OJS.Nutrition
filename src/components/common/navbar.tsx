@@ -22,20 +22,21 @@ export default function Navbar() {
   const { theme } = useTheme()
   const navigate = useNavigate()
 
-  const {
-    items,
-    getTotalItems,
-    getTotalPrice,
-    removeItem,
-    updateItemQuantity,
-    setCartOpen: setStoreCartOpen
-  } = useCartStore()
+  const items = useCartStore((state) => state.items)
+  const getTotalItems = useCartStore((state) => state.getTotalItems)
+  const getTotalPrice = useCartStore((state) => state.getTotalPrice)
+  const removeItem = useCartStore((state) => state.removeItem)
+  const updateItemQuantity = useCartStore((state) => state.updateItemQuantity)
+  const setStoreCartOpen = useCartStore((state) => state.setCartOpen)
 
-  const { isAuthenticated, user, logout } = useAuthStore()
+  const isAuthenticated = useAuthStore((state) => state.isAuthenticated)
+  const user = useAuthStore((state) => state.user)
+  const logout = useAuthStore((state) => state.logout)
 
   useEffect(() => {
     setStoreCartOpen(cartOpen)
-  }, [cartOpen, setStoreCartOpen])
+  }, [cartOpen])
+
 
   const subtotal = getTotalPrice()
   const shippingCost = 15
