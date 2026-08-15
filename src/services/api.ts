@@ -23,28 +23,35 @@ class ApiClient {
   ): Promise<T> {
     const url = `${this.baseURL}${endpoint}`
 
+    const controller = new AbortController()
+    const timeoutId = setTimeout(() => controller.abort(), 2500)
+
     const config: RequestInit = {
       headers: {
         'Content-Type': 'application/json',
         ...this.getAuthHeaders(),
         ...options.headers,
       },
+      signal: options.signal || controller.signal,
       ...options,
     }
     try {
       const response = await fetch(url, config)
+      clearTimeout(timeoutId)
 
       if (!response.ok) {
         const errorBody = await response.json().catch(() => null)
-        console.error('❌ API Error Response:', errorBody)
+        console.warn('❌ API Error Response:', errorBody)
         throw new Error(`HTTP error! status: ${response.status}`)
       }
 
       return await response.json()
     } catch (error) {
-      console.error('API request failed:', error)
+      clearTimeout(timeoutId)
+      console.warn('API request failed (falling back to mock):', error)
       throw error
     }
+
   }
 
   async get<T>(endpoint: string, options?: RequestInit): Promise<T> {
