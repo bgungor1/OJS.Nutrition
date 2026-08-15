@@ -25,31 +25,25 @@ import ProductDetail from './routes/product-detail/product-detail'
 import ViewTransitionWrapper from './components/view-transition-wrapper'
 
 import { bestSellersApi } from './services/best-sellers'
+import { mockBestSellersData } from './data/mock-api-data'
 import { productsLoader } from './routes/products/loader'
 import { ProtectedRoute, GuestRoute } from './routes/protected-route'
 
 const homeLoader = async () => {
-  console.log('🚀 Loader çalışıyor!')
-
   try {
-    console.log('📡 API çağrısı yapılıyor...')
     const response = await bestSellersApi.getBestSellers()
-    console.log('✅ API başarılı:', response)
-
-    // API response'undan data kısmını al
-    const bestSellers = response.data || []
-    console.log('📦 Best sellers data:', bestSellers)
-
+    const bestSellers = response?.data && response.data.length > 0 ? response.data : mockBestSellersData
     return {
       bestSellers
     }
   } catch (error) {
-    console.error('❌ API hatası:', error)
+    console.warn('Home loader fallback devrede:', error)
     return {
-      bestSellers: []
+      bestSellers: mockBestSellersData
     }
   }
 }
+
 
 
 const router = createBrowserRouter([
